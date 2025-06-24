@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Beam.Python", "Beam.Python\Beam.Python.pyproj", "{55BF591F-34C5-47C7-86DA-0595EFE75B90}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{55BF591F-34C5-47C7-86DA-0595EFE75B90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55BF591F-34C5-47C7-86DA-0595EFE75B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A892EC3-C507-4691-AF99-098E2FB0A2CF}
+	EndGlobalSection
+EndGlobal
