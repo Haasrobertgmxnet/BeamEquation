@@ -30,7 +30,7 @@ class FEM_Solver():
 
         np.set_printoptions(precision=3, suppress=False)
 
-        # Randbedingungen: Fest eingespannt bei x=0 → Verschiebung und Rotation = 0
+        # Randbedingungen: Fest eingespannt bei x=0 Verschiebung und Rotation = 0
         fixed_dofs = [0, 1]
         free_dofs = np.setdiff1d(np.arange(2*self.n_nodes), fixed_dofs)
 

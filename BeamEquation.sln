@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36203.30 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Beam.Python", "Beam.Python\Beam.Python.pyproj", "{55BF591F-34C5-47C7-86DA-0595EFE75B90}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ParameterIdentification.Python", "ParameterIdentification.Python\ParameterIdentification.Python.pyproj", "{D4E3E2F0-E1ED-42C6-93FA-3196AFA8A740}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{55BF591F-34C5-47C7-86DA-0595EFE75B90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{55BF591F-34C5-47C7-86DA-0595EFE75B90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4E3E2F0-E1ED-42C6-93FA-3196AFA8A740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4E3E2F0-E1ED-42C6-93FA-3196AFA8A740}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
