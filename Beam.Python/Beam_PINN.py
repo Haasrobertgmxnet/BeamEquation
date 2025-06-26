@@ -1,22 +1,15 @@
 ﻿import torch
 import torch.nn as nn
 import numpy as np
-
-class Solver():
-    def __init__(self):
-        print("Basic Class Constructor called")
-
-    def predict(self, x):
-        print("predict called")
+import time
 
 class NN_Solver():
-    def __init__(self, net, epochs, n_points = 100, loss_threshold = 1e-6, learning_rate = 0.001, seed= 42):
+    def __init__(self, net, epochs, n_points = 100, loss_threshold = 1e-6, learning_rate = 0.001):
         self.net = net
         self.epochs = epochs
         self.n_points = n_points
         self.loss_threshold = loss_threshold
         self.learning_rate = learning_rate
-        self.seed = seed
         self.x = torch.linspace(0, 1, self.n_points, requires_grad=True).reshape(-1,1)
         self.loss_fn = nn.MSELoss()
         self.loss_history = None
@@ -52,9 +45,11 @@ class NN_Solver():
                   self.loss_fn(dddv1, torch.zeros_like(dddv1))
     
         # L2-Regularisation optional
-        l2_reg = sum(torch.norm(param, 2)**2 for param in self.net.parameters())
+        l2_reg = 0
+        if lambda_reg > 0:
+            l2_reg = lambda_reg * sum(torch.norm(param, 2)**2 for param in self.net.parameters())
 
-        total_loss = loss_residual + bc_loss + lambda_reg * l2_reg
+        total_loss = loss_residual + bc_loss + l2_reg
         return total_loss, v, d1
 
     def getNet(self):
@@ -72,8 +67,8 @@ class NN_Solver():
 
 
 class Adam_Solver(NN_Solver):
-    def __init__(self, net, epochs, n_points = 100, loss_threshold = 1e-6, learning_rate = 0.001, seed= 42):
-        super(Adam_Solver, self).__init__(net, epochs, n_points, loss_threshold, learning_rate, seed)
+    def __init__(self, net, epochs, n_points = 100, loss_threshold = 1e-6, learning_rate = 0.001):
+        super(Adam_Solver, self).__init__(net, epochs, n_points, loss_threshold, learning_rate)
 
     def train(self, lambda_reg = 0.0):
         optimizer = torch.optim.Adam(self.net.parameters(), lr = self.learning_rate)
@@ -90,15 +85,15 @@ class Adam_Solver(NN_Solver):
             if epoch % 500 == 0:
                 print(f'Epoch {epoch}, Loss: {loss.item():.6e}')
 
-            # Early stopping Kriterium
+            # Early stopping
             if loss.item() < self.loss_threshold:
                 print(f"Training interrupted at Epoch {epoch} mit Loss: {loss.item():.6e}")
                 break
         self.final_loss_adam = loss.item()
 
 class LBFGS_Solver(NN_Solver):
-    def __init__(self, net, epochs, n_points = 100, loss_threshold = 1e-6, learning_rate = 0.001, seed= 42):
-        super(LBFGS_Solver, self).__init__(net, epochs, n_points, loss_threshold, learning_rate, seed)
+    def __init__(self, net, epochs, n_points = 100, loss_threshold = 1e-6, learning_rate = 1.0):
+        super(LBFGS_Solver, self).__init__(net, epochs, n_points, loss_threshold, learning_rate)
 
     def train(self, lambda_reg = 0.0):
         optimizer_lbfgs = torch.optim.LBFGS(self.net.parameters(), max_iter= self.epochs, line_search_fn="strong_wolfe")
@@ -113,34 +108,47 @@ class LBFGS_Solver(NN_Solver):
         optimizer_lbfgs.step(closure)
         self.final_loss_lbfgs, _, _ = self.loss_function(lambda_reg)
 
-def calculate_pinn(adam_epochs, lbfgs_epochs, n_points = 100, loss_threshold = 1e-6, learning_rate = 0.01, seed= 42):
+def calculate_pinn(adam_epochs, lbfgs_epochs, n_points = 100, loss_threshold = 1e-6, learning_rate = 0.1):
     # Neural net
-    class DNN(nn.Module):
+    class PINN(nn.Module):
         def __init__(self, layers):
-            super(DNN, self).__init__()
+            super(PINN, self).__init__()
             layer_list = []
             for i in range(len(layers) - 1):
-                layer_list.append(nn.Linear(layers[i], layers[i+1]))
+                linear_layer = nn.Linear(layers[i], layers[i+1])
+                self.init_weights(linear_layer)  # Initialisierung
+                layer_list.append(linear_layer)
                 if i < len(layers) - 2:
                     layer_list.append(nn.Tanh())
             self.model = nn.Sequential(*layer_list)
 
+        def init_weights(self, layer):
+            if isinstance(layer, nn.Linear):
+                torch.nn.init.xavier_uniform_(layer.weight)
+                torch.nn.init.zeros_(layer.bias)
+
         def forward(self, x):
             return self.model(x)
 
-    layers = [1, 3, 3, 1]
-    net = DNN(layers)
-    anzahl_schichten = sum(1 for layer in net.modules() if isinstance(layer, (nn.Linear, nn.Conv2d)))
-    print("Anzahl der Schichten:", anzahl_schichten)
 
-    adam_solver = Adam_Solver(net, adam_epochs, n_points, loss_threshold, learning_rate, seed)
-    adam_solver.train(1e-9)
+    start = time.time()
+    net = PINN(layers = [1, 5, 5, 1])
+    adam_solver = Adam_Solver(net, adam_epochs, n_points, loss_threshold, learning_rate)
+    adam_solver.train()
+    ende = time.time()
+    time_adam = ende - start
+    
+    adam_results = adam_solver.get_training_results()
 
     lbfgs_solver = None
     if adam_solver.final_loss_adam > loss_threshold:
-        lbfgs_solver = LBFGS_Solver(net, lbfgs_epochs, n_points, loss_threshold, learning_rate, seed)
+        start = time.time()
+        lbfgs_solver = LBFGS_Solver(net, lbfgs_epochs, n_points, loss_threshold, learning_rate*0.1)
         lbfgs_solver.train()
+        ende = time.time()
+        time_lbfgs = ende - start
 
-    return adam_solver, lbfgs_solver
+    lbfgs_results = lbfgs_solver.get_training_results()
+    return adam_results, time_adam, lbfgs_results, time_lbfgs
 
 

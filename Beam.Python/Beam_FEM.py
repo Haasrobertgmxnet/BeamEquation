@@ -50,6 +50,7 @@ class FEM_Solver():
 
         return v, theta
 
-def calculate_fem(n_elem = 100):    
+def calculate_fem(n_nodes = 100): 
+    n_elem = n_nodes - 1
     fem_solver = FEM_Solver(n_elem)
     return fem_solver.solve()
