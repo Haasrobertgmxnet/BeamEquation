@@ -34,13 +34,13 @@ class FEM_Solver():
         fixed_dofs = [0, 1]
         free_dofs = np.setdiff1d(np.arange(2*self.n_nodes), fixed_dofs)
 
-        # Gleichungssystem lösen
+        # Solve the system of equations
         K_ff = K[np.ix_(free_dofs, free_dofs)]
         f_f = f[free_dofs]
 
         u_f = np.linalg.solve(K_ff, f_f)
 
-        # Gesamtlösung zusammensetzen
+        # Assemble overall solution
         u = np.zeros(2*self.n_nodes)
         u[free_dofs] = u_f
 

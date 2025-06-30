@@ -50,7 +50,7 @@ class NN_Solver():
             l2_reg = lambda_reg * sum(torch.norm(param, 2)**2 for param in self.net.parameters())
 
         total_loss = loss_residual + bc_loss + l2_reg
-        return total_loss, v, d1
+        return total_loss
 
     def getNet(self):
         return self.net
@@ -77,7 +77,7 @@ class Adam_Solver(NN_Solver):
         for epoch in range(self.epochs):
             optimizer.zero_grad()
 
-            loss, _, _ = self.loss_function(lambda_reg)
+            loss = self.loss_function(lambda_reg)
             loss.backward()
             optimizer.step()
 
@@ -100,13 +100,13 @@ class LBFGS_Solver(NN_Solver):
 
         def closure():
             optimizer_lbfgs.zero_grad()
-            loss, _, _ = self.loss_function(lambda_reg)
+            loss = self.loss_function(lambda_reg)
             loss.backward()
             return loss
 
         print("Start LBFGS ...")
         optimizer_lbfgs.step(closure)
-        self.final_loss_lbfgs, _, _ = self.loss_function(lambda_reg)
+        self.final_loss_lbfgs = self.loss_function(lambda_reg)
 
 def calculate_pinn(adam_epochs, lbfgs_epochs, n_points = 100, loss_threshold = 1e-6, learning_rate = 0.1):
     # Neural net

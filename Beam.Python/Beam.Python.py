@@ -102,7 +102,7 @@ def main():
     plt.grid(True)
     plt.title(plt_title)
     plt.tight_layout()
-    plt.show()
+    # plt.show()
 
     plt_title = 'Deflection curve of a cantilever beam under uniform load'
     plt.figure(figsize=(8, 5))
@@ -115,7 +115,7 @@ def main():
     plt.grid(True)
     plt.title(plt_title)
     plt.tight_layout()
-    plt.show()
+    # plt.show()
 
     plt.figure()
     plt.plot(loss_history)
