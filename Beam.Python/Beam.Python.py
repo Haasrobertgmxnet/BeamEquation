@@ -4,10 +4,19 @@ import torch.nn as nn
 import numpy as np
 import random
 import matplotlib.pyplot as plt
+from typing import Tuple, Optional, List
+
 from Beam_PINN import calculate_pinn
 from Beam_FEM import calculate_fem
 
-def set_seed(seed):
+
+def set_seed(seed: int) -> None:
+    """
+    Set the random seed for reproducibility across PyTorch, NumPy, and Python.
+
+    Args:
+        seed (int): Random seed value.
+    """
     torch.manual_seed(seed)
     np.random.seed(seed)
     random.seed(seed)
@@ -16,45 +25,82 @@ def set_seed(seed):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
-def exact_solution(z):
-    return (1/24) * z**2 * (z**2 - 4 * z + 6)
 
-def main():
-    # set inital value for random generator
+def exact_solution(z: torch.Tensor) -> torch.Tensor:
+    """
+    Analytical solution to the dimensionless cantilever beam deflection problem.
+
+    Args:
+        z (torch.Tensor): Dimensionless spatial coordinate (0 to 1).
+
+    Returns:
+        torch.Tensor: Dimensionless deflection at point z.
+    """
+    return (1 / 24) * z ** 2 * (z ** 2 - 4 * z + 6)
+
+
+def calc_errors(x: np.ndarray, x_ref: np.ndarray) -> Tuple[float, float]:
+    """
+    Calculate RMSE and relative L2 error between predictions and reference.
+
+    Args:
+        x (np.ndarray): Predicted values.
+        x_ref (np.ndarray): Reference (exact or FEM) values.
+
+    Returns:
+        Tuple[float, float]: (RMSE, Relative L2 error)
+    """
+    rmse = np.sqrt(np.mean((x - x_ref) ** 2))
+    rel = np.linalg.norm(x - x_ref, 2) / np.linalg.norm(x_ref, 2)
+    return rmse, rel
+
+
+def main() -> None:
+    """
+    Main execution function that compares PINN (ADAM + L-BFGS), FEM, and exact solution
+    for a cantilever beam under uniform load. Includes training, evaluation, error analysis,
+    and visualization.
+    """
     set_seed(35)
 
     # Beam parameters
-    L = 5             # Length of the beam [m]
-    E = 210e9         # Elastic modulus [Pa]
-    I = 1e-6          # Area moment of inertia [m^4]
-    q = 1000          # Load [N/m]
+    L: float = 5.0             # Length of the beam [m]
+    E: float = 210e9           # Elastic modulus [Pa]
+    I: float = 1e-6            # Area moment of inertia [m^4]
+    q: float = 1000.0          # Uniform load [N/m]
 
-    # Number of sample points
-    n_samples = 100
+    # Sampling parameters
+    n_samples: int = 100       # Number of evaluation/collocation points
 
-    # Charakteristic quantities of the dimensionless problem
-    w_char = q * L**4 / (E * I)
-    scaling_theta = w_char / L
+    # Scaling factors for dimensionless form
+    w_char: float = q * L**4 / (E * I)
+    scaling_theta: float = w_char / L
 
+    # PINN training
     start = time.time()
-    adam_results, time_adam, lbfgs_results, time_lbfgs = calculate_pinn(200, 300, n_samples, 1e-8)
-    ende = time.time()
-    time_pinn = ende - start
+    adam_results, time_adam, lbfgs_results, time_lbfgs = calculate_pinn(
+        adam_epochs=200, lbfgs_epochs=300, n_points=n_samples, loss_threshold=1e-8
+    )
+    time_pinn = time.time() - start
 
+    # FEM computation
     start = time.time()
     v_fem, v_fem_theta = calculate_fem(n_samples)
-    ende = time.time()
-    time_fem = ende - start
+    time_fem = time.time() - start
 
-    print(f"PINN Execution time: {time_pinn:.4f} seconds.")
-    print(f"ADAM Execution time: {time_adam:.4f} seconds.")
-    print(f"LBFGS Execution time: {time_lbfgs:.4f} seconds.")
-    print(f"FEM Execution time: {time_fem:.4f} seconds.")
+    # Log runtimes
+    print(f"\nExecution Times:")
+    print(f"PINN Total:     {time_pinn:.4f} s")
+    print(f"  ADAM:         {time_adam:.4f} s")
+    print(f"  LBFGS:        {time_lbfgs:.4f} s")
+    print(f"FEM:            {time_fem:.4f} s\n")
 
+    # Extract results
     z_eval, v_adam, loss_history = adam_results
-    z_eval, v_lbfgs, _ = lbfgs_results
-    v_exact = exact_solution(z_eval).detach().numpy().flatten()
+    _, v_lbfgs, _ = lbfgs_results
+    v_exact: np.ndarray = exact_solution(z_eval).detach().numpy().flatten()
 
+    # Scale dimensionless displacements to real-world units
     w_exact = v_exact * w_char
     w_adam = v_adam * w_char
     w_lbfgs = v_lbfgs * w_char
@@ -62,11 +108,7 @@ def main():
     w_fem_theta = v_fem_theta * scaling_theta
     x_eval = z_eval.numpy().flatten() * L
 
-    def calc_errors(x, x_ref):
-        rmse = np.sqrt(np.mean((x - x_ref)**2))
-        rel = np.linalg.norm(x - x_ref, 2) / np.linalg.norm(x_ref, 2)
-        return rmse, rel
-
+    # Compute errors
     rmse_adam_exact, rel_adam_exact = calc_errors(w_adam, w_exact)
     rmse_lbfgs_exact, rel_lbfgs_exact = calc_errors(w_lbfgs, w_exact)
     rmse_fem_exact, rel_fem_exact = calc_errors(w_fem, w_exact)
@@ -74,58 +116,61 @@ def main():
     rmse_lbfgs_fem, rel_lbfgs_fem = calc_errors(w_lbfgs, w_fem)
     rmse_adam_lbfgs, rel_adam_lbfgs = calc_errors(w_adam, w_lbfgs)
 
-    print("RMSE values")
-    print(f"ADAM-Exact:\tRMSE: {rmse_adam_exact:.6e}")
-    print(f"LBFGS-Exact:\tRMSE: {rmse_lbfgs_exact:.6e}")
-    print(f"FEM-Exact\tRMSE: {rmse_fem_exact:.6e}")
-    print(f"ADAM-FEM:\tRMSE: {rmse_adam_fem:.6e}")
-    print(f"LBFGS-FEM:\tRMSE: {rmse_lbfgs_fem:.6e}")
-    print(f"ADAM-LBFGS:\tRMSE: {rmse_adam_lbfgs:.6e}")
+    # Print error summary
+    print("RMSE Errors:")
+    print(f"ADAM vs Exact:\t{rmse_adam_exact:.6e}")
+    print(f"LBFGS vs Exact:\t{rmse_lbfgs_exact:.6e}")
+    print(f"FEM vs Exact:\t{rmse_fem_exact:.6e}")
+    print(f"ADAM vs FEM:\t{rmse_adam_fem:.6e}")
+    print(f"LBFGS vs FEM:\t{rmse_lbfgs_fem:.6e}")
+    print(f"ADAM vs LBFGS:\t{rmse_adam_lbfgs:.6e}\n")
 
-    print("Relative errors values")
-    print(f"ADAM-Exact:\trel error: {rel_adam_exact:.6e}")
-    print(f"LBFGS-Exact:\trel error: {rel_lbfgs_exact:.6e}")
-    print(f"FEM-Exact\trel error: {rel_fem_exact:.6e}")
-    print(f"ADAM-FEM:\trel error: {rel_adam_fem:.6e}")
-    print(f"LBFGS-FEM:\trel error: {rel_lbfgs_fem:.6e}")
-    print(f"ADAM-LBFGS:\trel error: {rel_adam_lbfgs:.6e}")
+    print("Relative L2 Errors:")
+    print(f"ADAM vs Exact:\t{rel_adam_exact:.6e}")
+    print(f"LBFGS vs Exact:\t{rel_lbfgs_exact:.6e}")
+    print(f"FEM vs Exact:\t{rel_fem_exact:.6e}")
+    print(f"ADAM vs FEM:\t{rel_adam_fem:.6e}")
+    print(f"LBFGS vs FEM:\t{rel_lbfgs_fem:.6e}")
+    print(f"ADAM vs LBFGS:\t{rel_adam_lbfgs:.6e}\n")
 
+    # --- Visualization ---
 
-    plt_title = 'Deflection curve of a cantilever beam under uniform load'
+    # Plot PINN vs Exact
     plt.figure(figsize=(8, 5))
     plt.plot(x_eval, w_lbfgs, color='orange', label='LBFGS', linewidth=2, linestyle='-')
     plt.plot(x_eval, w_adam, color='red', label='ADAM', linewidth=2, linestyle='--')
-    plt.plot(x_eval, w_exact, color='navy', label='Analytic solution', linewidth=2, linestyle=':')
+    plt.plot(x_eval, w_exact, color='navy', label='Analytical', linewidth=2, linestyle=':')
     plt.xlabel('x [m]')
     plt.ylabel('w(x) [m]')
+    plt.title('Beam Deflection - PINN vs Exact')
     plt.legend()
     plt.grid(True)
-    plt.title(plt_title)
     plt.tight_layout()
-    # plt.show()
 
-    plt_title = 'Deflection curve of a cantilever beam under uniform load'
+    # Plot PINN vs FEM
     plt.figure(figsize=(8, 5))
     plt.plot(x_eval, w_lbfgs, color='orange', label='LBFGS', linewidth=2, linestyle='-')
     plt.plot(x_eval, w_adam, color='red', label='ADAM', linewidth=2, linestyle='--')
     plt.plot(x_eval, w_fem, color='navy', label='FEM', linewidth=2, linestyle=':')
     plt.xlabel('x [m]')
     plt.ylabel('w(x) [m]')
+    plt.title('Beam Deflection - PINN vs FEM')
     plt.legend()
     plt.grid(True)
-    plt.title(plt_title)
     plt.tight_layout()
-    # plt.show()
 
-    plt.figure()
-    plt.plot(loss_history)
-    plt.yscale("log")
-    plt.xlabel("Epoch")
-    plt.ylabel("Loss")
-    plt.title("Loss (Adam)")
-    plt.grid(True)
+    # Loss plot
+    if loss_history is not None:
+        plt.figure()
+        plt.plot(loss_history)
+        plt.yscale("log")
+        plt.xlabel("Epoch")
+        plt.ylabel("Loss")
+        plt.title("Training Loss (ADAM)")
+        plt.grid(True)
+
     plt.show()
+
 
 if __name__ == "__main__":
     main()
-

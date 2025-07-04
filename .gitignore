@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/ParameterIdentification.Python/pairs.txt
+/ParameterIdentification.Python/data_only_stats.csv
+/ParameterIdentification.Python/data_only_stats_xl.csv
+/ParameterIdentification.Python/data_pointwise.csv
+/ParameterIdentification.Python/data_pointwise_xl.csv
