@@ -79,12 +79,12 @@
 \fancyhead[R]{\thepage}
 \fancyfoot[C]{}
 
-\def\Meter{\operatorname{m}}
-\def\Millimeter{\operatorname{mm}}
-\def\Newton{\operatorname{N}}
-\def\Pascal{\operatorname{Pa}}
-\def\NewtonVsSquareMillimeter{\frac{\operatorname{N}}{\operatorname{mm}^2}}
-\def\NewtonVsMeter{\frac{\operatorname{N}}{\operatorname{m}}}
+\def\Meter{\mathrm{m}}
+\def\Millimeter{\mathrm{mm}}
+\def\Newton{\mathrm{N}}
+\def\Pascal{\mathrm{Pa}}
+\def\NewtonVsSquareMillimeter{\frac{\mathrm{N}}{\mathrm{mm}^2}}
+\def\NewtonVsMeter{\frac{\mathrm{N}}{\mathrm{m}}}
 
 % Title
 \usepackage{tikz}
@@ -180,15 +180,15 @@ Following \cite[pp. 3]{hoffmann2014modellierung} a dimensionless form of the equ
 \end{equation}
 where
 \begin{eqnarray*}
-E (x) &=& E_{\operatorname{char}} \cdot e(\xi ) , \\
-w(x) &=& w_{\operatorname{char}} \cdot v(\xi ) , \\
+E (x) &=& E_{\mathrm{char}} \cdot e(\xi ) , \\
+w(x) &=& w_{\mathrm{char}} \cdot v(\xi ) , \\
 x &=& \xi\cdot L, \\
-w_{\operatorname{char}} & = & \frac{q\cdot L^4}{E\cdot I }, \\
-\frac{\mathrm{d}^4 w(x)}{\mathrm{d}x^4} & = & \frac{w_{\operatorname{char}}}{L^4}\cdot \frac{\mathrm{d}^4 v(\xi)}{\mathrm{d}\xi^4}.
+w_{\mathrm{char}} & = & \frac{q\cdot L^4}{E\cdot I }, \\
+\frac{\mathrm{d}^4 w(x)}{\mathrm{d}x^4} & = & \frac{w_{\mathrm{char}}}{L^4}\cdot \frac{\mathrm{d}^4 v(\xi)}{\mathrm{d}\xi^4}.
 \end{eqnarray*}
-Here $E_{\operatorname{char}} $ may be chosen as 
+Here $E_{\mathrm{char}} $ may be chosen as 
 \begin{equation*}
-E_{\operatorname{char}} = \operatorname{max}_{x\in \lbrack 0,1 \rbrack } E(x) .
+E_{\mathrm{char}} = \mathrm{max}_{x\in \lbrack 0,1 \rbrack } E(x) .
 \end{equation*}
 The boundary conditions now read as
 \begin{equation} \label{DimensionlessBoundaryConditions}
@@ -256,14 +256,14 @@ Mathematical equations in engineering or physics are often of the form
 \end{eqnarray*}
 In most cases, $ \mathscr{A} $ is a differential operator either for an ODE or a PDE. Then, $ \mathscr{B} $ is the boundary operator. For the direct problem the function typically consists of
 \begin{eqnarray} \label{LossTerm1}
-\text{Physics loss } &=& \mathscr{L}_{\operatorname{Physics}} (\hat{v}) =\beta \sum_{k = 1}^N\| \mathscr{A} (\hat{v}(\xi_k) ) \|^2 \\
-\text{Boundary loss} &=& \mathscr{L}_{\operatorname{Boundary}} (\hat{v}) = \beta \sum_{k = 1}^M\| \mathscr{B} (\hat{v}(\xi_{n_k}) ) \|^2 \text{ with boundary points  } \xi_{n_k} \label{LossTerm2}\\
-\text{Regularisation term} &=& \beta \sum_{\theta \in \operatorname{PINN Weights}}  \| \theta \|^2 . \label{LossTerm3}
+\text{Physics loss } &=& \mathscr{L}_{\mathrm{Physics}} (\hat{v}) =\beta \sum_{k = 1}^N\| \mathscr{A} (\hat{v}(\xi_k) ) \|^2 \\
+\text{Boundary loss} &=& \mathscr{L}_{\mathrm{Boundary}} (\hat{v}) = \beta \sum_{k = 1}^M\| \mathscr{B} (\hat{v}(\xi_{n_k}) ) \|^2 \text{ with boundary points  } \xi_{n_k} \label{LossTerm2}\\
+\text{Regularisation term} &=& \beta \sum_{\theta \in \mathrm{PINN Weights}}  \| \theta \|^2 . \label{LossTerm3}
 \end{eqnarray}
 Often, neural network libraries use the mean square error as loss function, then $\beta = 1 /N  $ i.e. the reciprocal of the number of sample points. Otherwise, if the square of the Euclidean distance is used, then $\beta $ is equal to one.
 For the inverse problem the PINN approximation an additional loss term,
 \begin{equation*}
-\text{Data loss} = \mathscr{L}_{\operatorname{Data}} (\hat{v})  = \beta \sum_{k = 1}^N \| \hat{v}(\xi_k)  - v_k \|^2 \\,
+\text{Data loss} = \mathscr{L}_{\mathrm{Data}} (\hat{v})  = \beta \sum_{k = 1}^N \| \hat{v}(\xi_k)  - v_k \|^2 \\,
 \end{equation*}
 wii be added to the terms (\ref{LossTerm1}),  (\ref{LossTerm2}) and (\ref{LossTerm3}). Here $ v_k $ are the simulated measured values at position $\xi_k $.
 
@@ -413,7 +413,7 @@ with boundary conditions (\ref{PrincipalBoundaryConditions}) as before. For the 
 \end{equation}
 subject to the boundary conditions (\ref{DimensionlessBoundaryConditions}) where
 \begin{equation*}
-e(\xi ) = \frac{E( x ) }{E_{\operatorname{char}}}\text{ and } E_{\operatorname{char}} = \operatorname{max}_{x\in \lbrack 0, L \rbrack } E(x) .
+e(\xi ) = \frac{E( x ) }{E_{\mathrm{char}}}\text{ and } E_{\mathrm{char}} = \mathrm{max}_{x\in \lbrack 0, L \rbrack } E(x) .
 \end{equation*}
 Following \cite{teloli2024solving} two neural networks are to be trained now:
 \begin{itemize}
@@ -459,7 +459,7 @@ Both networks will be trained using a common loss function. This loss function h
 \end{eqnarray*}
 where
 \begin{eqnarray*}
-\text{Data loss} & = & \sum_{\xi \in \{\text{Sample points}\}} \left\| \hat{v}(\xi) - v_{\operatorname{measure}} (\xi ) \right\|^2 \\
+\text{Data loss} & = & \sum_{\xi \in \{\text{Sample points}\}} \left\| \hat{v}(\xi) - v_{\mathrm{measure}} (\xi ) \right\|^2 \\
 \text{Physics loss} & = & \sum_{\xi \in \{\text{Sample points}\}} \left\|  \tfrac{\mathrm{d}^2}{\mathrm{d}\xi^2} \left(  \tfrac{\mathrm{d}^2 v(\xi)}{\mathrm{d}\xi^2} \right)-1  \right\|^2 \\
 \text{Boundary loss}  & = & \| v (0) \|^2 + \left\|\tfrac{\mathrm{d} v}{\mathrm{d}\xi}(0) \right\|^2 + \left\|\tfrac{\mathrm{d}^2 v}{\mathrm{d}\xi^2} (1) \right\|^2 + \left\|\tfrac{\mathrm{d}^3 v}{\mathrm{d}\xi^3}(1) \right\|^2 \\
 \text{Loss from gradient terms of } E  & = & \sum_{\xi \in \{\text{Sample points}\}} \left\|  \tfrac{\mathrm{d} e ( \xi ) }{\mathrm{d}\xi} \right\|^2 \\

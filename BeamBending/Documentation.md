@@ -47,7 +47,7 @@ The physical quantities in equation (<a href="#PrincipalEulerBernoulli" data-ref
 |:--:|:--:|:---|:--:|
 | $`L`$ | $`N{m}`$ | Length | $`5\; N{m}`$ |
 | $`w`$ | $`N{m}`$ | Deflection | $`w<< L`$ |
-| $`E`$ | $`\operatorname{Pa}`$ | Elastic modulus (Young’s modulus) | $`210\;000\; N{N}VsSquareMillimeter`$ |
+| $`E`$ | $`N{Pa}`$ | Elastic modulus (Young’s modulus) | $`210\;000\; N{N}VsSquareMillimeter`$ |
 | $`I`$ | $`N{m}^4`$ | Second moment of area | $`10^{-6}\;N{m}^4`$ |
 | $`q`$ | $`N{N}VsMeter`$ | Distributed load | $`1000 \;N{N}VsMeter`$ |
 
@@ -75,16 +75,16 @@ Following a dimensionless form of the equation (<a href="#PrincipalEulerBernoull
 where
 ``` math
 \begin{aligned}
-E (x) &=& E_{\operatorname{char}} \cdot e(\xi ) , \\
-w(x) &=& w_{\operatorname{char}} \cdot v(\xi ) , \\
+E (x) &=& E_{N{char}} \cdot e(\xi ) , \\
+w(x) &=& w_{N{char}} \cdot v(\xi ) , \\
 x &=& \xi\cdot L, \\
-w_{\operatorname{char}} & = & \frac{q\cdot L^4}{E\cdot I }, \\
-\frac{N{d}^4 w(x)}{N{d}x^4} & = & \frac{w_{\operatorname{char}}}{L^4}\cdot \frac{N{d}^4 v(\xi)}{N{d}\xi^4}.
+w_{N{char}} & = & \frac{q\cdot L^4}{E\cdot I }, \\
+\frac{N{d}^4 w(x)}{N{d}x^4} & = & \frac{w_{N{char}}}{L^4}\cdot \frac{N{d}^4 v(\xi)}{N{d}\xi^4}.
 \end{aligned}
 ```
-Here $`E_{\operatorname{char}}`$ may be chosen as
+Here $`E_{N{char}}`$ may be chosen as
 ``` math
-E_{\operatorname{char}} = \operatorname{max}_{x\in \lbrack 0,1 \rbrack } E(x) .
+E_{N{char}} = N{max}_{x\in \lbrack 0,1 \rbrack } E(x) .
 ```
 The boundary conditions now read as
 ``` math
@@ -135,15 +135,15 @@ In most cases, $`\mathscr{A}`$ is a differential operator either for an ODE or a
 ``` math
 \begin{aligned}
  \label{LossTerm1}
-\text{Physics loss } &=& \mathscr{L}_{\operatorname{Physics}} (\hat{v}) =\beta \sum_{k = 1}^N\| \mathscr{A} (\hat{v}(\xi_k) ) \|^2 \\
-\text{Boundary loss} &=& \mathscr{L}_{\operatorname{Boundary}} (\hat{v}) = \beta \sum_{k = 1}^M\| \mathscr{B} (\hat{v}(\xi_{n_k}) ) \|^2 \text{ with boundary points  } \xi_{n_k} \label{LossTerm2}\\
-\text{Regularisation term} &=& \beta \sum_{\theta \in \operatorname{PINN Weights}}  \| \theta \|^2 . \label{LossTerm3}
+\text{Physics loss } &=& \mathscr{L}_{N{Physics}} (\hat{v}) =\beta \sum_{k = 1}^N\| \mathscr{A} (\hat{v}(\xi_k) ) \|^2 \\
+\text{Boundary loss} &=& \mathscr{L}_{N{Boundary}} (\hat{v}) = \beta \sum_{k = 1}^M\| \mathscr{B} (\hat{v}(\xi_{n_k}) ) \|^2 \text{ with boundary points  } \xi_{n_k} \label{LossTerm2}\\
+\text{Regularisation term} &=& \beta \sum_{\theta \in N{PINN Weights}}  \| \theta \|^2 . \label{LossTerm3}
 \end{aligned}
 ```
 Often, neural network libraries use the mean square error as loss function, then $`\beta = 1 /N`$ i.e. the reciprocal of the number of sample points. Otherwise, if the square of the Euclidean distance is used, then $`\beta`$ is equal to one.
 For the inverse problem the PINN approximation an additional loss term,
 ``` math
-\text{Data loss} = \mathscr{L}_{\operatorname{Data}} (\hat{v})  = \beta \sum_{k = 1}^N \| \hat{v}(\xi_k)  - v_k \|^2 \\,
+\text{Data loss} = \mathscr{L}_{N{Data}} (\hat{v})  = \beta \sum_{k = 1}^N \| \hat{v}(\xi_k)  - v_k \|^2 \\,
 ```
 wii be added to the terms (<a href="#LossTerm1" data-reference-type="ref" data-reference="LossTerm1">[LossTerm1]</a>), (<a href="#LossTerm2" data-reference-type="ref" data-reference="LossTerm2">[LossTerm2]</a>) and (<a href="#LossTerm3" data-reference-type="ref" data-reference="LossTerm3">[LossTerm3]</a>). Here $`v_k`$ are the simulated measured values at position $`\xi_k`$.
 
@@ -270,7 +270,7 @@ with boundary conditions (<a href="#PrincipalBoundaryConditions" data-reference-
 ```
 subject to the boundary conditions (<a href="#DimensionlessBoundaryConditions" data-reference-type="ref" data-reference="DimensionlessBoundaryConditions">[DimensionlessBoundaryConditions]</a>) where
 ``` math
-e(\xi ) = \frac{E( x ) }{E_{\operatorname{char}}}\text{ and } E_{\operatorname{char}} = \operatorname{max}_{x\in \lbrack 0, L \rbrack } E(x) .
+e(\xi ) = \frac{E( x ) }{E_{N{char}}}\text{ and } E_{N{char}} = N{max}_{x\in \lbrack 0, L \rbrack } E(x) .
 ```
 Following two neural networks are to be trained now:
 
@@ -308,7 +308,7 @@ Both networks will be trained using a common loss function. This loss function h
 where
 ``` math
 \begin{aligned}
-\text{Data loss} & = & \sum_{\xi \in \{\text{Sample points}\}} \left\| \hat{v}(\xi) - v_{\operatorname{measure}} (\xi ) \right\|^2 \\
+\text{Data loss} & = & \sum_{\xi \in \{\text{Sample points}\}} \left\| \hat{v}(\xi) - v_{N{measure}} (\xi ) \right\|^2 \\
 \text{Physics loss} & = & \sum_{\xi \in \{\text{Sample points}\}} \left\|  \tfrac{N{d}^2}{N{d}\xi^2} \left(  \tfrac{N{d}^2 v(\xi)}{N{d}\xi^2} \right)-1  \right\|^2 \\
 \text{Boundary loss}  & = & \| v (0) \|^2 + \left\|\tfrac{N{d} v}{N{d}\xi}(0) \right\|^2 + \left\|\tfrac{N{d}^2 v}{N{d}\xi^2} (1) \right\|^2 + \left\|\tfrac{N{d}^3 v}{N{d}\xi^3}(1) \right\|^2 \\
 \text{Loss from gradient terms of } E  & = & \sum_{\xi \in \{\text{Sample points}\}} \left\|  \tfrac{N{d} e ( \xi ) }{N{d}\xi} \right\|^2 \\
