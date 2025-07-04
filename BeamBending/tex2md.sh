@@ -4,24 +4,28 @@ INPUT="$1"
 OUTPUT="${INPUT%.tex}.md"
 TEMP="tmp_cleaned.tex"
 
-# LaTeX-Befehle ersetzen
+# LaTeX-Befehle ersetzen und GitHub-kompatibel machen
 sed -e 's/\\Meter/\\mathrm{m}/g' \
     -e 's/\\Newton/\\mathrm{N}/g' \
+    -e 's/\\left/\\left/g' \
+    -e 's/\\right/\\right/g' \
     "$INPUT" > "$TEMP"
 
-# Pandoc-Konvertierung mit verschiedenen Optionen
+# Pandoc-Konvertierung für GitHub-kompatibles Markdown
 pandoc "$TEMP" -o "$OUTPUT" \
   --from=latex \
-  --to=markdown+tex_math_dollars+fenced_code_blocks \
-  --wrap=preserve \
-  --standalone
+  --to=gfm+tex_math_dollars \
+  --wrap=preserve
+
+# Post-processing: GitHub-spezifische Anpassungen
+sed -i -e 's/\$\$\([^$]*\)\$\$/\n```math\n\1\n```\n/g' \
+       -e 's/\$\([^$]*\)\$/\$\1\$/g' \
+       -e 's/```math\n\n/```math\n/g' \
+       -e 's/\n\n```/\n```/g' "$OUTPUT"
 
 # Cleanup
 rm "$TEMP"
 
-# Post-processing: Verbessere die Mathe-Darstellung
-sed -i -e 's/\$\$/\n$$\n/g' \
-       -e 's/\$\([^$]*\)\$/`$\1$`/g' "$OUTPUT"
-
 echo "✅ Konvertiert: $OUTPUT"
-echo "💡 Für bessere Mathe-Darstellung verwende einen Viewer mit MathJax-Support"
+echo "🐙 Optimiert für GitHub-Markdown mit Math-Rendering"
+echo "💡 Display-Formeln verwenden ```math Blöcke, Inline-Formeln $...$"

@@ -1,9 +1,4 @@
----
-abstract: |
-  A numerical study for the 1D Euler-Bernoulli equation for a deflected beam is done here. The Euler-Bernoulli equation will be presented in different forms which are used in the calculations afterwards. For the calculations of the Euler-Bernoulli equation *physics informed neural networks (PINN)* have been used. *First*, the equation itself has been solved using a PINN. The result has been compared with a classical finite element (FE) solution. Since FE solvers are optimized for classical linear engineering problems, the FE approach performs far better than the PINN. *Second*, simulated deflection measurements are used for approximating a solution that provides the data to estimate the unknown elastic modulus This is done with two PINNs . This is a typical data-driven use case for using PINNs and here very satisfactory results can be obtained by a careful adjustment of the calculation parameters.
----
-
-::: titlepage
+<div class="titlepage">
 
 ------------------------------------------------------------------------
 
@@ -16,7 +11,8 @@ Robert Haas
 (current page.south west) rectangle (\[yshift=3cm\]current page.south east);
 
 2025-07-04
-:::
+
+</div>
 
 # The Euler-Bernoulli Equation of a Beam
 
@@ -26,69 +22,58 @@ For studying the bending behavior of a beam we consider a beam with the followin
 
 2.  The beam has a fixed constant cross-section.
 
-3.  Hooke's law, i.e. the stress `$\sigma$` is proportional to the strain `$\epsilon$`, is fulfilled everywhere.
+3.  Hooke’s law, i.e. the stress $`\sigma`$ is proportional to the strain $`\epsilon`$, is fulfilled everywhere.
 
 The Euler-Bernoulli equation is given by
-
-`$$`
+``` math
 \label{PrincipalEulerBernoulli}
 \frac{N{d}^2}{N{d}x^2}\left( E (x) \cdot I \cdot \frac{N{d}^2 w(x)}{N{d}x^2} \right) = q \text{ for } x \in (0,L) .\\
-`$$`
-
-With constant elastic modulus `$E$` this simplifies to
-
-`$$`
+```
+With constant elastic modulus $`E`$ this simplifies to
+``` math
 \label{PrincipalEulerBernoulliConstantE}
 E\cdot I \cdot \frac{N{d}^4 w(x)}{N{d}x^4} = q \text{ for } x \in (0,L)\\
-`$$`
-
+```
 subject to the boundary conditions
-
-`$$`
+``` math
 \label{PrincipalBoundaryConditions}
 w( 0) = \frac{N{d} w}{N{d}x}(0) = 0 \text{ , and } \frac{N{d}^2 w}{N{d}x^2}(L) = \frac{N{d}^3 w}{N{d}x^3}(L) = 0.
-`$$`
+```
+The physical quantities in equation (<a href="#PrincipalEulerBernoulli" data-reference-type="ref" data-reference="PrincipalEulerBernoulli">[PrincipalEulerBernoulli]</a>) are described in the following table.
 
-The physical quantities in equation ([\[PrincipalEulerBernoulli\]](#PrincipalEulerBernoulli){reference-type="ref" reference="PrincipalEulerBernoulli"}) are described in the following table.
+<div id="TableTypicalValues">
 
-::: {#TableTypicalValues}
-   **Symbol**       **SI Unit**      **Description**                               **Typical Value**
-  ------------ --------------------- ----------------------------------- -------------------------------------
-      `$L$`             `$N{m}$`         Length                                           `$5\; N{m}$`
-      `$w$`             `$N{m}$`         Deflection                                         `$w<< L$`
-      `$E$`       `$\operatorname{Pa}$`  Elastic modulus (Young's modulus)    `$210\;000\; N{N}VsSquareMillimeter$`
-      `$I$`            `$N{m}^4$`        Second moment of area                         `$10^{-6}\;N{m}^4$`
-      `$q$`          `$N{N}VsMeter$`     Distributed load                            `$1000 \;N{N}VsMeter$`
+| **Symbol** | **SI Unit** | **Description** | **Typical Value** |
+|:--:|:--:|:---|:--:|
+| $`L`$ | $`N{m}`$ | Length | $`5\; N{m}`$ |
+| $`w`$ | $`N{m}`$ | Deflection | $`w<< L`$ |
+| $`E`$ | $`\operatorname{Pa}`$ | Elastic modulus (Young’s modulus) | $`210\;000\; N{N}VsSquareMillimeter`$ |
+| $`I`$ | $`N{m}^4`$ | Second moment of area | $`10^{-6}\;N{m}^4`$ |
+| $`q`$ | $`N{N}VsMeter`$ | Distributed load | $`1000 \;N{N}VsMeter`$ |
 
-  : Physical quantities.
-:::
+Physical quantities.
 
-Unless otherwise stated we consider the Euler-Bernoulli equation ([\[PrincipalEulerBernoulliConstantE\]](#PrincipalEulerBernoulliConstantE){reference-type="ref" reference="PrincipalEulerBernoulliConstantE"}), i.e. the variant with constant elastic modulus `$E$`. For this case an exact solution is given by
+</div>
 
-`$$`
+Unless otherwise stated we consider the Euler-Bernoulli equation (<a href="#PrincipalEulerBernoulliConstantE" data-reference-type="ref" data-reference="PrincipalEulerBernoulliConstantE">[PrincipalEulerBernoulliConstantE]</a>), i.e. the variant with constant elastic modulus $`E`$. For this case an exact solution is given by
+``` math
 w(x) = \frac{q}{24 E\cdot I }\cdot x^2 \cdot \left( x^2 -4L\cdot x + 6L^2\right) .
-`$$`
-
-With the values given in Table [1](#TableTypicalValues){reference-type="ref" reference="TableTypicalValues"} we get
-
-`$$`
+```
+With the values given in Table <a href="#TableTypicalValues" data-reference-type="ref" data-reference="TableTypicalValues">1</a> we get
+``` math
 \label{MaximalDeflection}
 w( L) = \frac{q}{24 E\cdot I }\cdot L^2 \cdot \left( L^2 -4L\cdot L + 6L^2\right) = \frac{q\cdot L^4}{8 E\cdot I } \approx 0.37202 \text{ m},
-`$$`
+```
+which is the deflection of the beam at position $`x = L`$.
 
-which is the deflection of the beam at position `$x = L$`.
-
-Following [@hoffmann2014modellierung pp. 3] a dimensionless form of the equation ([\[PrincipalEulerBernoulli\]](#PrincipalEulerBernoulli){reference-type="ref" reference="PrincipalEulerBernoulli"}) can be derived to give
-
-`$$`
+Following a dimensionless form of the equation (<a href="#PrincipalEulerBernoulli" data-reference-type="ref" data-reference="PrincipalEulerBernoulli">[PrincipalEulerBernoulli]</a>) can be derived to give
+``` math
 \label{DimensionlessEulerBernoulli}
 % \frac{\mathrm{d}^2}{\mathrm{d}\xi^2}\left( e(\xi ) \frac{\mathrm{d}^2 v(\xi)}{\mathrm{d}\xi^2} \right)  = 1 \text{ or } 
 \frac{N{d}^4 v(\xi)}{N{d}\xi^4} = 1 \text{ for } \xi \in (0,1),\\
-`$$`
-
+```
 where
-
-`$$`
+``` math
 \begin{aligned}
 E (x) &=& E_{\operatorname{char}} \cdot e(\xi ) , \\
 w(x) &=& w_{\operatorname{char}} \cdot v(\xi ) , \\
@@ -96,51 +81,40 @@ x &=& \xi\cdot L, \\
 w_{\operatorname{char}} & = & \frac{q\cdot L^4}{E\cdot I }, \\
 \frac{N{d}^4 w(x)}{N{d}x^4} & = & \frac{w_{\operatorname{char}}}{L^4}\cdot \frac{N{d}^4 v(\xi)}{N{d}\xi^4}.
 \end{aligned}
-`$$`
-
-Here `$E_{\operatorname{char}}$` may be chosen as
-
-`$$`
+```
+Here $`E_{\operatorname{char}}`$ may be chosen as
+``` math
 E_{\operatorname{char}} = \operatorname{max}_{x\in \lbrack 0,1 \rbrack } E(x) .
-`$$`
-
+```
 The boundary conditions now read as
-
-`$$`
+``` math
 \label{DimensionlessBoundaryConditions}
 v( 0) = \frac{N{d} v}{N{d}\xi }(0) = 0 \text{ , and } \frac{N{d}^2 v}{N{d}\xi^2}(1) = \frac{N{d}^3 v}{N{d}\xi^3}(1) = 0.
-`$$`
-
+```
 Again, there exists an exact solution, given by
-
-`$$`
+``` math
 v(\xi ) = \frac{1}{24} \cdot \xi^2 \cdot \left( \xi^2 -4 \xi + 6 \right) .
-`$$`
+```
+The equation (<a href="#DimensionlessEulerBernoulli" data-reference-type="ref" data-reference="DimensionlessEulerBernoulli">[DimensionlessEulerBernoulli]</a>) is crucial for the application of some numerical methods, e.g. physics informed neural networks (PINN).
 
-The equation ([\[DimensionlessEulerBernoulli\]](#DimensionlessEulerBernoulli){reference-type="ref" reference="DimensionlessEulerBernoulli"}) is crucial for the application of some numerical methods, e.g. physics informed neural networks (PINN).
+## The Finite-Element Method (FEM) for solving the Euler-Bernoulli Equation
 
-## The Finite-Element Method (FEM) for solving the Euler-Bernoulli Equation {#the-finite-element-method-fem-for-solving-the-euler-bernoulli-equation .unnumbered}
-
-The FEM is set up for the the dimensionless problem ([\[DimensionlessEulerBernoulli\]](#DimensionlessEulerBernoulli){reference-type="ref" reference="DimensionlessEulerBernoulli"}) and the boundary conditions ([\[DimensionlessBoundaryConditions\]](#DimensionlessBoundaryConditions){reference-type="ref" reference="DimensionlessBoundaryConditions"}). Here, classical 1D beam elements (third order Hermite polynomials) on 99 elements are used to solve this equation. The theory on FEM to solve the Euler-Bernoulli equation can be found in any good text book.
-The results of the calculation will be shortly presented in Table [2](#ComparisonFwdProblem){reference-type="ref" reference="ComparisonFwdProblem"}.
+The FEM is set up for the the dimensionless problem (<a href="#DimensionlessEulerBernoulli" data-reference-type="ref" data-reference="DimensionlessEulerBernoulli">[DimensionlessEulerBernoulli]</a>) and the boundary conditions (<a href="#DimensionlessBoundaryConditions" data-reference-type="ref" data-reference="DimensionlessBoundaryConditions">[DimensionlessBoundaryConditions]</a>). Here, classical 1D beam elements (third order Hermite polynomials) on 99 elements are used to solve this equation. The theory on FEM to solve the Euler-Bernoulli equation can be found in any good text book.
+The results of the calculation will be shortly presented in Table <a href="#ComparisonFwdProblem" data-reference-type="ref" data-reference="ComparisonFwdProblem">2</a>.
 
 # The Idea of a Physics Informed Neural Network (PINN)
 
-Neural Networks are usually used for either for *classification* or *approximation*. A short introduction to neural networks can be found in [@rojas1993neuronale] and [@stoecker1995formeln pp. 809] for example. Today the main applications of neural networks contain classification. On the other hand, neural networks can be used to approximate an (unknown) function `$u$`. If this function `$u$` arises from a physics or engineering context, i.e. from a mathematical equation of physics the equation structure will be incorporated into the neural network or the learning algorithm in some way. In this case the neural network is often called *phyiscs informed neural networks (PINN)*. Here the key task is to construct an approximation `$\hat{u}$` for the unknown `$u$`. Assuming there is a PINN of `$n$` layers then the output `$O_{(k)}$`of layer `$k$` is connected to the output `$O_{(k-1)}$` of layer `$k-1$` via
-
-`$$`
+Neural Networks are usually used for either for *classification* or *approximation*. A short introduction to neural networks can be found in and for example. Today the main applications of neural networks contain classification. On the other hand, neural networks can be used to approximate an (unknown) function $`u`$. If this function $`u`$ arises from a physics or engineering context, i.e. from a mathematical equation of physics the equation structure will be incorporated into the neural network or the learning algorithm in some way. In this case the neural network is often called *phyiscs informed neural networks (PINN)*. Here the key task is to construct an approximation $`\hat{u}`$ for the unknown $`u`$. Assuming there is a PINN of $`n`$ layers then the output $`O_{(k)}`$of layer $`k`$ is connected to the output $`O_{(k-1)}`$ of layer $`k-1`$ via
+``` math
 O^{(k)}_i = f^{(k-1)}\left( b^{(k-1)}_i + \sum_j \theta^{(k-1)}_{i,j} O^{(k-1)}_j \right),
-`$$`
+```
+where $`O^{(k-1)}_j`$ is the output of the $`j`$-th node in layer $`k-1`$, $`\theta^{(k-1)}_{i,j}`$ is the weight of the connection between the $`j`$-th node in layer $`k-1`$ and the $`i`$-th node in layer $`k`$, $`b^{(k-1)}_i`$ is the bias neuron of $`i`$-th node in layer $`k-1`$ and $`f^{(k-1)}`$ is the activation of the nodes of layer $`k-1`$.
 
-where `$O^{(k-1)}_j$` is the output of the `$j$`-th node in layer `$k-1$`, `$\theta^{(k-1)}_{i,j}$` is the weight of the connection between the `$j$`-th node in layer `$k-1$` and the `$i$`-th node in layer `$k$`, `$b^{(k-1)}_i$` is the bias neuron of `$i$`-th node in layer `$k-1$` and `$f^{(k-1)}$` is the activation of the nodes of layer `$k-1$`.
-
-For a function `$v$` of one variable and a PINN with only one hidden layer and `$f^{(2)} = 1$` the approximation task is to find weights `$\theta$` and a bias neuron `$b$` such that
-
-`$$`
+For a function $`v`$ of one variable and a PINN with only one hidden layer and $`f^{(2)} = 1`$ the approximation task is to find weights $`\theta`$ and a bias neuron $`b`$ such that
+``` math
 \hat{v} (\xi) =   b_1^{(2)} + \sum_j \theta^{(2)}_j f^{(1)}\left( b_j^{(1)} + \theta_1^{(1)} \xi \right).
-`$$`
-
-This illustrates that the unknown function `$v$` is essentially approximated by a linear combination of the activation functions whereas the numbers `$b_j^{(1)}$`, `$b_1^{(2)}$`, `$\theta_1^{(1)}$` and `$\theta^{(2)}_j$` are adjusted by the backpropagation algorithm to minimise `$\sum_{j=1}^N\| \hat{v} (\xi_j) - v(\xi_j) \|^2$`, for example.
+```
+This illustrates that the unknown function $`v`$ is essentially approximated by a linear combination of the activation functions whereas the numbers $`b_j^{(1)}`$, $`b_1^{(2)}`$, $`\theta_1^{(1)}`$ and $`\theta^{(2)}_j`$ are adjusted by the backpropagation algorithm to minimise $`\sum_{j=1}^N\| \hat{v} (\xi_j) - v(\xi_j) \|^2`$, for example.
 
 There are two important application cases where PINNs are applied to:
 
@@ -151,198 +125,188 @@ There are two important application cases where PINNs are applied to:
 Typically neural networks learn by minimising a loss function. A key concept in PINN is to extend the loss function by a term that penalizes deviations from the governing equations and the boundary conditions.
 
 Mathematical equations in engineering or physics are often of the form
-
-`$$`
+``` math
 \begin{aligned}
 \mathscr{A} (v) &=& 0,\text{ in the domain,} \\
 \mathscr{B} (v) &=& 0,\text{ on the boundary. }
 \end{aligned}
-`$$`
-
-In most cases, `$\mathscr{A}$` is a differential operator either for an ODE or a PDE. Then, `$\mathscr{B}$` is the boundary operator. For the direct problem the function typically consists of
-
-`$$`
+```
+In most cases, $`\mathscr{A}`$ is a differential operator either for an ODE or a PDE. Then, $`\mathscr{B}`$ is the boundary operator. For the direct problem the function typically consists of
+``` math
 \begin{aligned}
  \label{LossTerm1}
 \text{Physics loss } &=& \mathscr{L}_{\operatorname{Physics}} (\hat{v}) =\beta \sum_{k = 1}^N\| \mathscr{A} (\hat{v}(\xi_k) ) \|^2 \\
 \text{Boundary loss} &=& \mathscr{L}_{\operatorname{Boundary}} (\hat{v}) = \beta \sum_{k = 1}^M\| \mathscr{B} (\hat{v}(\xi_{n_k}) ) \|^2 \text{ with boundary points  } \xi_{n_k} \label{LossTerm2}\\
 \text{Regularisation term} &=& \beta \sum_{\theta \in \operatorname{PINN Weights}}  \| \theta \|^2 . \label{LossTerm3}
 \end{aligned}
-`$$`
-
-Often, neural network libraries use the mean square error as loss function, then `$\beta = 1 /N$` i.e. the reciprocal of the number of sample points. Otherwise, if the square of the Euclidean distance is used, then `$\beta$` is equal to one.
+```
+Often, neural network libraries use the mean square error as loss function, then $`\beta = 1 /N`$ i.e. the reciprocal of the number of sample points. Otherwise, if the square of the Euclidean distance is used, then $`\beta`$ is equal to one.
 For the inverse problem the PINN approximation an additional loss term,
-
-`$$`
+``` math
 \text{Data loss} = \mathscr{L}_{\operatorname{Data}} (\hat{v})  = \beta \sum_{k = 1}^N \| \hat{v}(\xi_k)  - v_k \|^2 \\,
-`$$`
-
-wii be added to the terms ([\[LossTerm1\]](#LossTerm1){reference-type="ref" reference="LossTerm1"}), ([\[LossTerm2\]](#LossTerm2){reference-type="ref" reference="LossTerm2"}) and ([\[LossTerm3\]](#LossTerm3){reference-type="ref" reference="LossTerm3"}). Here `$v_k$` are the simulated measured values at position `$\xi_k$`.
+```
+wii be added to the terms (<a href="#LossTerm1" data-reference-type="ref" data-reference="LossTerm1">[LossTerm1]</a>), (<a href="#LossTerm2" data-reference-type="ref" data-reference="LossTerm2">[LossTerm2]</a>) and (<a href="#LossTerm3" data-reference-type="ref" data-reference="LossTerm3">[LossTerm3]</a>). Here $`v_k`$ are the simulated measured values at position $`\xi_k`$.
 
 # PINNs for solving the Euler-Bernoulli Equation
 
-In case of the equation ([\[PrincipalEulerBernoulli\]](#PrincipalEulerBernoulli){reference-type="ref" reference="PrincipalEulerBernoulli"}) the term would read `$\| E\cdot I \cdot N{d}^4 w(x) / N{d}x^4 - q \|^2$`. Since neural networks are sensitive to unscaled input data the dimensionless version ([\[DimensionlessEulerBernoulli\]](#DimensionlessEulerBernoulli){reference-type="ref" reference="DimensionlessEulerBernoulli"}) is used to give
+In case of the equation (<a href="#PrincipalEulerBernoulli" data-reference-type="ref" data-reference="PrincipalEulerBernoulli">[PrincipalEulerBernoulli]</a>) the term would read $`\| E\cdot I \cdot N{d}^4 w(x) / N{d}x^4 - q \|^2`$. Since neural networks are sensitive to unscaled input data the dimensionless version (<a href="#DimensionlessEulerBernoulli" data-reference-type="ref" data-reference="DimensionlessEulerBernoulli">[DimensionlessEulerBernoulli]</a>) is used to give
 
-
-`$$`
+``` math
 \text{Physics loss} = \sum_{\xi \in \{\text{Sample points}\}} \left\| \tfrac{N{d}^4 v(\xi)}{N{d}\xi^4} -1 \right\|^2 + \text{Loss from boundary conditions}.
-`$$`
+```
 
+The loss from the boundary conditions (<a href="#DimensionlessBoundaryConditions" data-reference-type="ref" data-reference="DimensionlessBoundaryConditions">[DimensionlessBoundaryConditions]</a>) is modeled as follows
 
-The loss from the boundary conditions ([\[DimensionlessBoundaryConditions\]](#DimensionlessBoundaryConditions){reference-type="ref" reference="DimensionlessBoundaryConditions"}) is modeled as follows
-
-
-`$$`
+``` math
 \text{Boundary loss} = \| v (0) \|^2 + \left\|\tfrac{N{d} v}{N{d}\xi}(0) \right\|^2 + \left\|\tfrac{N{d}^2 v}{N{d}\xi^2} (1) \right\|^2 + \left\|\tfrac{N{d}^3 v}{N{d}\xi^3}(1) \right\|^2 .
-`$$`
-
+```
 
 The total loss is then
-
-`$$`
+``` math
 \begin{aligned}
  \label{LossDirectProblem}
 \text{Total loss} & = & \text{Physics loss} + \text{Boundary loss} + \text{Regularisation term} \\
  & = & \sum_{\xi \in \{\text{Sample points}\}} \left\| \tfrac{N{d}^4 v(\xi)}{N{d}\xi^4} -1 \right\|^2 + \| v (0) \|^2 + \left\|\tfrac{N{d} v}{N{d}\xi}(0) \right\|^2 + \left\|\tfrac{N{d}^2 v}{N{d}\xi^2} (1) \right\|^2 + \left\|\tfrac{N{d}^3 v}{N{d}\xi^3}(1) \right\|^2 \\ 
  & + & \lambda \sum_{\theta \in \{\text{PINN weights}\}} \| \theta \|^2 .
 \end{aligned}
-`$$`
+```
 
-
-## The Setup of the PINN {#the-setup-of-the-pinn .unnumbered}
+## The Setup of the PINN
 
 Here we set up a feed forward neural network of the following structure:
 
-    **Layer**     **Nodes**  **Description**
-  -------------- ----------- ----------------------------------------------------------------
-   Input Layer        1      The input variable `$\xi$` sampled at 100 points between 0 and 1
-   Hidden Layer       5      Classical hidden layer with tanh activation
-   Output Layer       1      The output variable `$v(\xi )$` at the sample points
+| **Layer** | **Nodes** | **Description** |
+|:--:|:--:|:---|
+| Input Layer | 1 | The input variable $`\xi`$ sampled at 100 points between 0 and 1 |
+| Hidden Layer | 5 | Classical hidden layer with tanh activation |
+| Output Layer | 1 | The output variable $`v(\xi )`$ at the sample points |
 
-  : Architecture of the PINN.
+Architecture of the PINN.
 
 Two solving methods are executed sequentially, i.e.
 
 1.  Adaptive Moment estimation (ADAM), and
 
-2.  Limited-memory Broyden--Fletcher--Goldfarb--Shanno (LBFGS), afterwards. That is for refinement of the solution.
+2.  Limited-memory Broyden–Fletcher–Goldfarb–Shanno (LBFGS), afterwards. That is for refinement of the solution.
 
-To train the PINN a set of 100 equidistantly distributed sample points on the interval `$\lbrack 0, 1 \rbrack$` (including the interval boundaries) is used to propagate forward through the PINN. The setup of the parameters of the ADAM and LBFGS solver is as follows.
+To train the PINN a set of 100 equidistantly distributed sample points on the interval $`\lbrack 0, 1 \rbrack`$ (including the interval boundaries) is used to propagate forward through the PINN. The setup of the parameters of the ADAM and LBFGS solver is as follows.
 
-    **Property Name**       **Property Value**     
-  ---------------------- ------------------------- --
-      Learning rate                 0.1            
-          Epochs                    200            
-      Loss Function       Mean square error (MSE)  
-      Early stopping      at threshold `$10^{-6}$`   
-   `$L^2$`-Regularisation   switched off by default  
+|   **Property Name**    |    **Property Value**    |     |
+|:----------------------:|:------------------------:|:----|
+|     Learning rate      |           0.1            |     |
+|         Epochs         |           200            |     |
+|     Loss Function      | Mean square error (MSE)  |     |
+|     Early stopping     | at threshold $`10^{-6}`$ |     |
+| $`L^2`$-Regularisation | switched off by default  |     |
 
-  : ADAM setup.
+ADAM setup.
 
-    **Property Name**                     **Property Value**                  
-  ---------------------- ---------------------------------------------------- --
-      Learning rate                              0.01                         
-        Iterations                               300                          
-      Loss Function                    Mean square error (MSE)                
-         Stopping         `$10^{-5}$` for the gradients, `$10^{-9}$` for the MSE  
-   `$L^2$`-Regularisation                switched off by default                
+| **Property Name** | **Property Value** |  |
+|:--:|:--:|:---|
+| Learning rate | 0.01 |  |
+| Iterations | 300 |  |
+| Loss Function | Mean square error (MSE) |  |
+| Stopping | $`10^{-5}`$ for the gradients, $`10^{-9}`$ for the MSE |  |
+| $`L^2`$-Regularisation | switched off by default |  |
 
-  : LBFGS setup.
+LBFGS setup.
 
-## PINN Results {#pinn-results .unnumbered}
+## PINN Results
 
 The Euler-Bernoulli equation has solved using the PINN as configured in the section before. The errors -MSE and relative- are moderate and acceptable in some way. Nevertheless, compared to the finite element solution, the errors of the FE method are far below the ones of the PINN method. That confirms just the fact that FEM was designed to solve linear elasticity problems and hence FEM is a very powerful tool tackling such problems. After discussing the results of ODE solving we present a problem where PINN is very useful to use.
 
-  **Method**    **Execution Time (s)**     **RMSE**     **Relative Error**
-  ------------ ------------------------ -------------- --------------------
-  ADAM                  3.2240           8.401149e-02      4.435198e-01
-  LBFGS                 2.7095           9.454326e-06      4.991199e-05
-  FEM                   0.1740           1.863023e-08      9.835413e-08
+| **Method** | **Execution Time (s)** |   **RMSE**   | **Relative Error** |
+|:-----------|:----------------------:|:------------:|:------------------:|
+| ADAM       |         3.2240         | 8.401149e-02 |    4.435198e-01    |
+| LBFGS      |         2.7095         | 9.454326e-06 |    4.991199e-05    |
+| FEM        |         0.1740         | 1.863023e-08 |    9.835413e-08    |
 
-  : Execution time, RMSE values and relative errors wrt exact solution.
+Execution time, RMSE values and relative errors wrt exact solution.
 
-::: {#ComparisonFwdProblem}
-   **Method**     **ADAM**      **LBFGS**       **FEM**       **Exact**
-  ------------ -------------- -------------- -------------- --------------
-    **ADAM**         \-        8.400263e-02   8.401147e-02   8.401149e-02
-   **LBFGS**    4.434940e-01        \-        9.443193e-06   9.454326e-06
-    **FEM**     4.435197e-01   4.985322e-05        \-        1.863023e-08
-   **Exact**    4.435198e-01   4.991199e-05   9.835413e-08        \-
+<div id="ComparisonFwdProblem">
 
-  : Relative errors (lower left) and RMSE values (upper right).
-:::
+| **Method** |   **ADAM**   |  **LBFGS**   |   **FEM**    |  **Exact**   |
+|:----------:|:------------:|:------------:|:------------:|:------------:|
+|  **ADAM**  |      \-      | 8.400263e-02 | 8.401147e-02 | 8.401149e-02 |
+| **LBFGS**  | 4.434940e-01 |      \-      | 9.443193e-06 | 9.454326e-06 |
+|  **FEM**   | 4.435197e-01 | 4.985322e-05 |      \-      | 1.863023e-08 |
+| **Exact**  | 4.435198e-01 | 4.991199e-05 | 9.835413e-08 |      \-      |
 
-![PINN Solution vs exact Solution.](Charts/Exact_Solution.png){#fig:example width="80%"}
+Relative errors (lower left) and RMSE values (upper right).
 
-![PINN Solution vs FEM Solution.](Charts/FEM_Solution.png){#fig:example width="80%"}
+</div>
 
-![The error of the ADAM calculation vs time/epochs.](Charts/Error_Adam.png){#fig:example width="80%"}
+<figure id="fig:example">
+<img src="Charts/Exact_Solution.png" style="width:80.0%" />
+<figcaption>PINN Solution vs exact Solution.</figcaption>
+</figure>
+
+<figure id="fig:example">
+<img src="Charts/FEM_Solution.png" style="width:80.0%" />
+<figcaption>PINN Solution vs FEM Solution.</figcaption>
+</figure>
+
+<figure id="fig:example">
+<img src="Charts/Error_Adam.png" style="width:80.0%" />
+<figcaption>The error of the ADAM calculation vs time/epochs.</figcaption>
+</figure>
 
 # Parameter Identification for variable Elastic Modulus
 
-## PINNs and Parameter Identification {#pinns-and-parameter-identification .unnumbered}
+## PINNs and Parameter Identification
 
 Where PINNs have a poor performance in comparison to FEM in solving linear ODEs they perform very well in many data-driven approaches. One is the prediction of unknown parameters from data, e.g. measurements.
 
-## A PINN to predict Elastic Modulus from simulated measurement Data {#a-pinn-to-predict-elastic-modulus-from-simulated-measurement-data .unnumbered}
+## A PINN to predict Elastic Modulus from simulated measurement Data
 
-We now assume that the elastic modulus is an unknown material property due inhomogeneities of the material. Such an inhomogeneity could be rust in an iron beam, for example. On the other hand we assume that the deflection of the beam is known in form of simulated measurements.For this purpose we turn back to the form ([\[PrincipalEulerBernoulli\]](#PrincipalEulerBernoulli){reference-type="ref" reference="PrincipalEulerBernoulli"}) of the Euler-Bernoulli equation with variable `$E = E(x)$`:
-
-`$$`
+We now assume that the elastic modulus is an unknown material property due inhomogeneities of the material. Such an inhomogeneity could be rust in an iron beam, for example. On the other hand we assume that the deflection of the beam is known in form of simulated measurements.For this purpose we turn back to the form (<a href="#PrincipalEulerBernoulli" data-reference-type="ref" data-reference="PrincipalEulerBernoulli">[PrincipalEulerBernoulli]</a>) of the Euler-Bernoulli equation with variable $`E = E(x)`$:
+``` math
 \frac{N{d}^2}{N{d}x^2} \left( E(x)\cdot I \cdot \frac{N{d}^2 w(x)}{N{d}x^2} \right) = q(x) \text{ for } x \in (0,L),\\
-`$$`
-
-with boundary conditions ([\[PrincipalBoundaryConditions\]](#PrincipalBoundaryConditions){reference-type="ref" reference="PrincipalBoundaryConditions"}) as before. For the numerical solution we use the dimensionless form
-
-`$$`
+```
+with boundary conditions (<a href="#PrincipalBoundaryConditions" data-reference-type="ref" data-reference="PrincipalBoundaryConditions">[PrincipalBoundaryConditions]</a>) as before. For the numerical solution we use the dimensionless form
+``` math
 \label{DimensionlessEulerBernoulli}
 \frac{N{d}^2}{N{d}\xi^2}\left( e(\xi ) \frac{N{d}^2 v(\xi)}{N{d}\xi^2} \right)  = 1 \text{ for } \xi \in (0,1),\\
-`$$`
-
-subject to the boundary conditions ([\[DimensionlessBoundaryConditions\]](#DimensionlessBoundaryConditions){reference-type="ref" reference="DimensionlessBoundaryConditions"}) where
-
-`$$`
+```
+subject to the boundary conditions (<a href="#DimensionlessBoundaryConditions" data-reference-type="ref" data-reference="DimensionlessBoundaryConditions">[DimensionlessBoundaryConditions]</a>) where
+``` math
 e(\xi ) = \frac{E( x ) }{E_{\operatorname{char}}}\text{ and } E_{\operatorname{char}} = \operatorname{max}_{x\in \lbrack 0, L \rbrack } E(x) .
-`$$`
+```
+Following two neural networks are to be trained now:
 
-Following [@teloli2024solving] two neural networks are to be trained now:
+- A neural network $`\mathscr{V}`$ to get an approximation $`\hat{v} (\xi )`$ for the simulated measurements of $`w`$.
 
-- A neural network `$\mathscr{V}$` to get an approximation `$\hat{v} (\xi )$` for the simulated measurements of `$w$`.
-
-- A neural network `$\mathscr{E}$` to get an estimation `$\hat{e} (\xi)$` for the unknown elastic modulus.
+- A neural network $`\mathscr{E}`$ to get an estimation $`\hat{e} (\xi)`$ for the unknown elastic modulus.
 
 These two neural networks will be trained simultaneously. Their architecture is given by the following two tables.
 
-     **Layer**      **Nodes**  **Description**
-  ---------------- ----------- ----------------------------------------------------------------
-    Input Layer         1      The input variable `$\xi$` sampled at 100 points between 0 and 1
-   Hidden Layer 1      20      Classical hidden layer with tanh activation
-   Hidden Layer 2      20      Classical hidden layer with tanh activation
-    Output Layer        1      The output variable `$v(\xi )$` at the sample points
+| **Layer** | **Nodes** | **Description** |
+|:--:|:--:|:---|
+| Input Layer | 1 | The input variable $`\xi`$ sampled at 100 points between 0 and 1 |
+| Hidden Layer 1 | 20 | Classical hidden layer with tanh activation |
+| Hidden Layer 2 | 20 | Classical hidden layer with tanh activation |
+| Output Layer | 1 | The output variable $`v(\xi )`$ at the sample points |
 
-  : Architecture of `$\mathscr{V}$`.
+Architecture of $`\mathscr{V}`$.
 
-     **Layer**      **Nodes**  **Description**
-  ---------------- ----------- ----------------------------------------------------------------
-    Input Layer         1      The input variable `$\xi$` sampled at 100 points between 0 and 1
-   Hidden Layer 1      35      Classical hidden layer with tanh activation
-   Hidden Layer 2      35      Classical hidden layer with tanh activation
-    Output Layer        1      The output variable `$e(\xi )$` at the sample points
+| **Layer** | **Nodes** | **Description** |
+|:--:|:--:|:---|
+| Input Layer | 1 | The input variable $`\xi`$ sampled at 100 points between 0 and 1 |
+| Hidden Layer 1 | 35 | Classical hidden layer with tanh activation |
+| Hidden Layer 2 | 35 | Classical hidden layer with tanh activation |
+| Output Layer | 1 | The output variable $`e(\xi )`$ at the sample points |
 
-  : Architecture of `$\mathscr{E}$`.
+Architecture of $`\mathscr{E}`$.
 
-Both networks will be trained using a common loss function. This loss function has a rather complicated structure than ([\[LossDirectProblem\]](#LossDirectProblem){reference-type="ref" reference="LossDirectProblem"}) for the direct problem:
-
-`$$`
+Both networks will be trained using a common loss function. This loss function has a rather complicated structure than (<a href="#LossDirectProblem" data-reference-type="ref" data-reference="LossDirectProblem">[LossDirectProblem]</a>) for the direct problem:
+``` math
 \begin{aligned}
 \text{Total loss} & = &  \alpha_1 \cdot \text{Data loss} + \alpha_2 \cdot \text{Physics loss} + \alpha_3 \cdot\text{Boundary loss} \\
 & + &  \alpha_4 \cdot \text{Loss from gradient terms of } E +\alpha_5 \cdot\text{Regularisation term}
 \end{aligned}
-`$$`
-
+```
 where
-
-`$$`
+``` math
 \begin{aligned}
 \text{Data loss} & = & \sum_{\xi \in \{\text{Sample points}\}} \left\| \hat{v}(\xi) - v_{\operatorname{measure}} (\xi ) \right\|^2 \\
 \text{Physics loss} & = & \sum_{\xi \in \{\text{Sample points}\}} \left\|  \tfrac{N{d}^2}{N{d}\xi^2} \left(  \tfrac{N{d}^2 v(\xi)}{N{d}\xi^2} \right)-1  \right\|^2 \\
@@ -350,80 +314,91 @@ where
 \text{Loss from gradient terms of } E  & = & \sum_{\xi \in \{\text{Sample points}\}} \left\|  \tfrac{N{d} e ( \xi ) }{N{d}\xi} \right\|^2 \\
 \text{Regularisation term} & = & \sum_{\theta \in \{\text{weights of }\mathscr{E}\}} \| \theta \|^2 .
 \end{aligned}
-`$$`
+```
+For the parameters $`\alpha_k \; k\in\{1,2,3,4,5\}`$ the choices are made as in Table refLossFunctionAdjustment.
 
-For the parameters `$\alpha_k \; k\in\{1,2,3,4,5\}$` the choices are made as in Table refLossFunctionAdjustment.
+<div id="LossFunctionAdjustment">
 
-::: {#LossFunctionAdjustment}
-   **Parameter**  **Value**
-  --------------- -----------
-    `$\alpha_1$`    100.0
-    `$\alpha_2$`    1.5
-    `$\alpha_3$`    2.0
-    `$\alpha_4$`    1e-5
-    `$\alpha_5$`    1e-3
+| **Parameter** | **Value** |
+|:-------------:|:----------|
+| $`\alpha_1`$  | 100.0     |
+| $`\alpha_2`$  | 1.5       |
+| $`\alpha_3`$  | 2.0       |
+| $`\alpha_4`$  | 1e-5      |
+| $`\alpha_5`$  | 1e-3      |
 
-  : Adjustment values for the loss function.
-:::
+Adjustment values for the loss function.
 
-Again, a combinationof an ADAM solver and a LBFGS solver has been used. The adjustments are given in the tables [4](#AdamSetup2){reference-type="ref" reference="AdamSetup2"} and [5](#LBFGSSetup2){reference-type="ref" reference="LBFGSSetup2"}.
+</div>
 
-::: {#AdamSetup2}
-   **Property Name**     **Property Value**     
-  ------------------- ------------------------- --
-     Learning rate              0.005           
-        Epochs                  3000            
-     Loss Function     Mean square error (MSE)  
-    Early stopping     at threshold `$10^{-6}$`   
+Again, a combinationof an ADAM solver and a LBFGS solver has been used. The adjustments are given in the tables <a href="#AdamSetup2" data-reference-type="ref" data-reference="AdamSetup2">4</a> and <a href="#LBFGSSetup2" data-reference-type="ref" data-reference="LBFGSSetup2">5</a>.
 
-  : ADAM setup.
-:::
+<div id="AdamSetup2">
 
-::: {#LBFGSSetup2}
-   **Property Name**                   **Property Value**                  
-  ------------------- ---------------------------------------------------- --
-     Learning rate                           0.005                         
-      Iterations                              1500                         
-     Loss Function                  Mean square error (MSE)                
-       Stopping        `$10^{-5}$` for the gradients, `$10^{-9}$` for the MSE  
+| **Property Name** |    **Property Value**    |     |
+|:-----------------:|:------------------------:|:----|
+|   Learning rate   |          0.005           |     |
+|      Epochs       |           3000           |     |
+|   Loss Function   | Mean square error (MSE)  |     |
+|  Early stopping   | at threshold $`10^{-6}`$ |     |
 
-  : LBFGS setup.
-:::
+ADAM setup.
 
-With these values the two PINNs `$\mathscr{V}$` and `$\mathscr{E}$` have been trained using Python and PyTorch. Therefore 100 pairs of random integers - each uniformly distributed between 0 and 100- are generated. Then the first random number of each pair is used to generate a normally distributed noise with zero mean and standard deviation of 0.002506 to be added to the exact solution `$v(\xi )$`. This will simulate measured data which randomly vary around the exact solution. The second random number sets the seed for the randomly generated initial weights of the two neural networks `$\mathscr{V}$` and `$\mathscr{E}$`.
+</div>
+
+<div id="LBFGSSetup2">
+
+| **Property Name** | **Property Value** |  |
+|:--:|:--:|:---|
+| Learning rate | 0.005 |  |
+| Iterations | 1500 |  |
+| Loss Function | Mean square error (MSE) |  |
+| Stopping | $`10^{-5}`$ for the gradients, $`10^{-9}`$ for the MSE |  |
+
+LBFGS setup.
+
+</div>
+
+With these values the two PINNs $`\mathscr{V}`$ and $`\mathscr{E}`$ have been trained using Python and PyTorch. Therefore 100 pairs of random integers - each uniformly distributed between 0 and 100- are generated. Then the first random number of each pair is used to generate a normally distributed noise with zero mean and standard deviation of 0.002506 to be added to the exact solution $`v(\xi )`$. This will simulate measured data which randomly vary around the exact solution. The second random number sets the seed for the randomly generated initial weights of the two neural networks $`\mathscr{V}`$ and $`\mathscr{E}`$.
 For 99 out of the 100 samples we have the following
 
-         **Loss**           **Value**   
-  ----------------------- ------------- --
-         Data loss         \< 9.27e-6   
-       Physics loss        \< 1.42e-5   
-       Boundary loss       \< 1.36e-5   
-   Max difference in `$E$`   \< 16385 Pa  
-         R² value           \> 0.993    
+|        **Loss**         |  **Value**  |     |
+|:-----------------------:|:-----------:|:----|
+|        Data loss        | \< 9.27e-6  |     |
+|      Physics loss       | \< 1.42e-5  |     |
+|      Boundary loss      | \< 1.36e-5  |     |
+| Max difference in $`E`$ | \< 16385 Pa |     |
+|        R² value         |  \> 0.993   |     |
 
-  : Results for 99 of 100 test samples.
+Results for 99 of 100 test samples.
 
 These results show a very near and acceptable approximation.
 
 There is one pathological case where the approximation seriously fails:
 
-         **Loss**            **Value**     
-  ----------------------- ---------------- --
-         Data loss            9.90e-5      
-       Physics loss           1.095e-4     
-       Boundary loss        \< 1.640e-2    
-   Max difference in `$E$`   \< 1.574e11 Pa  
-         R² value             \> 0.937     
+|        **Loss**         |   **Value**    |     |
+|:-----------------------:|:--------------:|:----|
+|        Data loss        |    9.90e-5     |     |
+|      Physics loss       |    1.095e-4    |     |
+|      Boundary loss      |  \< 1.640e-2   |     |
+| Max difference in $`E`$ | \< 1.574e11 Pa |     |
+|        R² value         |    \> 0.937    |     |
 
-  : Results for the pathological case.
+Results for the pathological case.
 
 The poor approximation of this case may be easily seen in the following diagram:
 
-![Estimated `$w$` and simulated measurements.](Charts/Dataset with minimal R2Deflection_PINN.png){width="80%"}
+<figure>
+<img src="Charts/Dataset with minimal R2Deflection_PINN.png" style="width:80.0%" />
+<figcaption>Estimated <span class="math inline"><em>w</em></span> and simulated measurements.</figcaption>
+</figure>
 
-Beyond the wrong shape the boundary conditions are obviously not fulfilled. The following chart which shows the exact solution `$w$` versus the measured values seems to say that the measured values are not the reason for the poor approximation.
+Beyond the wrong shape the boundary conditions are obviously not fulfilled. The following chart which shows the exact solution $`w`$ versus the measured values seems to say that the measured values are not the reason for the poor approximation.
 
-![Eaxct `$w$` and simulated measurements.](Charts/Dataset with minimal R2Deflection_exact.png){width="80%"}
+<figure>
+<img src="Charts/Dataset with minimal R2Deflection_exact.png" style="width:80.0%" />
+<figcaption>Eaxct <span class="math inline"><em>w</em></span> and simulated measurements.</figcaption>
+</figure>
 
 Two of the 99 good samples have the same random seed as the pathological sample and thus the same generated measured values. It follows that these simulated measurements are not the reason for the poor approximation quality. Furthermore, choosing another random initial weights for the PINN training will solve the problem. Choosing another solver than ADAM or skipping ADAM to train only with LBFGS could be another solution.
 
@@ -443,7 +418,8 @@ This short case study using PINNs for calculating solutions and parameters of th
 
 6.  A way to implement a PINN study in C++ could be the use of the Pytorch C+ +API. That may be as not as fast as OpenNN or MLPack but faster than any Python implementation.
 
-::: thebibliography
+<div class="thebibliography">
+
 9
 
 K.-H. Hoffmann and G. Witterstein,
@@ -463,4 +439,5 @@ C. Teloli, A. Titarelli, A. Guerrieri, and S. Vidoli,
 Mechanics of Materials, vol. 190, 104226, 2024. \[Online\]. Available: <https://www.sciencedirect.com/science/article/pii/S0888327024010884>
 
 Code samples used in this work: <https://github.com/Haasrobertgmxnet/BeamEquation>
-:::
+
+</div>
