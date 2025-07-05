@@ -35,28 +35,19 @@
 % Tables
 \usepackage{booktabs}
 
-% Source code
-\usepackage{listings}
+\usepackage{lmodern}  % Modernere Schrift
 
-
-\lstdefinestyle{mypython}{
-  language=Python,
-  basicstyle=\ttfamily\small,
-  keywordstyle=\color{blue},
-  commentstyle=\color{gray},
-  stringstyle=\color{orange},
-  showstringspaces=false,
-  numberstyle=\tiny\color{gray},
-  numbers=left,
-  numbersep=5pt,
-  frame=single,
-  breaklines=true,
-  tabsize=4
-}
+% Farben definieren
+\definecolor{mainblue}{RGB}{0,70,127}
+\definecolor{lightgray}{gray}{0.85}
 
 % Hyperlinks
 \usepackage{hyperref}
 \hypersetup{
+  pdftitle={The Euler-Bernoulli Beam Equation and PINN},
+  pdfauthor={Dr. Robert Haas},
+  pdfsubject={Whitepaper on Beam Theory and Neural Networks},
+  pdfkeywords={Beam Equation, PINN, Euler-Bernoulli, Mechanics, Neural Networks, PDE},
   colorlinks=true,
   linkcolor=blue,
   citecolor=blue,
@@ -72,12 +63,23 @@
 \usepackage{hyperref} % Für klickbare Links im PDF
 
 % Header and footer
+
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{Beam Equation and PINN}
 \fancyhead[R]{\thepage}
-\fancyfoot[C]{}
+
+%\fancyhead[L]{\textbf{Beam Equation and PINN}}
+%\fancyhead[R]{Dr. Robert Haas}
+%\renewcommand{\headrulewidth}{0.4pt}
+
+\fancyfoot[L]{\textcolor{gray}{\small Robert Haas – Technical Software and Mathematics}}
+\fancyfoot[R]{\textcolor{gray}{\small Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- Für \pageref{LastPage} ---
+\usepackage{lastpage}
 
 \def\Meter{\mathrm{m}}
 \def\Millimeter{\mathrm{mm}}
@@ -87,36 +89,85 @@
 \def\NewtonVsMeter{\frac{\mathrm{N}}{\mathrm{m}}}
 
 % Title
-\usepackage{tikz}
+% \usepackage{tikz}
 \usepackage{lipsum} % für Blindtext
 
 % Farben
 \usepackage{xcolor}
+\usepackage{lmodern}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% --- Farben ---
 \definecolor{mainblue}{RGB}{0,70,127}
+\definecolor{lightgray}{gray}{0.9}
+\definecolor{footergray}{gray}{0.4}
+
+% --- Fancyhdr: Fußzeile für alle Seiten außer Titelseite ---
+\fancypagestyle{main}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyhead[L]{Beam Equation and PINN}
+  \fancyhead[R]{\thepage}
+  % \fancyfoot[L]{\textcolor{footergray}{Robert Haas – Technical Software and Mathematics}}
+  % \fancyfoot[C]{\textcolor{footergray}{Page \thepage\ of \pageref{LastPage}}}
+}
 
 \begin{document}
 
-% Eigene Titelseite
+
+% --- Titelseite ---
 \begin{titlepage}
-     \centering
-  \vspace*{2cm}
-  
-  \hrule
-  {\huge\bfseries The Euler-Bernoulli Beam Equation and Physics Informed Neural Networks (PINN) \par}
-  \vspace{1cm}
-  \hrule
-  \vspace{1cm}
-  {\Large Robert Haas \par}
-  % {\large Dr. Robert Haas Technical Software and Mathematics \par}
-  \vfill
-  
-  \tikz[remember picture,overlay] \fill[mainblue] (current page.south west) rectangle ([yshift=3cm]current page.south east);
-  {\color{white}\large \today \par}
-  
+    \centering
+
+    % Zentrierte blaue Linie oben
+    \vspace*{1cm}
+    {\color{mainblue} \rule{1.0\textwidth}{2pt}}\\[0.5cm]
+
+    % Titel
+    {\Huge\bfseries The Euler-Bernoulli Beam Equation\\[0.3em]
+    and Physics Informed Neural Networks (PINN)\par}
+    
+    \vspace*{0.5cm}
+    {\color{mainblue} \rule{1.0\textwidth}{2pt}}\\[1.5cm]
+    
+    \vspace{1cm}
+
+    % Autor
+    {\Large Robert Haas}\\[0.3em]
+    % {\normalsize Dr. Robert Haas Technical Software and Mathematics}\\[0.5cm]
+
+    % Grauer Infoblock
+    \vspace{4cm}
+    \colorbox{lightgray}{
+        \parbox{0.8\textwidth}{
+            \vspace{1em}
+            \centering
+            {\normalsize\textbf{Documentation} • \today{ }• Version 1.0}\\[0.5em]
+            {\small PDF generated with \LaTeX}
+            \vspace{1em}
+        }
+    }
+
+    \vfill
+
+    % Projektinfo (Fußbereich)
+    {\footnotesize
+    \begin{tabular}{rl}
+    \textbf{Project page:} & \href{https://github.com/Haasrobertgmxnet/BeamEquation}{https://github.com/Haasrobertgmxnet/BeamEquation}\\
+    \textbf{Contact:} & \href{mailto:Haasrobert@gmx.net}{Haasrobert@gmx.net} \\
+    \end{tabular}
+    }
+
+    \vspace{2cm}
+    {\color{mainblue} \rule{1.0\textwidth}{2pt}}  % Zentrierte Linie unten
 \end{titlepage}
 
+\pagestyle{main}
+
 \begin{abstract}
-A numerical study for the 1D Euler-Bernoulli equation for a deflected beam is done here. The Euler-Bernoulli equation will be presented in different forms which are used in the calculations afterwards. For the calculations of the Euler-Bernoulli equation \emph{physics informed neural networks (PINN)} have been used. \emph{First}, the equation itself has been solved using a PINN. The result has been compared with a classical finite element (FE) solution. Since FE solvers are optimized for classical linear engineering problems, the FE approach performs far better than the PINN. \emph{Second}, simulated deflection measurements are used for approximating a solution that provides the data to estimate the unknown elastic modulus This is done with two PINNs . This is a typical data-driven use case for using PINNs and here very satisfactory results can be obtained by a careful adjustment of the calculation parameters.
+A numerical study for the 1D Euler-Bernoulli equation for a deflected beam is done here. The Euler-Bernoulli equation will be presented in different forms which are used in the calculations afterwards. For the calculations of the Euler-Bernoulli equation \emph{physics informed neural networks (PINN)} have been used. \emph{First}, the equation itself has been solved using a PINN. The result has been compared with a classical finite element (FE) solution. Since FE solvers are optimized for classical linear engineering problems, the FE approach performs far better than the PINN. \emph{Second}, simulated deflection measurements are used for approximating a solution that provides the data to estimate the unknown elastic modulus. This is done with two PINNs . This is a typical data-driven use case for using PINNs and here very satisfactory results can be obtained by a careful adjustment of the calculation parameters.
 \end{abstract}
 
 \tableofcontents
@@ -124,9 +175,9 @@ A numerical study for the 1D Euler-Bernoulli equation for a deflected beam is do
 
 \section{The Euler-Bernoulli Equation of a Beam}
 
-For studying the bending behavior of a beam we consider a beam with the following assumptions:
+For studying the defection behavior of a beam we consider a beam with the following assumptions:
 \begin{enumerate}
-\item[(A1)] The beam under consideration is a cantilever beam: At one end the beam is fixed in that way, that there is no displacement and no rotation allowed. At the other end -the free end- displacement and rotation may occur.
+\item[(A1)] The beam under consideration is a cantilever beam: At one end the beam is fixed in that way, that there is no displacement and no rotation allowed. At the other end -the free end- displacement and rotation are allowed to occur.
 \item[(A2)] The beam has a fixed constant cross-section.
 \item[(A3)] Hooke's law, i.e. the stress $\sigma $ is proportional to the strain $\epsilon$, is fulfilled everywhere.
 \end{enumerate}
@@ -173,8 +224,8 @@ w( L) = \frac{q}{24 E\cdot I }\cdot L^2 \cdot \left( L^2 -4L\cdot L + 6L^2\right
 \end{equation}
 which is the deflection of the beam at position $x = L$.
 
-Following \cite[pp. 3]{hoffmann2014modellierung} a dimensionless form of the equation (\ref{PrincipalEulerBernoulli}) can be derived to give
-\begin{equation} \label{DimensionlessEulerBernoulli}
+Following \cite[pp. 3]{hoffmann2014modellierung} a dimensionless form of the equation (\ref{PrincipalEulerBernoulliConstantE}) can be derived to give
+\begin{equation} \label{DimensionlessEulerBernoulliConstantE}
 % \frac{\mathrm{d}^2}{\mathrm{d}\xi^2}\left( e(\xi ) \frac{\mathrm{d}^2 v(\xi)}{\mathrm{d}\xi^2} \right)  = 1 \text{ or } 
 \frac{\mathrm{d}^4 v(\xi)}{\mathrm{d}\xi^4} = 1 \text{ for } \xi \in (0,1),\\
 \end{equation}
@@ -188,7 +239,7 @@ w_{\mathrm{char}} & = & \frac{q\cdot L^4}{E\cdot I }, \\
 \end{eqnarray*}
 Here $E_{\mathrm{char}} $ may be chosen as 
 \begin{equation*}
-E_{\mathrm{char}} = \mathrm{max}_{x\in \lbrack 0,1 \rbrack } E(x) .
+E_{\mathrm{char}} = \mathrm{max}_{x\in \lbrack 0,L \rbrack } E(x) .
 \end{equation*}
 The boundary conditions now read as
 \begin{equation} \label{DimensionlessBoundaryConditions}
@@ -198,11 +249,11 @@ Again, there exists an exact solution, given by
 \begin{equation*} 
 v(\xi ) = \frac{1}{24} \cdot \xi^2 \cdot \left( \xi^2 -4 \xi + 6 \right) .
 \end{equation*}
-The equation (\ref{DimensionlessEulerBernoulli}) is crucial for the application of some numerical methods, e.g. physics informed neural networks (PINN).
+The equation (\ref{DimensionlessEulerBernoulliConstantE}) is crucial for the application of some numerical methods, e.g. physics informed neural networks (PINN).
 
 
 \subsection*{The Finite-Element Method (FEM) for solving the Euler-Bernoulli Equation}
-The FEM is set up for the the dimensionless problem (\ref{DimensionlessEulerBernoulli}) and the boundary conditions (\ref{DimensionlessBoundaryConditions}). Here, classical 1D beam elements (third order Hermite polynomials) on 99 elements are used to solve this equation. The theory on FEM to solve the Euler-Bernoulli equation can be found in any good text book.
+The FEM is set up for the the dimensionless problem (\ref{DimensionlessEulerBernoulliConstantE}) and the boundary conditions (\ref{DimensionlessBoundaryConditions}). Here, classical 1D beam elements (third order Hermite polynomials) on 99 elements are used to solve this equation. The theory on FEM to solve the Euler-Bernoulli equation can be found in any good text book.
 The results of the calculation will be shortly presented in Table \ref{ComparisonFwdProblem}.
 
 \begin{comment}
@@ -229,7 +280,7 @@ The results of the calculation will be shortly presented in Table \ref{Compariso
 
 \section{The Idea of a Physics Informed Neural Network (PINN)}
 
-Neural Networks are usually used for either for \emph{classification} or \emph{approximation}. A short introduction to neural networks can be found in \cite{rojas1993neuronale} and \cite[pp. 809]{stoecker1995formeln} for example. Today the main applications of neural networks contain classification. On the other hand, neural networks can be used to approximate an (unknown) function $u$. If this function $u$ arises from a physics or engineering context, i.e. from a mathematical equation of  physics the equation structure will be incorporated into the neural network or the learning algorithm in some way. In this case the neural network is often called \emph{phyiscs informed neural networks (PINN)}. Here the key task is to construct an approximation $ \hat{u} $ for the unknown $u$. Assuming there is a PINN of $n$ layers then the output $O_{(k)} $of layer $k$ is connected to the output $O_{(k-1)} $ of layer $k-1$ via
+Neural Networks are usually used for either for \emph{classification} or \emph{approximation}. A short introduction to neural networks can be found in \cite{rojas1993neuronale} and \cite[pp. 809]{stoecker1995formeln} for example. Today the main applications of neural networks contain classification. On the other hand, neural networks can be used to approximate an (unknown) function $v$. If this function $v$ arises from a physics or engineering context, i.e. from a mathematical equation of  physics the equation structure will be incorporated into the neural network or the learning algorithm in some way. In this case the neural network is often called \emph{phyiscs informed neural networks (PINN)}. Here the key task is to construct an approximation $ \hat{v} $ for the unknown $v$. Assuming there is a PINN of $n$ layers then the output $O^{(k)} $of layer $k$ is connected to the output $O^{(k-1)} $ of layer $k-1$ via
 \begin{equation*}
 O^{(k)}_i = f^{(k-1)}\left( b^{(k-1)}_i + \sum_j \theta^{(k-1)}_{i,j} O^{(k-1)}_j \right),
 \end{equation*}
@@ -265,10 +316,10 @@ For the inverse problem the PINN approximation an additional loss term,
 \begin{equation*}
 \text{Data loss} = \mathscr{L}_{\mathrm{Data}} (\hat{v})  = \beta \sum_{k = 1}^N \| \hat{v}(\xi_k)  - v_k \|^2 \\,
 \end{equation*}
-wii be added to the terms (\ref{LossTerm1}),  (\ref{LossTerm2}) and (\ref{LossTerm3}). Here $ v_k $ are the simulated measured values at position $\xi_k $.
+will be added to the terms (\ref{LossTerm1}),  (\ref{LossTerm2}) and (\ref{LossTerm3}). Here $ v_k $ are the simulated measured values at position $\xi_k $.
 
 \section{PINNs for solving the Euler-Bernoulli Equation}
-In case of the equation (\ref{PrincipalEulerBernoulli}) the term would read $\| E\cdot I \cdot \mathrm{d}^4 w(x) / \mathrm{d}x^4 - q \|^2 $. Since neural networks are sensitive to unscaled input data the dimensionless version (\ref{DimensionlessEulerBernoulli}) is used to give 
+In case of the equation (\ref{PrincipalEulerBernoulliConstantE}) the term would read $\| E\cdot I \cdot \mathrm{d}^4 w(x) / \mathrm{d}x^4 - q \|^2 $. Since neural networks are sensitive to unscaled input data the dimensionless version (\ref{DimensionlessEulerBernoulliConstantE}) is used to give 
 
 \begin{equation*}
 \text{Physics loss} = \sum_{\xi \in \{\text{Sample points}\}} \left\| \tfrac{\mathrm{d}^4 v(\xi)}{\mathrm{d}\xi^4} -1 \right\|^2 + \text{Loss from boundary conditions}.
@@ -399,11 +450,8 @@ FEM  & 0.1740   & 1.863023e-08 & 9.835413e-08 \\
 
 \section{Parameter Identification for variable Elastic Modulus}
 
-\subsection*{PINNs and Parameter Identification}
-Where PINNs have a poor performance in comparison to FEM in solving linear ODEs they perform very well in many data-driven approaches. One is the prediction of unknown parameters from data, e.g. measurements.
-
-\subsection*{A PINN to predict Elastic Modulus from simulated measurement Data}
-We now assume that the elastic modulus is an unknown material property due inhomogeneities of the material. Such an inhomogeneity could be rust in an iron beam, for example. On the other hand we assume that the deflection of the beam is known in form of simulated measurements.For this purpose we turn back to the form (\ref{PrincipalEulerBernoulli}) of the Euler-Bernoulli equation with variable $E = E(x) $:
+\subsection*{Statement of the Parameter Identification Problem}
+We now assume that the elastic modulus is an unknown material property due inhomogeneities of the material. Such an inhomogeneity could be rust in an iron beam, for example. On the other hand we assume that the deflection of the beam is known in form of simulated measurements. For this purpose we turn back to the form (\ref{PrincipalEulerBernoulli}) of the Euler-Bernoulli equation with variable $E = E(x) $:
 $$
 \frac{\mathrm{d}^2}{\mathrm{d}x^2} \left( E(x)\cdot I \cdot \frac{\mathrm{d}^2 w(x)}{\mathrm{d}x^2} \right) = q(x) \text{ for } x \in (0,L),\\
 $$
@@ -415,6 +463,9 @@ subject to the boundary conditions (\ref{DimensionlessBoundaryConditions}) where
 \begin{equation*}
 e(\xi ) = \frac{E( x ) }{E_{\mathrm{char}}}\text{ and } E_{\mathrm{char}} = \mathrm{max}_{x\in \lbrack 0, L \rbrack } E(x) .
 \end{equation*}
+
+\subsection*{Setup of the PINN and the Solvers}
+
 Following \cite{teloli2024solving} two neural networks are to be trained now:
 \begin{itemize}
 \item
@@ -483,7 +534,7 @@ $ \alpha_5 $ & 1e-3 \\
 \label{LossFunctionAdjustment}
 \end{table}
 
-Again, a combinationof an ADAM solver and a LBFGS solver has been used. The adjustments are given in the tables \ref{AdamSetup2} and \ref{LBFGSSetup2}.
+Again, a combination of an ADAM solver and a LBFGS solver has been used. The adjustments are given in the tables \ref{AdamSetup2} and \ref{LBFGSSetup2}.
 
 \begin{table}[htbp]
 \centering
@@ -517,6 +568,8 @@ Stopping & $10^{-5} $ for the gradients, $10^{-9} $ for the MSE\\
 \label{LBFGSSetup2}
 \end{table}
 
+\subsection*{Results of the PINN Training}
+
 With these values the two PINNs $\mathscr{V}$ and $\mathscr{E} $ have been trained using Python and PyTorch. Therefore 100 pairs of random integers - each uniformly distributed between 0 and 100- are generated. Then the first random number of each pair is used to generate a normally distributed noise with zero mean and standard deviation of 0.002506 to be added to the exact solution $v(\xi ) $. This will simulate measured data which randomly vary around the exact solution. The second random number sets the seed for the randomly generated initial weights of the two neural networks $\mathscr{V}$ and $\mathscr{E} $.
 For 99 out of the 100 samples we have the following 
 \begin{table}[h!]
@@ -545,9 +598,9 @@ There is one pathological case where the approximation seriously fails:
 \midrule
 Data loss & 9.90e-5\\
 Physics loss & 1.095e-4 \\
-Boundary loss & < 1.640e-2 \\
-Max difference in $E $ & < 1.574e11 Pa \\
-R² value & > 0.937 \\
+Boundary loss &  1.640e-2 \\
+Max difference in $E $ & 1.574e11 Pa \\
+R² value &  0.937 \\
 \bottomrule
 \end{tabular}
 \caption{Results for the pathological case.}
@@ -557,7 +610,7 @@ The poor approximation of this case may be easily seen in the following diagram:
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Charts/Dataset with minimal R2Deflection_PINN.png}
-    \caption{Estimated $w$ and simulated measurements.}
+    \caption{Pathologically estimated $w$ vs simulated measurements.}
 \end{figure}
 
 Beyond the wrong shape the boundary conditions are obviously not fulfilled. The following chart which shows the exact solution $w$ versus the measured values seems to say that the measured values are not the reason for the poor approximation.
@@ -565,7 +618,7 @@ Beyond the wrong shape the boundary conditions are obviously not fulfilled. The 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Charts/Dataset with minimal R2Deflection_exact.png}
-    \caption{Eaxct $w$ and simulated measurements.}
+    \caption{Exact $w$ and simulated measurements. The estimations for $w$ in the 99 good cases will be visually the same as the exact $w$, since the MSE is below 1e-5.}
 \end{figure}
 
 Two of the 99 good samples have the same random seed as the pathological sample and thus the same generated measured values. It follows that these simulated measurements are not the reason for the poor approximation quality. Furthermore, choosing another random initial weights for the PINN training will solve the problem. Choosing another solver than ADAM or skipping ADAM to train only with LBFGS could be another solution.
@@ -601,9 +654,9 @@ For one single sample the estimation of elastic modulus failed producing results
 \item
 The very fine and careful setup of the network architecture, the solver settings and the loss balancing may be improved by varying these parameters in a systematic way. It is desirable to reduce the number of epochs without loosing precision. This probably can be achieved by another balancing of the loss contributions, a modification of the PINN architecture and better settings for the solver.
 \item
-The calculations have been done in Python using Pytorch. To reduce the calculation time an implementation in C++ would be more adequate. One of the most performant  C++ frameworks is OpenNN which is far faster than Tensorflow or Pytorch. Unfortunately, OpenNN does not really support the use of PINNs, especially there is no automatic differentiation and no possibility to access the loss function of the hidden layers via the OpenNN API. The other C++ Machine Learning framework, MLPack, has similar difficulties with PINN and does not support PINNS very well.
+The calculations have been done in Python using Pytorch. To reduce the calculation time an implementation in C++ would be more adequate. One of the most performant  C++ frameworks is OpenNN which is far faster than Tensorflow or Pytorch. Unfortunately, OpenNN does not really support the use of PINNs, especially there is no automatic differentiation and no possibility to access the loss function of the hidden layers via the OpenNN API. The other C++ Machine Learning framework, MLPack, has similar difficulties with PINN and does not support PINNs very well.
 \item
-A way to implement a PINN study in C++ could be the use of the Pytorch C+ +API. That may be as not as fast as OpenNN or MLPack but faster than any Python implementation.
+A way to implement a PINN study in C++ could be the use of the Pytorch C++ API. That may be as not as fast as OpenNN or MLPack but faster than any Python implementation.
 \end{enumerate}
 
 
