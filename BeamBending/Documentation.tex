@@ -35,7 +35,7 @@
 % Tables
 \usepackage{booktabs}
 
-\usepackage{lmodern}  % Modernere Schrift
+% \usepackage{lmodern}  % Modernere Schrift
 
 % Farben definieren
 \definecolor{mainblue}{RGB}{0,70,127}
@@ -63,7 +63,7 @@
 \usepackage{hyperref} % Für klickbare Links im PDF
 
 % Header and footer
-
+\def\title
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
@@ -108,10 +108,12 @@
   \fancyhf{}
   \renewcommand{\headrulewidth}{0.4pt}
   \renewcommand{\footrulewidth}{0.4pt}
-  \fancyhead[L]{Beam Equation and PINN}
-  \fancyhead[R]{\thepage}
+  %\fancyhead[L]{Beam Equation and PINN}
+  %\fancyhead[R]{\thepage}
+  \fancyhead[C]{The Euler-Bernoulli Beam Equation and Physics Informed Neural Networks (PINN)}
   % \fancyfoot[L]{\textcolor{footergray}{Robert Haas – Technical Software and Mathematics}}
-  % \fancyfoot[C]{\textcolor{footergray}{Page \thepage\ of \pageref{LastPage}}}
+  \fancyfoot[L]{\textcolor{footergray}{\today}}
+  \fancyfoot[R]{\textcolor{footergray}{Page \thepage\ of \pageref{LastPage}}}
 }
 
 \begin{document}
@@ -175,6 +177,7 @@ A numerical study for the 1D Euler-Bernoulli equation for a deflected beam is do
 
 \section{The Euler-Bernoulli Equation of a Beam}
 
+We consider an elastic beam and its behaviour a certain load. For the calculation of different physical we will use physics informed neural networks (PINN). An elaborate introduction into the theory of deflected beams can be found in \cite[pp. 88]{gross2007mechanics}.
 For studying the defection behavior of a beam we consider a beam with the following assumptions:
 \begin{enumerate}
 \item[(A1)] The beam under consideration is a cantilever beam: At one end the beam is fixed in that way, that there is no displacement and no rotation allowed. At the other end -the free end- displacement and rotation are allowed to occur.
@@ -253,10 +256,9 @@ The equation (\ref{DimensionlessEulerBernoulliConstantE}) is crucial for the app
 
 
 \subsection*{The Finite-Element Method (FEM) for solving the Euler-Bernoulli Equation}
-The FEM is set up for the the dimensionless problem (\ref{DimensionlessEulerBernoulliConstantE}) and the boundary conditions (\ref{DimensionlessBoundaryConditions}). Here, classical 1D beam elements (third order Hermite polynomials) on 99 elements are used to solve this equation. The theory on FEM to solve the Euler-Bernoulli equation can be found in any good text book.
-The results of the calculation will be shortly presented in Table \ref{ComparisonFwdProblem}.
-
-\begin{comment}
+The FEM is set up for the dimensionless problem (\ref{DimensionlessEulerBernoulliConstantE}) and the boundary conditions (\ref{DimensionlessBoundaryConditions}). Here, classical 1D beam elements (third order Hermite polynomials) on 99 elements are used to solve this equation. 
+Following \cite[pp. 62--69]{schwarz1991methode} one has
+%
 \[
 \mathbf{k}_e = \frac{EI}{L^3}
 \begin{bmatrix}
@@ -266,7 +268,7 @@ The results of the calculation will be shortly presented in Table \ref{Compariso
 6L & 2L^2 & -6L & 4L^2 \\
 \end{bmatrix}
 \]
-
+as element stiffness matrix, and
 \begin{equation*}
 \mathbf{f}_e = \frac{q L}{2}
 \begin{bmatrix}
@@ -276,11 +278,17 @@ The results of the calculation will be shortly presented in Table \ref{Compariso
 -\frac{L}{6} \\
 \end{bmatrix}
 \end{equation*}
-\end{comment}
+%
+as nodal load vector. This setting yields to the typical Hermite shape functions, cf \cite[p. 69]{schwarz1991methode}.
+With this setting the FEM has been done for (\ref{DimensionlessEulerBernoulliConstantE}) and (\ref{DimensionlessBoundaryConditions}), precisely for its variational form, i.e.
+\begin{equation*}
+\int_0^1 \frac{\mathrm{d}^2 v(\xi)}{\mathrm{d}\xi^2} \cdot \frac{\mathrm{d}^2 \phi (\xi)}{\mathrm{d}\xi^2} \mathrm{d}\xi = \int_0^1 1 \cdot \phi (\xi) \mathrm{d}\xi ,
+\end{equation*}
+where $ \phi \in \mathscr{M} $ as well as  $ \phi \in \mathscr{M}^\star = \mathscr{M} \cap \{ u : \text{  (\ref{DimensionlessBoundaryConditions})  is defined for sufficiently regular $u$ and fulfilled by $u$  }\} $ where $ \mathscr{M} = \{ u \in H^2(0,1) :\; u(0) = \mathrm{d}u / \mathrm{d}x (0) = 0 \} $. Since the FEM space is spanned by the sufficiently regular Hermite shape functions, the set $ \mathscr{M}^\star $ is non-empty. The results of the calculation will be shortly presented in Table \ref{ComparisonFwdProblem}.
 
 \section{The Idea of a Physics Informed Neural Network (PINN)}
 
-Neural Networks are usually used for either for \emph{classification} or \emph{approximation}. A short introduction to neural networks can be found in \cite{rojas1993neuronale} and \cite[pp. 809]{stoecker1995formeln} for example. Today the main applications of neural networks contain classification. On the other hand, neural networks can be used to approximate an (unknown) function $v$. If this function $v$ arises from a physics or engineering context, i.e. from a mathematical equation of  physics the equation structure will be incorporated into the neural network or the learning algorithm in some way. In this case the neural network is often called \emph{phyiscs informed neural networks (PINN)}. Here the key task is to construct an approximation $ \hat{v} $ for the unknown $v$. Assuming there is a PINN of $n$ layers then the output $O^{(k)} $of layer $k$ is connected to the output $O^{(k-1)} $ of layer $k-1$ via
+Neural Networks are usually used for either for \emph{classification} or \emph{approximation}. A short introduction to neural networks can be found in \cite[pp. 809]{stoecker1995formeln}, \cite{rey2011neuralnetworks} and \cite{rojas1993neuronale}. Today the main applications of neural networks contain classification. On the other hand, neural networks can be used to approximate an (unknown) function $v$. If this function $v$ arises from a physics or engineering context, i.e. from a mathematical equation of  physics the equation structure will be incorporated into the neural network or the learning algorithm in some way. In this case the neural network is often called \emph{phyiscs informed neural networks (PINN)}. Here the key task is to construct an approximation $ \hat{v} $ for the unknown $v$. Assuming there is a PINN of $n$ layers then the output $O^{(k)} $of layer $k$ is connected to the output $O^{(k-1)} $ of layer $k-1$ via
 \begin{equation*}
 O^{(k)}_i = f^{(k-1)}\left( b^{(k-1)}_i + \sum_j \theta^{(k-1)}_{i,j} O^{(k-1)}_j \right),
 \end{equation*}
@@ -666,34 +674,37 @@ A way to implement a PINN study in C++ could be the use of the Pytorch C++ API. 
 % \bibitem{duque2015beam}
 % D.~Duque, \emph{A derivation of the beam equation}, arXiv preprint arXiv:1512.01171, 2015. [Online]. Available: \url{https://arxiv.org/abs/1512.01171}
 
-\begin{comment}
-\bibitem{gross}
+\bibitem{gross2007mechanics}
 D.~Gross, W.~Hauger, J.~Schröder and W.~A. Wall,
-\emph{Technische Mechanik 2: Elastostatik: Band 2: Elastostatik}
-10th rev.ed., Springer-Verlag Berlin Heidelberg, 2009.
-\end{comment}
+\emph{Technische Mechanik 2: Elastostatik}
+9th rev.ed., Springer-Verlag Berlin Heidelberg New York, 2007.
 
 \bibitem{hoffmann2014modellierung}
 K.-H. Hoffmann and G. Witterstein, 
 \emph{Mathematische Modellierung: Grundprinzipien in Natur- und Ingenieurwissenschaften}, 
-Mathematik Kompakt, Birkhäuser Basel, 1st ed. (corrected reprint), 2014.
+Mathematik Kompakt, 1st ed. (corrected reprint), Birkhäuser, Basel, 2014.
 
-\begin{comment}
-\bibitem{raissi2019physics}
-M.~Raissi, P.~Perdikaris, and G.~E. Karniadakis, 
-\emph{Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear partial differential equations}, 
-Journal of Computational Physics, vol. 378, pp. 686–707, 2019. [Online]. Available: \url{https://arxiv.org/pdf/1907.04502}
-\end{comment}
-
-\bibitem{rojas1993neuronale}
-R.~Rojas,
-\emph{Theorie der neuronalen Netze: Eine systematische Einführung},
-1st ed. (corrected reprint 1996), Springer-Lehrbuch, Springer-Verlag Berlin, 1993.
+\bibitem{schwarz1991methode}
+H.-R. Schwarz,
+\emph{Methode der finiten Elemente. Eine Einführung unter besonderer Berücksichtigung der Rechenpraxis},
+Leitfäden der angewandten Mathematik und Mechanik, Teubner Studienbücher, Volume 47, 3rd rev. ed., B. G. Teubner, Stuttgart, 1991.
 
 \bibitem{stoecker1995formeln}
 H.~Stöcker, 
 \emph{Taschenbuch mathematischer Formeln und moderner Verfahren}, 
 3rd rev. and ext. ed., Harri Deutsch Verlag, Frankfurt am Main, 1995.
+
+\bibitem{rey2011neuralnetworks}
+G.~D. Rey, and K.~F. Wender
+\emph{Neuronale Netze}, 
+2nd rev. and ext. ed., Verlag Hans Huber, Bern, 2011
+
+\bibitem{rojas1993neuronale}
+R.~Rojas,
+\emph{Theorie der neuronalen Netze: Eine systematische Einführung},
+Springer-Lehrbuch, 1st ed. (corrected reprint 1996), Springer-Verlag, Berlin, 1993.
+
+
 
 \bibitem{teloli2024solving}
 C.~Teloli, A.~Titarelli, A.~Guerrieri, and S.~Vidoli, 
