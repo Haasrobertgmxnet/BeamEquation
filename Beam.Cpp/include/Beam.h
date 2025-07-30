@@ -4,21 +4,34 @@
 #include "Global.h"
 
 namespace Beam {
-    // Physics informed neural network
+
+    /**
+     * @brief A Physics-Informed Neural Network (PINN) model for 1D Euler-Bernoulli beam deflection.
+     *
+     * Network architecture:
+     *     Input: x ∈ ℝ¹
+     *     Hidden: two fully-connected layers with tanh activation
+     *     Output: u(x) ∈ ℝ¹
+     */
     class PINN : public torch::nn::Module {
     public:
         PINN() {
-            // Network definition: 1 Input x -> 5 Hidden -> 5 Hidden -> 1 Output (u)
+            // Network structure: 1 input → 5 neurons → 5 neurons → 1 output
             fc1 = register_module("fc1", torch::nn::Linear(1, 5));
             fc2 = register_module("fc2", torch::nn::Linear(5, 5));
             fc3 = register_module("fc3", torch::nn::Linear(5, 1));
 
-            // Gewichte initialisieren
+            // Initialize weights using Xavier initialization
             torch::nn::init::xavier_uniform_(fc1->weight);
             torch::nn::init::xavier_uniform_(fc2->weight);
             torch::nn::init::xavier_uniform_(fc3->weight);
         }
 
+        /**
+         * @brief Forward pass of the PINN.
+         * @param x Input tensor of shape (N, 1)
+         * @return Network output tensor of shape (N, 1)
+         */
         torch::Tensor forward(torch::Tensor x) {
             x = torch::tanh(fc1->forward(x));
             x = torch::tanh(fc2->forward(x));
@@ -30,7 +43,9 @@ namespace Beam {
         torch::nn::Linear fc1{ nullptr }, fc2{ nullptr }, fc3{ nullptr };
     };
 
-    // Losses
+    /**
+     * @brief Struct to hold different loss components.
+     */
     struct Losses {
         torch::Tensor total;
         torch::Tensor physics;
@@ -38,43 +53,54 @@ namespace Beam {
         torch::Tensor l2_reg;
     };
 
+    // Number of epochs for training with Adam optimizer
     constexpr auto adam_epochs = uint16_t{ 500 };
     constexpr auto adam_epochs_diff = uint16_t{ 100 };
 
-    // Generate training data
-    std::pair<torch::Tensor, torch::Tensor> generate_training_data(const int n_points = 100) {
+    /**
+     * @brief Generates random 1D training points in the interval [0, 1].
+     * @param n_points Number of training samples
+     * @return Tensor: input x in R^n
+     */
+    torch::Tensor generate_training_data(const int n_points = 100) {
         auto options = torch::TensorOptions().dtype(torch::kFloat32).requires_grad(true);
-
-        // // Randomly samples 1D points x in [0, 1]
-        // auto x = torch::linspace(0.0, 1.0, n_points, options).unsqueeze(1);
-        auto x = torch::rand({ n_points, 1 }, options) * 1.0;  // x in [0, 1]
-        auto y = torch::zeros_like(x); // dummy target, if necessary
-
-        return { x, y };
+        auto x = torch::rand({ n_points, 1 }, options);  // Random points in [0, 1]
+        return x;
     }
 
-    // Generate boundary conditions
+    /**
+     * @brief Computes the boundary condition loss for the beam.
+     *
+     * Enforces:
+     * - u(0) = 0
+     * - u'(0) = 0
+     * - u''(1) = 0
+     * - u'''(1) = 0
+     *
+     * @param model The PINN model
+     * @return Mean squared error of all boundary residuals
+     */
     torch::Tensor boundary_loss(PINN& model) {
         auto options = torch::TensorOptions().dtype(torch::kFloat32).requires_grad(true);
 
-        // Point x = 0
+        // x = 0 point
         auto x0 = torch::zeros({ 1, 1 }, options).set_requires_grad(true);
         auto u0 = model.forward(x0);
-        auto du0 = torch::autograd::grad({ u0 }, { x0 }, /*grad_outputs=*/{ torch::ones_like(u0) },
-            /*retain_graph=*/Global::keep_graph, /*create_graph=*/true)[0];
+        auto du0 = torch::autograd::grad({ u0 }, { x0 }, { torch::ones_like(u0) },
+            Global::keep_graph, true)[0];
 
-        // Point x = 1
+        // x = 1 point
         auto x1 = torch::ones({ 1, 1 }, options).set_requires_grad(true);
         auto u1 = model.forward(x1);
 
         auto du1 = torch::autograd::grad({ u1 }, { x1 }, { torch::ones_like(u1) },
-            /*retain_graph=*/Global::keep_graph, /*create_graph=*/true)[0];
+            Global::keep_graph, true)[0];
         auto d2u1 = torch::autograd::grad({ du1 }, { x1 }, { torch::ones_like(du1) },
-            /*retain_graph=*/Global::keep_graph, /*create_graph=*/true)[0];
+            Global::keep_graph, true)[0];
         auto d3u1 = torch::autograd::grad({ d2u1 }, { x1 }, { torch::ones_like(d2u1) },
-            /*retain_graph=*/Global::keep_graph, /*create_graph=*/true)[0];
+            Global::keep_graph, true)[0];
 
-        // Boundary loss
+        // Sum of MSE losses for each boundary condition
         auto loss = torch::mse_loss(u0, torch::zeros_like(u0)) +
             torch::mse_loss(du0, torch::zeros_like(du0)) +
             torch::mse_loss(d2u1, torch::zeros_like(d2u1)) +
@@ -83,41 +109,48 @@ namespace Beam {
         return loss;
     }
 
-    // Physics loss
+    /**
+     * @brief Computes the physics loss (residual of the Euler-Bernoulli beam equation).
+     *
+     * The differential equation:
+     *     EI * d⁴u/dx⁴ = q(x)
+     * where q(x) = 1 is used here.
+     *
+     * @param model The PINN model
+     * @param input Sample input points (x ∈ ℝ^{N×1})
+     * @param EI Bending stiffness coefficient (default = 1.0)
+     * @return MSE of the PDE residuals
+     */
     torch::Tensor physics_loss(PINN& model, torch::Tensor input, float EI = 1.0f) {
         try {
-            auto x = input.clone().requires_grad_(true);  // input in R^{N×1}, nur x
-
+            auto x = input.clone().requires_grad_(true);
             auto u = model.forward(x);
             auto ones = torch::ones_like(u);
 
-            // First derivative
             auto du_dx = torch::autograd::grad({ u }, { x }, { ones }, Global::keep_graph, true)[0];
-
-            // Second derivative
             auto d2u_dx2 = torch::autograd::grad({ du_dx }, { x }, { ones }, Global::keep_graph, true)[0];
-
-            // Third derivative
             auto d3u_dx3 = torch::autograd::grad({ d2u_dx2 }, { x }, { ones }, Global::keep_graph, true)[0];
-
-            // Fourth derivative
             auto d4u_dx4 = torch::autograd::grad({ d3u_dx3 }, { x }, { ones }, Global::keep_graph, true)[0];
 
-            // right hand side of the ODE: here q(x) = const. = 1
-            auto q = torch::ones_like(x);  // oder eine Funktion von x
+            auto q = torch::ones_like(x);  // Constant load q(x) = 1
 
-            // Euler-Bernoulli equation: E*I*d4u/dx4 = q
             auto residual = EI * d4u_dx4 - q;
 
             return torch::mean(residual.pow(2));
         }
         catch (const std::exception& e) {
-            std::cerr << "Fehler in physics_loss: " << e.what() << std::endl;
+            std::cerr << "Error in physics_loss: " << e.what() << std::endl;
             return torch::tensor(0.0f, torch::requires_grad(true));
         }
     }
 
-    // L2 Regularisation / Tikhonov regularisation
+    /**
+     * @brief Computes L2 (Tikhonov) regularization loss on all model parameters.
+     *
+     * @param model The PINN model
+     * @param lambda_reg Regularization strength (0 = no regularization)
+     * @return Scalar L2 regularization loss
+     */
     torch::Tensor compute_l2_regularization(PINN& model, const float lambda_reg) {
         if (lambda_reg <= 0.0f) {
             return torch::zeros({ 1 }, torch::TensorOptions().dtype(torch::kFloat32));
@@ -131,18 +164,23 @@ namespace Beam {
         return lambda_reg * l2;
     }
 
-    // All losses
+    /**
+     * @brief Computes the total loss and its components (physics, boundary, L2).
+     *
+     * Total loss = physics + 2 × boundary + 1 × L2 (hardcoded weights)
+     *
+     * @param model The PINN model
+     * @param physics_input Input points for physics loss
+     * @return Struct containing all loss terms
+     */
     Losses compute_losses(PINN& model, const torch::Tensor& physics_input) {
         try {
-            // Physics loss (PDE Residuum)
             auto loss_physics = physics_loss(model, physics_input);
-
-            // Boundary condition loss
             auto loss_boundary = boundary_loss(model);
-
             auto l2_reg = compute_l2_regularization(model, 0.0f);
 
-            auto total = loss_physics + 2.0f * loss_boundary + 1.0f * l2_reg;
+            auto total = loss_physics + 2.0f * loss_boundary + l2_reg;
+
             return { total, loss_physics, loss_boundary, l2_reg };
         }
         catch (const std::exception& e) {
@@ -151,4 +189,61 @@ namespace Beam {
             return { dummy, dummy, dummy, dummy };
         }
     }
+
+    /**
+ * @brief Visualizes the solution u(x) in R of the trained PINN model on [0, 1].
+ *
+ * Prints x and u(x) values on a grid to the console in tabular form.
+ *
+ * @param model The trained PINN model (inference mode is set internally)
+ * @param grid_size Number of equally spaced evaluation points in [0, 1]
+ */
+    void visualize_solution(PINN& model, int grid_size = 20) {
+        model.eval();                          // Set model to inference mode
+        torch::NoGradGuard no_grad;           // Disable gradient calculation
+
+        // Detect device used by model parameters (CPU or CUDA)
+        torch::Device device = torch::kCPU;
+        for (const auto& p : model.parameters()) {
+            device = p.device(); break;
+        }
+
+        auto options = torch::TensorOptions().dtype(torch::kFloat32).device(device);
+
+        std::cout << "\nSolution of the Euler-Bernoulli beam equation on [0, 1]:\n";
+
+        for (int i = 0; i < grid_size; ++i) {
+            float x_val = static_cast<float>(i) / (grid_size - 1);  // Linearly spaced point in [0, 1]
+            auto x_tensor = torch::tensor({ {x_val} }, options);    // Shape [1, 1]
+
+            torch::Tensor u_pred;
+            try {
+                u_pred = model.forward(x_tensor);  // Predict u(x)
+            }
+            catch (const c10::Error& e) {
+                std::cerr << "Error during forward pass at x = " << x_val << ": " << e.what() << "\n";
+                continue;
+            }
+
+            // Convert tensor to float and print result
+            float u_val = u_pred.detach().to(torch::kCPU).item<float>();
+            std::cout << std::fixed << std::setprecision(2) << x_val << "\t" << std::setprecision(5) << u_val << "\n";
+        }
+    }
 }
+
+/*
+Vorschläge und Anmerkungen (keine Code-Änderung!):
+Hardcoded loss weights (+2.0f * boundary etc.) könnten als Konstante oder Parameter geführt werden.
+
+Die Verwendung von Global::keep_graph ist etwas "magisch" – eventuell explizit dokumentieren oder kapseln.
+
+In physics_loss: Bei Problemen mit Gradientenstabilität wäre ein optionaler Check der .grad_fn() hilfreich.
+
+std::pair<torch::Tensor, torch::Tensor> in generate_training_data() enthält ein Dummy-Ziel. Vielleicht besser std::tuple<torch::Tensor> oder ein spezieller Struct.
+
+Fehlerbehandlung (try-catch) ist gut — aber torch::tensor(0.0f, ...) ohne Device-Spezifikation kann zu Problemen führen (nur wenn du CUDA verwendest).
+
+
+
+*/

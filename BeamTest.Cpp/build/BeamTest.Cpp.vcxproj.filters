@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\haasr\source\repos\BeamEquation\BeamTest.Cpp\test_beam.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\haasr\source\repos\BeamEquation\BeamTest.Cpp\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{E51A2362-F0CA-3813-8EBE-9478139F970F}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
