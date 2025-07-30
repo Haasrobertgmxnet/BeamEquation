@@ -20,9 +20,6 @@
     <ClInclude Include="..\include\Beam.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Burgers.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Global.h">
       <Filter>include</Filter>
     </ClInclude>

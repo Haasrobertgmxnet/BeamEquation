@@ -260,22 +260,22 @@ The FEM is set up for the dimensionless problem (\ref{DimensionlessEulerBernoull
 Following \cite[pp. 62--69]{schwarz1991methode} one has
 %
 \[
-\mathbf{k}_e = \frac{EI}{L^3}
+\mathbf{k}_e = \frac{1}{L^3}
 \begin{bmatrix}
-12 & 6L & -12 & 6L \\
-6L & 4L^2 & -6L & 2L^2 \\
--12 & -6L & 12 & -6L \\
-6L & 2L^2 & -6L & 4L^2 \\
+12 & 6 & -12 & 6 \\
+6 & 4 & -6 & 2 \\
+-12 & -6 & 12 & -6 \\
+6 & 2 & -6 & 4 \\
 \end{bmatrix}
 \]
 as element stiffness matrix, and
 \begin{equation*}
-\mathbf{f}_e = \frac{q L}{2}
+\mathbf{f}_e = \frac{L}{12}
 \begin{bmatrix}
+6 \\
 1 \\
-\frac{L}{6} \\
-1 \\
--\frac{L}{6} \\
+6 \\
+-1 \\
 \end{bmatrix}
 \end{equation*}
 %
