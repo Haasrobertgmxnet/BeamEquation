@@ -32,6 +32,7 @@ namespace Beam {
          * @param x Input tensor of shape (N, 1)
          * @return Network output tensor of shape (N, 1)
          */
+        [[nodiscard]]
         torch::Tensor forward(torch::Tensor x) {
             x = torch::tanh(fc1->forward(x));
             x = torch::tanh(fc2->forward(x));
@@ -62,6 +63,7 @@ namespace Beam {
      * @param n_points Number of training samples
      * @return Tensor: input x in R^n
      */
+    [[nodiscard]]
     torch::Tensor generate_training_data(const int n_points = 100) {
         auto options = torch::TensorOptions().dtype(torch::kFloat32).requires_grad(true);
         auto x = torch::rand({ n_points, 1 }, options);  // Random points in [0, 1]
@@ -80,6 +82,7 @@ namespace Beam {
      * @param model The PINN model
      * @return Mean squared error of all boundary residuals
      */
+    [[nodiscard]]
     torch::Tensor boundary_loss(PINN& model) {
         auto options = torch::TensorOptions().dtype(torch::kFloat32).requires_grad(true);
 
@@ -121,6 +124,7 @@ namespace Beam {
      * @param EI Bending stiffness coefficient (default = 1.0)
      * @return MSE of the PDE residuals
      */
+    [[nodiscard]]
     torch::Tensor physics_loss(PINN& model, torch::Tensor input, float EI = 1.0f) {
         try {
             auto x = input.clone().requires_grad_(true);
@@ -151,6 +155,7 @@ namespace Beam {
      * @param lambda_reg Regularization strength (0 = no regularization)
      * @return Scalar L2 regularization loss
      */
+    [[nodiscard]]
     torch::Tensor compute_l2_regularization(PINN& model, const float lambda_reg) {
         if (lambda_reg <= 0.0f) {
             return torch::zeros({ 1 }, torch::TensorOptions().dtype(torch::kFloat32));
@@ -173,6 +178,7 @@ namespace Beam {
      * @param physics_input Input points for physics loss
      * @return Struct containing all loss terms
      */
+    [[nodiscard]]
     Losses compute_losses(PINN& model, const torch::Tensor& physics_input) {
         try {
             auto loss_physics = physics_loss(model, physics_input);
@@ -191,44 +197,42 @@ namespace Beam {
     }
 
     /**
- * @brief Visualizes the solution u(x) in R of the trained PINN model on [0, 1].
- *
- * Prints x and u(x) values on a grid to the console in tabular form.
- *
- * @param model The trained PINN model (inference mode is set internally)
- * @param grid_size Number of equally spaced evaluation points in [0, 1]
- */
-    void visualize_solution(PINN& model, int grid_size = 20) {
-        model.eval();                          // Set model to inference mode
-        torch::NoGradGuard no_grad;           // Disable gradient calculation
+     * @brief Visualizes the solution u(x) in R of the trained PINN model on [0, 1].
+     *
+     * Calculates u(x) for the x values on a grid.
+     *
+     * @param model The trained PINN model (inference mode is set internally)
+     * @param grid_size Number of equally spaced evaluation points in [0, 1]
+     * @return torch::tensor containing u(x)
+     */
+    [[nodiscard]]
+    torch::Tensor model_forward_wrapper(PINN& model, const int grid_size = 20) {
+        auto options = torch::TensorOptions().dtype(torch::kFloat32);
+        torch::Tensor x_tensor_ = torch::linspace(0.0, 1.0, grid_size, options).clone();
 
-        // Detect device used by model parameters (CPU or CUDA)
-        torch::Device device = torch::kCPU;
-        for (const auto& p : model.parameters()) {
-            device = p.device(); break;
+        torch::Tensor u_pred;
+        try {
+            auto x_tensor = x_tensor_.unsqueeze(1);
+            u_pred = model.forward({ x_tensor });
         }
-
-        auto options = torch::TensorOptions().dtype(torch::kFloat32).device(device);
-
-        std::cout << "\nSolution of the Euler-Bernoulli beam equation on [0, 1]:\n";
-
-        for (int i = 0; i < grid_size; ++i) {
-            float x_val = static_cast<float>(i) / (grid_size - 1);  // Linearly spaced point in [0, 1]
-            auto x_tensor = torch::tensor({ {x_val} }, options);    // Shape [1, 1]
-
-            torch::Tensor u_pred;
-            try {
-                u_pred = model.forward(x_tensor);  // Predict u(x)
-            }
-            catch (const c10::Error& e) {
-                std::cerr << "Error during forward pass at x = " << x_val << ": " << e.what() << "\n";
-                continue;
-            }
-
-            // Convert tensor to float and print result
-            float u_val = u_pred.detach().to(torch::kCPU).item<float>();
-            std::cout << std::fixed << std::setprecision(2) << x_val << "\t" << std::setprecision(5) << u_val << "\n";
+        catch (const c10::Error& e) {
+            std::cerr << "Error during forward: " << e.what() << "\n";
+            return u_pred;
         }
+        return u_pred;
+    }
+
+    /**
+     * @brief Visualizes the solution u(x) in R of the trained PINN model on [0, 1].
+     *
+     * Prints x and u(x) values on a grid to the console in tabular form.
+     *
+     * @param model The trained PINN model (inference mode is set internally)
+     * @param grid_size Number of equally spaced evaluation points in [0, 1]
+     */
+    void visualize_solution(PINN& model, const int grid_size = 20) {
+        torch::Tensor u_pred = model_forward_wrapper(model, grid_size);
+        std::cout << "u_pred:\n" << u_pred << "\n";
     }
 }
 

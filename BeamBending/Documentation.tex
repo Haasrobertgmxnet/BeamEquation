@@ -178,6 +178,7 @@ A numerical study for the 1D Euler-Bernoulli equation for a deflected beam is do
 \section{The Euler-Bernoulli Equation of a Beam}
 
 We consider an elastic beam and its behaviour a certain load. For the calculation of different physical we will use physics informed neural networks (PINN). An elaborate introduction into the theory of deflected beams can be found in \cite[pp. 88]{gross2007mechanics}.
+More general, the textbooks \cite{gross2007mechanics} and \cite[\S 5.10]{eck2008modellierung} provide the mechanical and mathematical theory of elastic bodies which contains the topic of beam deflection.
 For studying the defection behavior of a beam we consider a beam with the following assumptions:
 \begin{enumerate}
 \item[(A1)] The beam under consideration is a cantilever beam: At one end the beam is fixed in that way, that there is no displacement and no rotation allowed. At the other end -the free end- displacement and rotation are allowed to occur.
@@ -240,6 +241,7 @@ x &=& \xi\cdot L, \\
 w_{\mathrm{char}} & = & \frac{q\cdot L^4}{E\cdot I }, \\
 \frac{\mathrm{d}^4 w(x)}{\mathrm{d}x^4} & = & \frac{w_{\mathrm{char}}}{L^4}\cdot \frac{\mathrm{d}^4 v(\xi)}{\mathrm{d}\xi^4}.
 \end{eqnarray*}
+Equation (\ref{DimensionlessEulerBernoulliConstantE}) is just the first variation of energy functional of an elastic beam discussed in\cite[p. 166]{eck2008modellierung}.
 Here $E_{\mathrm{char}} $ may be chosen as 
 \begin{equation*}
 E_{\mathrm{char}} = \mathrm{max}_{x\in \lbrack 0,L \rbrack } E(x) .
@@ -678,6 +680,11 @@ A way to implement a PINN study in C++ could be the use of the Pytorch C++ API. 
 D.~Gross, W.~Hauger, J.~Schröder and W.~A. Wall,
 \emph{Technische Mechanik 2: Elastostatik}
 9th rev.ed., Springer-Verlag Berlin Heidelberg New York, 2007.
+
+\bibitem{eck2008modellierung}
+C.~Eck, H.~Garcke, and P.~Knabner,
+\emph{Mathematische Modellierung}
+1st. ed., Springer-Verlag Berlin Heidelberg, 2008.
 
 \bibitem{hoffmann2014modellierung}
 K.-H. Hoffmann and G. Witterstein, 

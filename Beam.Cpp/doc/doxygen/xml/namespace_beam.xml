@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="namespace_beam" kind="namespace" language="C++">
+    <compoundname>Beam</compoundname>
+    <innerclass refid="struct_beam_1_1_losses" prot="public">Beam::Losses</innerclass>
+    <innerclass refid="class_beam_1_1_p_i_n_n" prot="public">Beam::PINN</innerclass>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespace_beam_1a3183ec89cd2a0d1b1b7b57a9d46ba840" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto Beam::adam_epochs</definition>
+        <argsstring></argsstring>
+        <name>adam_epochs</name>
+        <qualifiedname>Beam::adam_epochs</qualifiedname>
+        <initializer>= uint16_t{ 500 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="57" column="20" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="57" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="variable" id="namespace_beam_1af1739f3ac632def72662b770deae5e16" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto Beam::adam_epochs_diff</definition>
+        <argsstring></argsstring>
+        <name>adam_epochs_diff</name>
+        <qualifiedname>Beam::adam_epochs_diff</qualifiedname>
+        <initializer>= uint16_t{ 100 }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="58" column="20" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="58" bodyend="58"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="namespace_beam_1a98af83695d468d303f6d72dc4d43a976" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>torch::Tensor</type>
+        <definition>torch::Tensor Beam::generate_training_data</definition>
+        <argsstring>(const int n_points=100)</argsstring>
+        <name>generate_training_data</name>
+        <qualifiedname>Beam::generate_training_data</qualifiedname>
+        <param>
+          <type>const int</type>
+          <declname>n_points</declname>
+          <defval>100</defval>
+        </param>
+        <briefdescription>
+<para>Generates random 1D training points in the interval [0, 1]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n_points</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of training samples </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Tensor: input x in R^n </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="65" column="19" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="65" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_beam_1a078e93911aeab9c7299cf4d72f096b2b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>torch::Tensor</type>
+        <definition>torch::Tensor Beam::boundary_loss</definition>
+        <argsstring>(PINN &amp;model)</argsstring>
+        <name>boundary_loss</name>
+        <qualifiedname>Beam::boundary_loss</qualifiedname>
+        <param>
+          <type><ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref> &amp;</type>
+          <declname>model</declname>
+        </param>
+        <briefdescription>
+<para>Computes the boundary condition loss for the beam. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Enforces:<itemizedlist>
+<listitem><para>u(0) = 0</para>
+</listitem><listitem><para>u&apos;(0) = 0</para>
+</listitem><listitem><para>u&apos;&apos;(1) = 0</para>
+</listitem><listitem><para>u&apos;&apos;&apos;(1) = 0</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>model</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref> model </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Mean squared error of all boundary residuals </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="83" column="19" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="83" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_beam_1a5bb3979d535ad323771667f5dfe41374" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>torch::Tensor</type>
+        <definition>torch::Tensor Beam::physics_loss</definition>
+        <argsstring>(PINN &amp;model, torch::Tensor input, float EI=1.0f)</argsstring>
+        <name>physics_loss</name>
+        <qualifiedname>Beam::physics_loss</qualifiedname>
+        <param>
+          <type><ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref> &amp;</type>
+          <declname>model</declname>
+        </param>
+        <param>
+          <type>torch::Tensor</type>
+          <declname>input</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>EI</declname>
+          <defval>1.0f</defval>
+        </param>
+        <briefdescription>
+<para>Computes the physics loss (residual of the Euler-Bernoulli beam equation). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The differential equation: EI * d⁴u/dx⁴ = q(x) where q(x) = 1 is used here.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>model</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref> model </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Sample input points (x ∈ ℝ^{N×1}) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>EI</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bending stiffness coefficient (default = 1.0) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>MSE of the PDE residuals </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="124" column="19" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="124" bodyend="145"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_beam_1a1f20915669eb5e5ca0851aeac92dab48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>torch::Tensor</type>
+        <definition>torch::Tensor Beam::compute_l2_regularization</definition>
+        <argsstring>(PINN &amp;model, const float lambda_reg)</argsstring>
+        <name>compute_l2_regularization</name>
+        <qualifiedname>Beam::compute_l2_regularization</qualifiedname>
+        <param>
+          <type><ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref> &amp;</type>
+          <declname>model</declname>
+        </param>
+        <param>
+          <type>const float</type>
+          <declname>lambda_reg</declname>
+        </param>
+        <briefdescription>
+<para>Computes L2 (Tikhonov) regularization loss on all model parameters. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>model</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref> model </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>lambda_reg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Regularization strength (0 = no regularization) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Scalar L2 regularization loss </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="154" column="19" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="154" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_beam_1a22ac23dadc3912b5a3bcc400383e475b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_beam_1_1_losses" kindref="compound">Losses</ref></type>
+        <definition>Losses Beam::compute_losses</definition>
+        <argsstring>(PINN &amp;model, const torch::Tensor &amp;physics_input)</argsstring>
+        <name>compute_losses</name>
+        <qualifiedname>Beam::compute_losses</qualifiedname>
+        <param>
+          <type><ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref> &amp;</type>
+          <declname>model</declname>
+        </param>
+        <param>
+          <type>const torch::Tensor &amp;</type>
+          <declname>physics_input</declname>
+        </param>
+        <briefdescription>
+<para>Computes the total loss and its components (physics, boundary, L2). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Total loss = physics + 2 × boundary + 1 × L2 (hardcoded weights)</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>model</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref> model </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>physics_input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input points for physics loss </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Struct containing all loss terms </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="176" column="12" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="176" bodyend="191"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_beam_1a3671c85c927bf4f6291b78ed2edcdd99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Beam::visualize_solution</definition>
+        <argsstring>(PINN &amp;model, int grid_size=20)</argsstring>
+        <name>visualize_solution</name>
+        <qualifiedname>Beam::visualize_solution</qualifiedname>
+        <param>
+          <type><ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref> &amp;</type>
+          <declname>model</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>grid_size</declname>
+          <defval>20</defval>
+        </param>
+        <briefdescription>
+<para>Visualizes the solution u(x) in R of the trained <ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref> model on [0, 1]. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Prints x and u(x) values on a grid to the console in tabular form.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>model</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The trained <ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref> model (inference mode is set internally) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>grid_size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of equally spaced evaluation points in [0, 1] </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="201" column="10" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="201" bodyend="232"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="6" column="1"/>
+  </compounddef>
+</doxygen>

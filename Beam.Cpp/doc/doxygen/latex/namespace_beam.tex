@@ -1,0 +1,210 @@
+\doxysection{Beam Namespace Reference}
+\hypertarget{namespace_beam}{}\label{namespace_beam}\index{Beam@{Beam}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_beam_1_1_losses}{Losses}}
+\begin{DoxyCompactList}\small\item\em Struct to hold different loss components. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}}
+\begin{DoxyCompactList}\small\item\em A Physics-\/\+Informed Neural Network (\doxylink{class_beam_1_1_p_i_n_n}{PINN}) model for 1D Euler-\/\+Bernoulli beam deflection. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+torch\+::\+Tensor \mbox{\hyperlink{namespace_beam_a98af83695d468d303f6d72dc4d43a976}{generate\+\_\+training\+\_\+data}} (const int n\+\_\+points=100)
+\begin{DoxyCompactList}\small\item\em Generates random 1D training points in the interval \mbox{[}0, 1\mbox{]}. \end{DoxyCompactList}\item 
+torch\+::\+Tensor \mbox{\hyperlink{namespace_beam_a078e93911aeab9c7299cf4d72f096b2b}{boundary\+\_\+loss}} (\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}} \&model)
+\begin{DoxyCompactList}\small\item\em Computes the boundary condition loss for the beam. \end{DoxyCompactList}\item 
+torch\+::\+Tensor \mbox{\hyperlink{namespace_beam_a5bb3979d535ad323771667f5dfe41374}{physics\+\_\+loss}} (\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}} \&model, torch\+::\+Tensor input, float EI=1.\+0f)
+\begin{DoxyCompactList}\small\item\em Computes the physics loss (residual of the Euler-\/\+Bernoulli beam equation). \end{DoxyCompactList}\item 
+torch\+::\+Tensor \mbox{\hyperlink{namespace_beam_a1f20915669eb5e5ca0851aeac92dab48}{compute\+\_\+l2\+\_\+regularization}} (\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}} \&model, const float lambda\+\_\+reg)
+\begin{DoxyCompactList}\small\item\em Computes L2 (Tikhonov) regularization loss on all model parameters. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_beam_1_1_losses}{Losses}} \mbox{\hyperlink{namespace_beam_a22ac23dadc3912b5a3bcc400383e475b}{compute\+\_\+losses}} (\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}} \&model, const torch\+::\+Tensor \&physics\+\_\+input)
+\begin{DoxyCompactList}\small\item\em Computes the total loss and its components (physics, boundary, L2). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{namespace_beam_a3671c85c927bf4f6291b78ed2edcdd99}{visualize\+\_\+solution}} (\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}} \&model, int grid\+\_\+size=20)
+\begin{DoxyCompactList}\small\item\em Visualizes the solution u(x) in R of the trained \doxylink{class_beam_1_1_p_i_n_n}{PINN} model on \mbox{[}0, 1\mbox{]}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+constexpr auto \mbox{\hyperlink{namespace_beam_a3183ec89cd2a0d1b1b7b57a9d46ba840}{adam\+\_\+epochs}} = uint16\+\_\+t\{ 500 \}
+\item 
+constexpr auto \mbox{\hyperlink{namespace_beam_af1739f3ac632def72662b770deae5e16}{adam\+\_\+epochs\+\_\+diff}} = uint16\+\_\+t\{ 100 \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespace_beam_a078e93911aeab9c7299cf4d72f096b2b}\label{namespace_beam_a078e93911aeab9c7299cf4d72f096b2b} 
+\index{Beam@{Beam}!boundary\_loss@{boundary\_loss}}
+\index{boundary\_loss@{boundary\_loss}!Beam@{Beam}}
+\doxysubsubsection{\texorpdfstring{boundary\_loss()}{boundary\_loss()}}
+{\footnotesize\ttfamily torch\+::\+Tensor Beam\+::boundary\+\_\+loss (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}} \&}]{model }\end{DoxyParamCaption})}
+
+
+
+Computes the boundary condition loss for the beam. 
+
+Enforces\+:
+\begin{DoxyItemize}
+\item u(0) = 0
+\item u\textquotesingle{}(0) = 0
+\item u\textquotesingle{}\textquotesingle{}(1) = 0
+\item u\textquotesingle{}\textquotesingle{}\textquotesingle{}(1) = 0
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & The \doxylink{class_beam_1_1_p_i_n_n}{PINN} model \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Mean squared error of all boundary residuals 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_beam_8h_source_l00083}{83}} of file \mbox{\hyperlink{_beam_8h_source}{Beam.\+h}}.
+
+\Hypertarget{namespace_beam_a1f20915669eb5e5ca0851aeac92dab48}\label{namespace_beam_a1f20915669eb5e5ca0851aeac92dab48} 
+\index{Beam@{Beam}!compute\_l2\_regularization@{compute\_l2\_regularization}}
+\index{compute\_l2\_regularization@{compute\_l2\_regularization}!Beam@{Beam}}
+\doxysubsubsection{\texorpdfstring{compute\_l2\_regularization()}{compute\_l2\_regularization()}}
+{\footnotesize\ttfamily torch\+::\+Tensor Beam\+::compute\+\_\+l2\+\_\+regularization (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}} \&}]{model,  }\item[{const float}]{lambda\+\_\+reg }\end{DoxyParamCaption})}
+
+
+
+Computes L2 (Tikhonov) regularization loss on all model parameters. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & The \doxylink{class_beam_1_1_p_i_n_n}{PINN} model \\
+\hline
+{\em lambda\+\_\+reg} & Regularization strength (0 = no regularization) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Scalar L2 regularization loss 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_beam_8h_source_l00154}{154}} of file \mbox{\hyperlink{_beam_8h_source}{Beam.\+h}}.
+
+\Hypertarget{namespace_beam_a22ac23dadc3912b5a3bcc400383e475b}\label{namespace_beam_a22ac23dadc3912b5a3bcc400383e475b} 
+\index{Beam@{Beam}!compute\_losses@{compute\_losses}}
+\index{compute\_losses@{compute\_losses}!Beam@{Beam}}
+\doxysubsubsection{\texorpdfstring{compute\_losses()}{compute\_losses()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_beam_1_1_losses}{Losses}} Beam\+::compute\+\_\+losses (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}} \&}]{model,  }\item[{const torch\+::\+Tensor \&}]{physics\+\_\+input }\end{DoxyParamCaption})}
+
+
+
+Computes the total loss and its components (physics, boundary, L2). 
+
+Total loss = physics + 2 × boundary + 1 × L2 (hardcoded weights)
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & The \doxylink{class_beam_1_1_p_i_n_n}{PINN} model \\
+\hline
+{\em physics\+\_\+input} & Input points for physics loss \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Struct containing all loss terms 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_beam_8h_source_l00176}{176}} of file \mbox{\hyperlink{_beam_8h_source}{Beam.\+h}}.
+
+\Hypertarget{namespace_beam_a98af83695d468d303f6d72dc4d43a976}\label{namespace_beam_a98af83695d468d303f6d72dc4d43a976} 
+\index{Beam@{Beam}!generate\_training\_data@{generate\_training\_data}}
+\index{generate\_training\_data@{generate\_training\_data}!Beam@{Beam}}
+\doxysubsubsection{\texorpdfstring{generate\_training\_data()}{generate\_training\_data()}}
+{\footnotesize\ttfamily torch\+::\+Tensor Beam\+::generate\+\_\+training\+\_\+data (\begin{DoxyParamCaption}\item[{const int}]{n\+\_\+points = {\ttfamily 100} }\end{DoxyParamCaption})}
+
+
+
+Generates random 1D training points in the interval \mbox{[}0, 1\mbox{]}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n\+\_\+points} & Number of training samples \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tensor\+: input x in R\texorpdfstring{$^\wedge$}{\string^}n 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_beam_8h_source_l00065}{65}} of file \mbox{\hyperlink{_beam_8h_source}{Beam.\+h}}.
+
+\Hypertarget{namespace_beam_a5bb3979d535ad323771667f5dfe41374}\label{namespace_beam_a5bb3979d535ad323771667f5dfe41374} 
+\index{Beam@{Beam}!physics\_loss@{physics\_loss}}
+\index{physics\_loss@{physics\_loss}!Beam@{Beam}}
+\doxysubsubsection{\texorpdfstring{physics\_loss()}{physics\_loss()}}
+{\footnotesize\ttfamily torch\+::\+Tensor Beam\+::physics\+\_\+loss (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}} \&}]{model,  }\item[{torch\+::\+Tensor}]{input,  }\item[{float}]{EI = {\ttfamily 1.0f} }\end{DoxyParamCaption})}
+
+
+
+Computes the physics loss (residual of the Euler-\/\+Bernoulli beam equation). 
+
+The differential equation\+: EI \texorpdfstring{$\ast$}{*} d⁴u/dx⁴ = q(x) where q(x) = 1 is used here.
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & The \doxylink{class_beam_1_1_p_i_n_n}{PINN} model \\
+\hline
+{\em input} & Sample input points (x ∈ ℝ\texorpdfstring{$^\wedge$}{\string^}\{N×1\}) \\
+\hline
+{\em EI} & Bending stiffness coefficient (default = 1.\+0) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+MSE of the PDE residuals 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_beam_8h_source_l00124}{124}} of file \mbox{\hyperlink{_beam_8h_source}{Beam.\+h}}.
+
+\Hypertarget{namespace_beam_a3671c85c927bf4f6291b78ed2edcdd99}\label{namespace_beam_a3671c85c927bf4f6291b78ed2edcdd99} 
+\index{Beam@{Beam}!visualize\_solution@{visualize\_solution}}
+\index{visualize\_solution@{visualize\_solution}!Beam@{Beam}}
+\doxysubsubsection{\texorpdfstring{visualize\_solution()}{visualize\_solution()}}
+{\footnotesize\ttfamily void Beam\+::visualize\+\_\+solution (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}} \&}]{model,  }\item[{int}]{grid\+\_\+size = {\ttfamily 20} }\end{DoxyParamCaption})}
+
+
+
+Visualizes the solution u(x) in R of the trained \doxylink{class_beam_1_1_p_i_n_n}{PINN} model on \mbox{[}0, 1\mbox{]}. 
+
+Prints x and u(x) values on a grid to the console in tabular form.
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & The trained \doxylink{class_beam_1_1_p_i_n_n}{PINN} model (inference mode is set internally) \\
+\hline
+{\em grid\+\_\+size} & Number of equally spaced evaluation points in \mbox{[}0, 1\mbox{]} \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_beam_8h_source_l00201}{201}} of file \mbox{\hyperlink{_beam_8h_source}{Beam.\+h}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespace_beam_a3183ec89cd2a0d1b1b7b57a9d46ba840}\label{namespace_beam_a3183ec89cd2a0d1b1b7b57a9d46ba840} 
+\index{Beam@{Beam}!adam\_epochs@{adam\_epochs}}
+\index{adam\_epochs@{adam\_epochs}!Beam@{Beam}}
+\doxysubsubsection{\texorpdfstring{adam\_epochs}{adam\_epochs}}
+{\footnotesize\ttfamily constexpr auto Beam\+::adam\+\_\+epochs = uint16\+\_\+t\{ 500 \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{_beam_8h_source_l00057}{57}} of file \mbox{\hyperlink{_beam_8h_source}{Beam.\+h}}.
+
+\Hypertarget{namespace_beam_af1739f3ac632def72662b770deae5e16}\label{namespace_beam_af1739f3ac632def72662b770deae5e16} 
+\index{Beam@{Beam}!adam\_epochs\_diff@{adam\_epochs\_diff}}
+\index{adam\_epochs\_diff@{adam\_epochs\_diff}!Beam@{Beam}}
+\doxysubsubsection{\texorpdfstring{adam\_epochs\_diff}{adam\_epochs\_diff}}
+{\footnotesize\ttfamily constexpr auto Beam\+::adam\+\_\+epochs\+\_\+diff = uint16\+\_\+t\{ 100 \}\hspace{0.3cm}{\ttfamily [constexpr]}}
+
+
+
+Definition at line \mbox{\hyperlink{_beam_8h_source_l00058}{58}} of file \mbox{\hyperlink{_beam_8h_source}{Beam.\+h}}.
+

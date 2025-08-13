@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_main_8cpp_source" xml:lang="en-US">
+<title>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/main.cpp</title>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_main_8cpp_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&lt;torch/torch.h&gt;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&lt;iostream&gt;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&lt;vector&gt;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&lt;random&gt;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&lt;chrono&gt;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00006"/>00006 <emphasis role="preprocessor">#include&#32;&lt;iomanip&gt;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00007"/>00007 <emphasis role="preprocessor">#include&#32;&lt;array&gt;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="__global_8h">Global.h</link>&quot;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00009"/>00009 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="__timer_8h">Timer.h</link>&quot;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00010"/>00010 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="__beam_8h">Beam.h</link>&quot;</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00011"/>00011 
+<anchor xml:id="_main_8cpp_source_1l00012"/>00012 <emphasis role="keyword">using&#32;namespace&#32;</emphasis><link linkend="_namespace_beam">Beam</link>;
+<anchor xml:id="_main_8cpp_source_1l00013"/>00013 
+<anchor xml:id="_main_8cpp_source_1l00025"/><link linkend="_main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4">00025</link> <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4">main</link>()&#32;{
+<anchor xml:id="_main_8cpp_source_1l00026"/>00026 &#32;&#32;&#32;&#32;<link linkend="_class_helper_1_1_timer">Helper::Timer</link>&#32;tim;
+<anchor xml:id="_main_8cpp_source_1l00027"/>00027 &#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Physics-Informed&#32;Neural&#32;Network&#32;for&#32;Beam&#32;Equation\n&quot;</emphasis>;
+<anchor xml:id="_main_8cpp_source_1l00028"/>00028 &#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;====================================================\n\n&quot;</emphasis>;
+<anchor xml:id="_main_8cpp_source_1l00029"/>00029 
+<anchor xml:id="_main_8cpp_source_1l00030"/>00030 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;---&#32;Device&#32;selection&#32;(CPU&#32;vs.&#32;CUDA)&#32;---</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00031"/>00031 &#32;&#32;&#32;&#32;torch::Device&#32;device(torch::kCPU);
+<anchor xml:id="_main_8cpp_source_1l00032"/>00032 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(torch::cuda::is_available())&#32;{
+<anchor xml:id="_main_8cpp_source_1l00033"/>00033 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;device&#32;=&#32;torch::Device(torch::kCUDA);
+<anchor xml:id="_main_8cpp_source_1l00034"/>00034 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;CUDA&#32;available&#32;-&#32;using&#32;GPU\n&quot;</emphasis>;
+<anchor xml:id="_main_8cpp_source_1l00035"/>00035 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00036"/>00036 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_main_8cpp_source_1l00037"/>00037 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;CUDA&#32;NOT&#32;available&#32;-&#32;using&#32;CPU\n&quot;</emphasis>;
+<anchor xml:id="_main_8cpp_source_1l00038"/>00038 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00039"/>00039 
+<anchor xml:id="_main_8cpp_source_1l00040"/>00040 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Create&#32;model&#32;instance&#32;and&#32;move&#32;to&#32;selected&#32;device</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00041"/>00041 &#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;model&#32;=&#32;std::make_unique&lt;PINN&gt;();
+<anchor xml:id="_main_8cpp_source_1l00042"/>00042 &#32;&#32;&#32;&#32;model-&gt;to(device);
+<anchor xml:id="_main_8cpp_source_1l00043"/>00043 
+<anchor xml:id="_main_8cpp_source_1l00044"/>00044 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Generate&#32;physics&#32;training&#32;data&#32;and&#32;move&#32;to&#32;device</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00045"/>00045 &#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;physics_input&#32;=&#32;<link linkend="_namespace_beam_1a98af83695d468d303f6d72dc4d43a976">generate_training_data</link>(100);
+<anchor xml:id="_main_8cpp_source_1l00046"/>00046 &#32;&#32;&#32;&#32;physics_input&#32;=&#32;physics_input.to(device);
+<anchor xml:id="_main_8cpp_source_1l00047"/>00047 
+<anchor xml:id="_main_8cpp_source_1l00048"/>00048 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;initial&#32;learning&#32;rate</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00049"/>00049 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;current_lr&#32;=&#32;0.1f;
+<anchor xml:id="_main_8cpp_source_1l00050"/>00050 &#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;start_time&#32;=&#32;std::chrono::steady_clock::now();
+<anchor xml:id="_main_8cpp_source_1l00051"/>00051 
+<anchor xml:id="_main_8cpp_source_1l00052"/>00052 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;===&#32;PHASE&#32;1:&#32;Adam&#32;optimizer&#32;(coarse&#32;training)&#32;===</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00053"/>00053 &#32;&#32;&#32;&#32;torch::optim::Adam&#32;optimizer(model-&gt;parameters(),&#32;torch::optim::AdamOptions(current_lr));
+<anchor xml:id="_main_8cpp_source_1l00054"/>00054 
+<anchor xml:id="_main_8cpp_source_1l00055"/>00055 &#32;&#32;&#32;&#32;std::array&lt;<link linkend="_struct_beam_1_1_losses">Losses</link>,&#32;<link linkend="_namespace_beam_1a3183ec89cd2a0d1b1b7b57a9d46ba840">adam_epochs</link>&#32;/&#32;<link linkend="_namespace_beam_1af1739f3ac632def72662b770deae5e16">adam_epochs_diff</link>&gt;&#32;all_losses;
+<anchor xml:id="_main_8cpp_source_1l00056"/>00056 
+<anchor xml:id="_main_8cpp_source_1l00057"/>00057 &#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;\n[Phase&#32;1]&#32;Adam&#32;Training...\n&quot;</emphasis>;
+<anchor xml:id="_main_8cpp_source_1l00058"/>00058 
+<anchor xml:id="_main_8cpp_source_1l00059"/>00059 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;epoch&#32;=&#32;0;&#32;epoch&#32;&lt;&#32;<link linkend="_namespace_beam_1a3183ec89cd2a0d1b1b7b57a9d46ba840">adam_epochs</link>;&#32;++epoch)&#32;{
+<anchor xml:id="_main_8cpp_source_1l00060"/>00060 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>&#32;{
+<anchor xml:id="_main_8cpp_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimizer.zero_grad();
+<anchor xml:id="_main_8cpp_source_1l00062"/>00062 
+<anchor xml:id="_main_8cpp_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;losses&#32;=&#32;<link linkend="_namespace_beam_1a22ac23dadc3912b5a3bcc400383e475b">compute_losses</link>(*model,&#32;physics_input);
+<anchor xml:id="_main_8cpp_source_1l00064"/>00064 
+<anchor xml:id="_main_8cpp_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Check&#32;for&#32;NaN&#32;or&#32;Inf&#32;values&#32;in&#32;loss</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(torch::isnan(losses.total).any().item&lt;<emphasis role="keywordtype">bool</emphasis>&gt;()&#32;||&#32;torch::isinf(losses.total).any().item&lt;<emphasis role="keywordtype">bool</emphasis>&gt;())&#32;{
+<anchor xml:id="_main_8cpp_source_1l00067"/>00067 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cerr&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Adam&#32;Warning:&#32;Loss&#32;is&#32;NaN&#32;or&#32;Inf&#32;in&#32;epoch&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;epoch&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_main_8cpp_source_1l00068"/>00068 
+<anchor xml:id="_main_8cpp_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Halve&#32;learning&#32;rate&#32;and&#32;update&#32;optimizer</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;current_lr&#32;*=&#32;0.5f;
+<anchor xml:id="_main_8cpp_source_1l00071"/>00071 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cerr&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Adjusting&#32;learning&#32;rate&#32;to&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;current_lr&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_main_8cpp_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keyword">auto</emphasis>&amp;&#32;param_group&#32;:&#32;optimizer.param_groups())&#32;{
+<anchor xml:id="_main_8cpp_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&amp;&#32;options&#32;=&#32;<emphasis role="keyword">static_cast&lt;</emphasis>torch::optim::AdamOptions&amp;<emphasis role="keyword">&gt;</emphasis>(param_group.options());
+<anchor xml:id="_main_8cpp_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;options.lr(current_lr);
+<anchor xml:id="_main_8cpp_source_1l00075"/>00075 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">continue</emphasis>;
+<anchor xml:id="_main_8cpp_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00078"/>00078 
+<anchor xml:id="_main_8cpp_source_1l00079"/>00079 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;losses.total.backward({},&#32;<link linkend="_namespace_global_1a51e08ff8dc510ca548116d8033887955">Global::keep_graph</link>);
+<anchor xml:id="_main_8cpp_source_1l00080"/>00080 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;torch::nn::utils::clip_grad_norm_(model-&gt;parameters(),&#32;1.0);&#32;&#32;<emphasis role="comment">//&#32;Gradient&#32;clipping</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00081"/>00081 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;optimizer.step();
+<anchor xml:id="_main_8cpp_source_1l00082"/>00082 
+<anchor xml:id="_main_8cpp_source_1l00083"/>00083 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Periodic&#32;logging</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(epoch&#32;%&#32;200&#32;==&#32;0)&#32;{
+<anchor xml:id="_main_8cpp_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;all_losses[epoch&#32;/&#32;<link linkend="_namespace_beam_1af1739f3ac632def72662b770deae5e16">adam_epochs_diff</link>]&#32;=&#32;losses;
+<anchor xml:id="_main_8cpp_source_1l00086"/>00086 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Epoch&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;epoch&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;/&quot;</emphasis>&#32;&lt;&lt;&#32;<link linkend="_namespace_beam_1a3183ec89cd2a0d1b1b7b57a9d46ba840">adam_epochs</link>
+<anchor xml:id="_main_8cpp_source_1l00087"/>00087 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;-&#32;Total:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;losses.total.item&lt;<emphasis role="keywordtype">float</emphasis>&gt;()
+<anchor xml:id="_main_8cpp_source_1l00088"/>00088 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;|&#32;Physics:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;losses.physics.item&lt;<emphasis role="keywordtype">float</emphasis>&gt;()
+<anchor xml:id="_main_8cpp_source_1l00089"/>00089 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;|&#32;Boundary:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;losses.boundary.item&lt;<emphasis role="keywordtype">float</emphasis>&gt;()
+<anchor xml:id="_main_8cpp_source_1l00090"/>00090 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;|&#32;L2&#32;term:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;losses.l2_reg.item&lt;<emphasis role="keywordtype">float</emphasis>&gt;()
+<anchor xml:id="_main_8cpp_source_1l00091"/>00091 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;-&#32;LR:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;current_lr&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_main_8cpp_source_1l00092"/>00092 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00093"/>00093 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00094"/>00094 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">catch</emphasis>&#32;(<emphasis role="keyword">const</emphasis>&#32;std::exception&amp;&#32;e)&#32;{
+<anchor xml:id="_main_8cpp_source_1l00095"/>00095 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Error&#32;during&#32;Adam&#32;epoch&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;epoch&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;e.what()&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_main_8cpp_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00097"/>00097 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00098"/>00098 
+<anchor xml:id="_main_8cpp_source_1l00099"/>00099 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;===&#32;PHASE&#32;2:&#32;LBFGS&#32;optimizer&#32;(fine-tuning)&#32;===</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00100"/>00100 &#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;\n[Phase&#32;2]&#32;LBFGS&#32;Finetuning...\n&quot;</emphasis>;
+<anchor xml:id="_main_8cpp_source_1l00101"/>00101 
+<anchor xml:id="_main_8cpp_source_1l00102"/>00102 &#32;&#32;&#32;&#32;torch::optim::LBFGS&#32;lbfgs(model-&gt;parameters(),
+<anchor xml:id="_main_8cpp_source_1l00103"/>00103 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;torch::optim::LBFGSOptions(1.0)
+<anchor xml:id="_main_8cpp_source_1l00104"/>00104 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.max_iter(20)
+<anchor xml:id="_main_8cpp_source_1l00105"/>00105 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.tolerance_grad(1e-7)
+<anchor xml:id="_main_8cpp_source_1l00106"/>00106 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.tolerance_change(1e-9)
+<anchor xml:id="_main_8cpp_source_1l00107"/>00107 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;.history_size(100));
+<anchor xml:id="_main_8cpp_source_1l00108"/>00108 
+<anchor xml:id="_main_8cpp_source_1l00109"/>00109 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;lbfgs_epochs&#32;=&#32;50;
+<anchor xml:id="_main_8cpp_source_1l00110"/>00110 &#32;&#32;&#32;&#32;current_lr&#32;*=&#32;0.5f;
+<anchor xml:id="_main_8cpp_source_1l00111"/>00111 
+<anchor xml:id="_main_8cpp_source_1l00112"/>00112 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;epoch&#32;=&#32;0;&#32;epoch&#32;&lt;&#32;lbfgs_epochs;&#32;++epoch)&#32;{
+<anchor xml:id="_main_8cpp_source_1l00113"/>00113 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">try</emphasis>&#32;{
+<anchor xml:id="_main_8cpp_source_1l00114"/>00114 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;closure&#32;=&#32;[&amp;]()&#32;-&gt;&#32;torch::Tensor&#32;{
+<anchor xml:id="_main_8cpp_source_1l00115"/>00115 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;lbfgs.zero_grad();
+<anchor xml:id="_main_8cpp_source_1l00116"/>00116 
+<anchor xml:id="_main_8cpp_source_1l00117"/>00117 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;loss&#32;=&#32;<link linkend="_namespace_beam_1a22ac23dadc3912b5a3bcc400383e475b">compute_losses</link>(*model,&#32;physics_input).<link linkend="_struct_beam_1_1_losses_1a031fd264cee66da4f3a4e1cafdb2ee3a">total</link>;
+<anchor xml:id="_main_8cpp_source_1l00118"/>00118 
+<anchor xml:id="_main_8cpp_source_1l00119"/>00119 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;NaN/Inf&#32;check</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00120"/>00120 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(torch::isnan(loss).any().item&lt;bool&gt;()&#32;||&#32;torch::isinf(loss).any().item&lt;bool&gt;())&#32;{
+<anchor xml:id="_main_8cpp_source_1l00121"/>00121 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cerr&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;LBFGS&#32;Warning:&#32;Loss&#32;is&#32;NaN&#32;or&#32;Inf&#32;in&#32;epoch&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;epoch&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_main_8cpp_source_1l00122"/>00122 
+<anchor xml:id="_main_8cpp_source_1l00123"/>00123 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;current_lr&#32;*=&#32;0.5f;
+<anchor xml:id="_main_8cpp_source_1l00124"/>00124 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cerr&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Adjusting&#32;learning&#32;rate&#32;to&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;current_lr&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_main_8cpp_source_1l00125"/>00125 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keyword">auto</emphasis>&amp;&#32;param_group&#32;:&#32;lbfgs.param_groups())&#32;{
+<anchor xml:id="_main_8cpp_source_1l00126"/>00126 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&amp;&#32;options&#32;=&#32;<emphasis role="keyword">static_cast&lt;</emphasis>torch::optim::LBFGSOptions&amp;<emphasis role="keyword">&gt;</emphasis>(param_group.options());
+<anchor xml:id="_main_8cpp_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;options.lr(current_lr);
+<anchor xml:id="_main_8cpp_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00129"/>00129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;torch::tensor(1.0f,&#32;torch::requires_grad(<emphasis role="keyword">true</emphasis>));&#32;&#32;<emphasis role="comment">//&#32;Dummy&#32;loss</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00130"/>00130 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00131"/>00131 
+<anchor xml:id="_main_8cpp_source_1l00132"/>00132 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;loss.backward({},&#32;<link linkend="_namespace_global_1a51e08ff8dc510ca548116d8033887955">Global::keep_graph</link>);
+<anchor xml:id="_main_8cpp_source_1l00133"/>00133 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;loss;
+<anchor xml:id="_main_8cpp_source_1l00134"/>00134 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;};
+<anchor xml:id="_main_8cpp_source_1l00135"/>00135 
+<anchor xml:id="_main_8cpp_source_1l00136"/>00136 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;torch::nn::utils::clip_grad_norm_(model-&gt;parameters(),&#32;1.0);&#32;&#32;<emphasis role="comment">//&#32;Gradient&#32;clipping</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00137"/>00137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;torch::Tensor&#32;loss&#32;=&#32;lbfgs.step(closure);
+<anchor xml:id="_main_8cpp_source_1l00138"/>00138 
+<anchor xml:id="_main_8cpp_source_1l00139"/>00139 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(epoch&#32;%&#32;10&#32;==&#32;0)&#32;{
+<anchor xml:id="_main_8cpp_source_1l00140"/>00140 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;LBFGS&#32;Epoch&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;epoch&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;/&quot;</emphasis>&#32;&lt;&lt;&#32;lbfgs_epochs
+<anchor xml:id="_main_8cpp_source_1l00141"/>00141 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;-&#32;Loss:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;loss.item&lt;<emphasis role="keywordtype">float</emphasis>&gt;()&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;-&#32;Learning&#32;Rate:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;current_lr&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_main_8cpp_source_1l00142"/>00142 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00144"/>00144 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">catch</emphasis>&#32;(<emphasis role="keyword">const</emphasis>&#32;std::exception&amp;&#32;e)&#32;{
+<anchor xml:id="_main_8cpp_source_1l00145"/>00145 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Error&#32;during&#32;LBFGS&#32;epoch&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;epoch&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;e.what()&#32;&lt;&lt;&#32;std::endl;
+<anchor xml:id="_main_8cpp_source_1l00146"/>00146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00147"/>00147 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_main_8cpp_source_1l00148"/>00148 
+<anchor xml:id="_main_8cpp_source_1l00149"/>00149 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;===&#32;Final&#32;output&#32;===</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00150"/>00150 &#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;end_time&#32;=&#32;std::chrono::steady_clock::now();
+<anchor xml:id="_main_8cpp_source_1l00151"/>00151 &#32;&#32;&#32;&#32;<emphasis role="keyword">auto</emphasis>&#32;duration&#32;=&#32;std::chrono::duration_cast&lt;std::chrono::seconds&gt;(end_time&#32;-&#32;start_time);
+<anchor xml:id="_main_8cpp_source_1l00152"/>00152 
+<anchor xml:id="_main_8cpp_source_1l00153"/>00153 &#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;\nTraining&#32;completed&#32;in&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;duration.count()&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;seconds\n&quot;</emphasis>;
+<anchor xml:id="_main_8cpp_source_1l00154"/>00154 
+<anchor xml:id="_main_8cpp_source_1l00155"/>00155 &#32;&#32;&#32;&#32;model-&gt;eval();&#32;&#32;<emphasis role="comment">//&#32;Final&#32;evaluation&#32;mode</emphasis>
+<anchor xml:id="_main_8cpp_source_1l00156"/>00156 &#32;&#32;&#32;&#32;<link linkend="_namespace_beam_1a3671c85c927bf4f6291b78ed2edcdd99">visualize_solution</link>(*model);
+<anchor xml:id="_main_8cpp_source_1l00157"/>00157 
+<anchor xml:id="_main_8cpp_source_1l00158"/>00158 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_main_8cpp_source_1l00159"/>00159 }
+</programlisting></section>

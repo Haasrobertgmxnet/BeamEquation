@@ -1,0 +1,186 @@
+\doxysection{Beam.\+h}
+\hypertarget{_beam_8h_source}{}\label{_beam_8h_source}\index{C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h@{C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h}}
+\mbox{\hyperlink{_beam_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00001}00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <torch/torch.h>}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_global_8h}{Global.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00006}\mbox{\hyperlink{namespace_beam}{00006}}\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespace_beam}{Beam}}\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00016}\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{00016}}\ \ \ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}}\ :\ \textcolor{keyword}{public}\ torch::nn::Module\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00017}00017\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00018}\mbox{\hyperlink{class_beam_1_1_p_i_n_n_accd6d7388166661c25fecdc30d9af0c9}{00018}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_beam_1_1_p_i_n_n_accd6d7388166661c25fecdc30d9af0c9}{PINN}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Network\ structure:\ 1\ input\ →\ 5\ neurons\ →\ 5\ neurons\ →\ 1\ output}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ fc1\ =\ register\_module(\textcolor{stringliteral}{"{}fc1"{}},\ torch::nn::Linear(1,\ 5));}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ fc2\ =\ register\_module(\textcolor{stringliteral}{"{}fc2"{}},\ torch::nn::Linear(5,\ 5));}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ fc3\ =\ register\_module(\textcolor{stringliteral}{"{}fc3"{}},\ torch::nn::Linear(5,\ 1));}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ weights\ using\ Xavier\ initialization}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ torch::nn::init::xavier\_uniform\_(fc1-\/>weight);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ torch::nn::init::xavier\_uniform\_(fc2-\/>weight);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ torch::nn::init::xavier\_uniform\_(fc3-\/>weight);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00028}00028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00035}\mbox{\hyperlink{class_beam_1_1_p_i_n_n_a9a8726f885ed0c641a2511c0d90e10f1}{00035}}\ \ \ \ \ \ \ \ \ torch::Tensor\ \mbox{\hyperlink{class_beam_1_1_p_i_n_n_a9a8726f885ed0c641a2511c0d90e10f1}{forward}}(torch::Tensor\ x)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ torch::tanh(fc1-\/>forward(x));}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ torch::tanh(fc2-\/>forward(x));}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ x\ =\ fc3-\/>forward(x);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x;}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00040}00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00042}00042\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00043}00043\ \ \ \ \ \ \ \ \ torch::nn::Linear\ fc1\{\ \textcolor{keyword}{nullptr}\ \},\ fc2\{\ \textcolor{keyword}{nullptr}\ \},\ fc3\{\ \textcolor{keyword}{nullptr}\ \};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00044}00044\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00049}\mbox{\hyperlink{struct_beam_1_1_losses}{00049}}\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_beam_1_1_losses}{Losses}}\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00050}\mbox{\hyperlink{struct_beam_1_1_losses_a031fd264cee66da4f3a4e1cafdb2ee3a}{00050}}\ \ \ \ \ \ \ \ \ torch::Tensor\ \mbox{\hyperlink{struct_beam_1_1_losses_a031fd264cee66da4f3a4e1cafdb2ee3a}{total}};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00051}\mbox{\hyperlink{struct_beam_1_1_losses_a628553f1a885cb9c709c01489bab559d}{00051}}\ \ \ \ \ \ \ \ \ torch::Tensor\ \mbox{\hyperlink{struct_beam_1_1_losses_a628553f1a885cb9c709c01489bab559d}{physics}};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00052}\mbox{\hyperlink{struct_beam_1_1_losses_a8ea3376de1d595babf972d1b20a9b3dd}{00052}}\ \ \ \ \ \ \ \ \ torch::Tensor\ \mbox{\hyperlink{struct_beam_1_1_losses_a8ea3376de1d595babf972d1b20a9b3dd}{boundary}};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00053}\mbox{\hyperlink{struct_beam_1_1_losses_ac8bca10d64a303e3f0ff3e84c38abe1e}{00053}}\ \ \ \ \ \ \ \ \ torch::Tensor\ \mbox{\hyperlink{struct_beam_1_1_losses_ac8bca10d64a303e3f0ff3e84c38abe1e}{l2\_reg}};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00054}00054\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00056}00056\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ epochs\ for\ training\ with\ Adam\ optimizer}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00057}\mbox{\hyperlink{namespace_beam_a3183ec89cd2a0d1b1b7b57a9d46ba840}{00057}}\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespace_beam_a3183ec89cd2a0d1b1b7b57a9d46ba840}{adam\_epochs}}\ =\ uint16\_t\{\ 500\ \};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00058}\mbox{\hyperlink{namespace_beam_af1739f3ac632def72662b770deae5e16}{00058}}\ \ \ \ \ \textcolor{keyword}{constexpr}\ \textcolor{keyword}{auto}\ \mbox{\hyperlink{namespace_beam_af1739f3ac632def72662b770deae5e16}{adam\_epochs\_diff}}\ =\ uint16\_t\{\ 100\ \};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00065}\mbox{\hyperlink{namespace_beam_a98af83695d468d303f6d72dc4d43a976}{00065}}\ \ \ \ \ torch::Tensor\ \mbox{\hyperlink{namespace_beam_a98af83695d468d303f6d72dc4d43a976}{generate\_training\_data}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n\_points\ =\ 100)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ options\ =\ torch::TensorOptions().dtype(torch::kFloat32).requires\_grad(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ x\ =\ torch::rand(\{\ n\_points,\ 1\ \},\ options);\ \ \textcolor{comment}{//\ Random\ points\ in\ [0,\ 1]}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00068}00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ x;}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00083}\mbox{\hyperlink{namespace_beam_a078e93911aeab9c7299cf4d72f096b2b}{00083}}\ \ \ \ \ torch::Tensor\ \mbox{\hyperlink{namespace_beam_a078e93911aeab9c7299cf4d72f096b2b}{boundary\_loss}}(\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}}\&\ model)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ options\ =\ torch::TensorOptions().dtype(torch::kFloat32).requires\_grad(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ x\ =\ 0\ point}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ x0\ =\ torch::zeros(\{\ 1,\ 1\ \},\ options).set\_requires\_grad(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00088}00088\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ u0\ =\ model.\mbox{\hyperlink{class_beam_1_1_p_i_n_n_a9a8726f885ed0c641a2511c0d90e10f1}{forward}}(x0);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ du0\ =\ torch::autograd::grad(\{\ u0\ \},\ \{\ x0\ \},\ \{\ torch::ones\_like(u0)\ \},}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_global_a51e08ff8dc510ca548116d8033887955}{Global::keep\_graph}},\ \textcolor{keyword}{true})[0];}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ x\ =\ 1\ point}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ x1\ =\ torch::ones(\{\ 1,\ 1\ \},\ options).set\_requires\_grad(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ u1\ =\ model.\mbox{\hyperlink{class_beam_1_1_p_i_n_n_a9a8726f885ed0c641a2511c0d90e10f1}{forward}}(x1);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ du1\ =\ torch::autograd::grad(\{\ u1\ \},\ \{\ x1\ \},\ \{\ torch::ones\_like(u1)\ \},}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_global_a51e08ff8dc510ca548116d8033887955}{Global::keep\_graph}},\ \textcolor{keyword}{true})[0];}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00098}00098\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ d2u1\ =\ torch::autograd::grad(\{\ du1\ \},\ \{\ x1\ \},\ \{\ torch::ones\_like(du1)\ \},}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_global_a51e08ff8dc510ca548116d8033887955}{Global::keep\_graph}},\ \textcolor{keyword}{true})[0];}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ d3u1\ =\ torch::autograd::grad(\{\ d2u1\ \},\ \{\ x1\ \},\ \{\ torch::ones\_like(d2u1)\ \},}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespace_global_a51e08ff8dc510ca548116d8033887955}{Global::keep\_graph}},\ \textcolor{keyword}{true})[0];}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00103}00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sum\ of\ MSE\ losses\ for\ each\ boundary\ condition}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00104}00104\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ loss\ =\ torch::mse\_loss(u0,\ torch::zeros\_like(u0))\ +}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ torch::mse\_loss(du0,\ torch::zeros\_like(du0))\ +}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ torch::mse\_loss(d2u1,\ torch::zeros\_like(d2u1))\ +}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ torch::mse\_loss(d3u1,\ torch::zeros\_like(d3u1));}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ loss;}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00110}00110\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00124}\mbox{\hyperlink{namespace_beam_a5bb3979d535ad323771667f5dfe41374}{00124}}\ \ \ \ \ torch::Tensor\ \mbox{\hyperlink{namespace_beam_a5bb3979d535ad323771667f5dfe41374}{physics\_loss}}(\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}}\&\ model,\ torch::Tensor\ input,\ \textcolor{keywordtype}{float}\ EI\ =\ 1.0f)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ x\ =\ input.clone().requires\_grad\_(\textcolor{keyword}{true});}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ u\ =\ model.\mbox{\hyperlink{class_beam_1_1_p_i_n_n_a9a8726f885ed0c641a2511c0d90e10f1}{forward}}(x);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ ones\ =\ torch::ones\_like(u);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ du\_dx\ =\ torch::autograd::grad(\{\ u\ \},\ \{\ x\ \},\ \{\ ones\ \},\ \mbox{\hyperlink{namespace_global_a51e08ff8dc510ca548116d8033887955}{Global::keep\_graph}},\ \textcolor{keyword}{true})[0];}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00131}00131\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ d2u\_dx2\ =\ torch::autograd::grad(\{\ du\_dx\ \},\ \{\ x\ \},\ \{\ ones\ \},\ \mbox{\hyperlink{namespace_global_a51e08ff8dc510ca548116d8033887955}{Global::keep\_graph}},\ \textcolor{keyword}{true})[0];}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ d3u\_dx3\ =\ torch::autograd::grad(\{\ d2u\_dx2\ \},\ \{\ x\ \},\ \{\ ones\ \},\ \mbox{\hyperlink{namespace_global_a51e08ff8dc510ca548116d8033887955}{Global::keep\_graph}},\ \textcolor{keyword}{true})[0];}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ d4u\_dx4\ =\ torch::autograd::grad(\{\ d3u\_dx3\ \},\ \{\ x\ \},\ \{\ ones\ \},\ \mbox{\hyperlink{namespace_global_a51e08ff8dc510ca548116d8033887955}{Global::keep\_graph}},\ \textcolor{keyword}{true})[0];}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ q\ =\ torch::ones\_like(x);\ \ \textcolor{comment}{//\ Constant\ load\ q(x)\ =\ 1}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00137}00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ residual\ =\ EI\ *\ d4u\_dx4\ -\/\ q;}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00139}00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ torch::mean(residual.pow(2));}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00140}00140\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\&\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ in\ physics\_loss:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ torch::tensor(0.0f,\ torch::requires\_grad(\textcolor{keyword}{true}));}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00144}00144\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00145}00145\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00154}\mbox{\hyperlink{namespace_beam_a1f20915669eb5e5ca0851aeac92dab48}{00154}}\ \ \ \ \ torch::Tensor\ \mbox{\hyperlink{namespace_beam_a1f20915669eb5e5ca0851aeac92dab48}{compute\_l2\_regularization}}(\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}}\&\ model,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ lambda\_reg)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (lambda\_reg\ <=\ 0.0f)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ torch::zeros(\{\ 1\ \},\ torch::TensorOptions().dtype(torch::kFloat32));}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00157}00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00159}00159\ \ \ \ \ \ \ \ \ torch::Tensor\ l2\ =\ torch::zeros(\{\ 1\ \},\ torch::TensorOptions().dtype(torch::kFloat32));}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00160}00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ param\ :\ model.parameters())\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ l2\ +=\ torch::norm(param,\ 2).pow(2);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00162}00162\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ lambda\_reg\ *\ l2;}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00165}00165\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00176}\mbox{\hyperlink{namespace_beam_a22ac23dadc3912b5a3bcc400383e475b}{00176}}\ \ \ \ \ \mbox{\hyperlink{struct_beam_1_1_losses}{Losses}}\ \mbox{\hyperlink{namespace_beam_a22ac23dadc3912b5a3bcc400383e475b}{compute\_losses}}(\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}}\&\ model,\ \textcolor{keyword}{const}\ torch::Tensor\&\ physics\_input)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ loss\_physics\ =\ \mbox{\hyperlink{namespace_beam_a5bb3979d535ad323771667f5dfe41374}{physics\_loss}}(model,\ physics\_input);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ loss\_boundary\ =\ \mbox{\hyperlink{namespace_beam_a078e93911aeab9c7299cf4d72f096b2b}{boundary\_loss}}(model);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ l2\_reg\ =\ \mbox{\hyperlink{namespace_beam_a1f20915669eb5e5ca0851aeac92dab48}{compute\_l2\_regularization}}(model,\ 0.0f);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ total\ =\ loss\_physics\ +\ 2.0f\ *\ loss\_boundary\ +\ l2\_reg;}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ total,\ loss\_physics,\ loss\_boundary,\ l2\_reg\ \};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00185}00185\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00186}00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\&\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ in\ compute\_losses:\ "{}}\ <<\ e.what()\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ dummy\ =\ torch::tensor(1.0f,\ torch::requires\_grad(\textcolor{keyword}{true}));}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ dummy,\ dummy,\ dummy,\ dummy\ \};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00190}00190\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00191}00191\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00201}\mbox{\hyperlink{namespace_beam_a3671c85c927bf4f6291b78ed2edcdd99}{00201}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespace_beam_a3671c85c927bf4f6291b78ed2edcdd99}{visualize\_solution}}(\mbox{\hyperlink{class_beam_1_1_p_i_n_n}{PINN}}\&\ model,\ \textcolor{keywordtype}{int}\ grid\_size\ =\ 20)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00202}00202\ \ \ \ \ \ \ \ \ model.eval();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ model\ to\ inference\ mode}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00203}00203\ \ \ \ \ \ \ \ \ torch::NoGradGuard\ no\_grad;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Disable\ gradient\ calculation}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00204}00204\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00205}00205\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Detect\ device\ used\ by\ model\ parameters\ (CPU\ or\ CUDA)}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00206}00206\ \ \ \ \ \ \ \ \ torch::Device\ device\ =\ torch::kCPU;}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00207}00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ p\ :\ model.parameters())\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ device\ =\ p.device();\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00209}00209\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00210}00210\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00211}00211\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ options\ =\ torch::TensorOptions().dtype(torch::kFloat32).device(device);}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00213}00213\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nSolution\ of\ the\ Euler-\/Bernoulli\ beam\ equation\ on\ [0,\ 1]:\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00215}00215\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ grid\_size;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ x\_val\ =\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(i)\ /\ (grid\_size\ -\/\ 1);\ \ \textcolor{comment}{//\ Linearly\ spaced\ point\ in\ [0,\ 1]}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ x\_tensor\ =\ torch::tensor(\{\ \{x\_val\}\ \},\ options);\ \ \ \ \textcolor{comment}{//\ Shape\ [1,\ 1]}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00219}00219\ \ \ \ \ \ \ \ \ \ \ \ \ torch::Tensor\ u\_pred;}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00220}00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00221}00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u\_pred\ =\ model.\mbox{\hyperlink{class_beam_1_1_p_i_n_n_a9a8726f885ed0c641a2511c0d90e10f1}{forward}}(x\_tensor);\ \ \textcolor{comment}{//\ Predict\ u(x)}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ c10::Error\&\ e)\ \{}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ during\ forward\ pass\ at\ x\ =\ "{}}\ <<\ x\_val\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ e.what()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convert\ tensor\ to\ float\ and\ print\ result}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ u\_val\ =\ u\_pred.detach().to(torch::kCPU).item<\textcolor{keywordtype}{float}>();}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ std::fixed\ <<\ std::setprecision(2)\ <<\ x\_val\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ std::setprecision(5)\ <<\ u\_val\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00231}00231\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00232}00232\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00233}00233\ \}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00235}00235\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00236}00236\ \textcolor{comment}{Vorschläge\ und\ Anmerkungen\ (keine\ Code-\/Änderung!):}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00237}00237\ \textcolor{comment}{Hardcoded\ loss\ weights\ (+2.0f\ *\ boundary\ etc.)\ könnten\ als\ Konstante\ oder\ Parameter\ geführt\ werden.}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00238}00238\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00239}00239\ \textcolor{comment}{Die\ Verwendung\ von\ Global::keep\_graph\ ist\ etwas\ "{}magisch"{}\ –\ eventuell\ explizit\ dokumentieren\ oder\ kapseln.}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00240}00240\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00241}00241\ \textcolor{comment}{In\ physics\_loss:\ Bei\ Problemen\ mit\ Gradientenstabilität\ wäre\ ein\ optionaler\ Check\ der\ .grad\_fn()\ hilfreich.}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00242}00242\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00243}00243\ \textcolor{comment}{std::pair<torch::Tensor,\ torch::Tensor>\ in\ generate\_training\_data()\ enthält\ ein\ Dummy-\/Ziel.\ Vielleicht\ besser\ std::tuple<torch::Tensor>\ oder\ ein\ spezieller\ Struct.}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00244}00244\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00245}00245\ \textcolor{comment}{Fehlerbehandlung\ (try-\/catch)\ ist\ gut\ —\ aber\ torch::tensor(0.0f,\ ...)\ ohne\ Device-\/Spezifikation\ kann\ zu\ Problemen\ führen\ (nur\ wenn\ du\ CUDA\ verwendest).}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00246}00246\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00247}00247\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00248}00248\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_beam_8h_source_l00249}00249\ \textcolor{comment}{*/}}
+
+\end{DoxyCode}

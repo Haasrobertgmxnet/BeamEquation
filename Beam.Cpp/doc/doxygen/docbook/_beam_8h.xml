@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__beam_8h" xml:lang="en-US">
+<title>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h File Reference</title>
+<indexterm><primary>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;torch/torch.h&gt;<?linebreak?>#include &quot;Global.h&quot;<?linebreak?></programlisting><simplesect>
+    <title>Classes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_class_beam_1_1_p_i_n_n">Beam::PINN</link></para>
+
+<para>A Physics-Informed Neural Network (<link linkend="_class_beam_1_1_p_i_n_n">PINN</link>) model for 1D Euler-Bernoulli beam deflection. </para>
+</listitem>
+            <listitem><para>struct <link linkend="_struct_beam_1_1_losses">Beam::Losses</link></para>
+
+<para>Struct to hold different loss components. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Namespaces    </title>
+        <itemizedlist>
+            <listitem><para>namespace <link linkend="_namespace_beam">Beam</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>torch::Tensor <link linkend="_namespace_beam_1a98af83695d468d303f6d72dc4d43a976">Beam::generate_training_data</link> (const int n_points=100)</para>
+
+<para>Generates random 1D training points in the interval [0, 1]. </para>
+</listitem>
+            <listitem><para>torch::Tensor <link linkend="_namespace_beam_1a078e93911aeab9c7299cf4d72f096b2b">Beam::boundary_loss</link> (<link linkend="_class_beam_1_1_p_i_n_n">PINN</link> &amp;model)</para>
+
+<para>Computes the boundary condition loss for the beam. </para>
+</listitem>
+            <listitem><para>torch::Tensor <link linkend="_namespace_beam_1a5bb3979d535ad323771667f5dfe41374">Beam::physics_loss</link> (<link linkend="_class_beam_1_1_p_i_n_n">PINN</link> &amp;model, torch::Tensor input, float EI=1.0f)</para>
+
+<para>Computes the physics loss (residual of the Euler-Bernoulli beam equation). </para>
+</listitem>
+            <listitem><para>torch::Tensor <link linkend="_namespace_beam_1a1f20915669eb5e5ca0851aeac92dab48">Beam::compute_l2_regularization</link> (<link linkend="_class_beam_1_1_p_i_n_n">PINN</link> &amp;model, const float lambda_reg)</para>
+
+<para>Computes L2 (Tikhonov) regularization loss on all model parameters. </para>
+</listitem>
+            <listitem><para><link linkend="_struct_beam_1_1_losses">Losses</link> <link linkend="_namespace_beam_1a22ac23dadc3912b5a3bcc400383e475b">Beam::compute_losses</link> (<link linkend="_class_beam_1_1_p_i_n_n">PINN</link> &amp;model, const torch::Tensor &amp;physics_input)</para>
+
+<para>Computes the total loss and its components (physics, boundary, L2). </para>
+</listitem>
+            <listitem><para>void <link linkend="_namespace_beam_1a3671c85c927bf4f6291b78ed2edcdd99">Beam::visualize_solution</link> (<link linkend="_class_beam_1_1_p_i_n_n">PINN</link> &amp;model, int grid_size=20)</para>
+
+<para>Visualizes the solution u(x) in R of the trained <link linkend="_class_beam_1_1_p_i_n_n">PINN</link> model on [0, 1]. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>constexpr auto <link linkend="_namespace_beam_1a3183ec89cd2a0d1b1b7b57a9d46ba840">Beam::adam_epochs</link> = uint16_t{ 500 }</para>
+</listitem>
+            <listitem><para>constexpr auto <link linkend="_namespace_beam_1af1739f3ac632def72662b770deae5e16">Beam::adam_epochs_diff</link> = uint16_t{ 100 }</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+</section>

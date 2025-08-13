@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_class_helper_1_1_timer" xml:lang="en-US">
+<title>Helper::Timer Class Reference</title>
+<indexterm><primary>Helper::Timer</primary></indexterm>
+<para>
+<computeroutput>#include &lt;Timer.h&gt;</computeroutput>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_class_helper_1_1_timer_1a446d5014eb5fae9e938f5de7955d24f4">Timer</link> ()</para>
+</listitem>
+            <listitem><para>void <link linkend="_class_helper_1_1_timer_1a97c16612072fd2d908d4405d1445bff2">setOutputAtExit</link> (bool _outputAtExit)</para>
+</listitem>
+            <listitem><para>std::chrono::steady_clock::time_point <link linkend="_class_helper_1_1_timer_1a767002e9c1e7a788514124018b9c6127">getStart</link> () const</para>
+</listitem>
+            <listitem><para>std::chrono::milliseconds <link linkend="_class_helper_1_1_timer_1ad1a42055a2907f16823edf8675780f75">getDuration</link> () const</para>
+</listitem>
+            <listitem><para><link linkend="_class_helper_1_1_timer_1a21df00680b034f2a0a2c5aea315f7e65">~Timer</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="__timer_8h_source_1l00009">9</link> of file <link linkend="__timer_8h_source">Timer.h</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_class_helper_1_1_timer_1a446d5014eb5fae9e938f5de7955d24f4"/><section>
+    <title>Timer()</title>
+<indexterm><primary>Timer</primary><secondary>Helper::Timer</secondary></indexterm>
+<indexterm><primary>Helper::Timer</primary><secondary>Timer</secondary></indexterm>
+<para><computeroutput>Helper::Timer::Timer ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="__timer_8h_source_1l00012">12</link> of file <link linkend="__timer_8h_source">Timer.h</link>.</para>
+</section>
+<anchor xml:id="_class_helper_1_1_timer_1a21df00680b034f2a0a2c5aea315f7e65"/><section>
+    <title>~Timer()</title>
+<indexterm><primary>~Timer</primary><secondary>Helper::Timer</secondary></indexterm>
+<indexterm><primary>Helper::Timer</primary><secondary>~Timer</secondary></indexterm>
+<para><computeroutput>Helper::Timer::~Timer ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="__timer_8h_source_1l00030">30</link> of file <link linkend="__timer_8h_source">Timer.h</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_class_helper_1_1_timer_1ad1a42055a2907f16823edf8675780f75"/><section>
+    <title>getDuration()</title>
+<indexterm><primary>getDuration</primary><secondary>Helper::Timer</secondary></indexterm>
+<indexterm><primary>Helper::Timer</primary><secondary>getDuration</secondary></indexterm>
+<para><computeroutput>std::chrono::milliseconds Helper::Timer::getDuration ( ) const<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="__timer_8h_source_1l00025">25</link> of file <link linkend="__timer_8h_source">Timer.h</link>.</para>
+</section>
+<anchor xml:id="_class_helper_1_1_timer_1a767002e9c1e7a788514124018b9c6127"/><section>
+    <title>getStart()</title>
+<indexterm><primary>getStart</primary><secondary>Helper::Timer</secondary></indexterm>
+<indexterm><primary>Helper::Timer</primary><secondary>getStart</secondary></indexterm>
+<para><computeroutput>std::chrono::steady_clock::time_point Helper::Timer::getStart ( ) const<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="__timer_8h_source_1l00021">21</link> of file <link linkend="__timer_8h_source">Timer.h</link>.</para>
+</section>
+<anchor xml:id="_class_helper_1_1_timer_1a97c16612072fd2d908d4405d1445bff2"/><section>
+    <title>setOutputAtExit()</title>
+<indexterm><primary>setOutputAtExit</primary><secondary>Helper::Timer</secondary></indexterm>
+<indexterm><primary>Helper::Timer</primary><secondary>setOutputAtExit</secondary></indexterm>
+<para><computeroutput>void Helper::Timer::setOutputAtExit (bool _outputAtExit)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="__timer_8h_source_1l00017">17</link> of file <link linkend="__timer_8h_source">Timer.h</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/<link linkend="__timer_8h">Timer.h</link></section>
+</section>

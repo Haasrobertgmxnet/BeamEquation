@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__global_8h_source" xml:lang="en-US">
+<title>Global.h</title>
+<indexterm><primary>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Global.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="__global_8h_source_1l00001"/>00001 <emphasis role="preprocessor">#pragma&#32;once</emphasis>
+<anchor xml:id="__global_8h_source_1l00002"/>00002 
+<anchor xml:id="__global_8h_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&lt;torch/torch.h&gt;</emphasis>
+<anchor xml:id="__global_8h_source_1l00004"/>00004 
+<anchor xml:id="__global_8h_source_1l00005"/><link linkend="_namespace_global">00005</link> <emphasis role="keyword">namespace&#32;</emphasis><link linkend="_namespace_global">Global</link>&#32;{
+<anchor xml:id="__global_8h_source_1l00006"/><link linkend="_namespace_global_1a51e08ff8dc510ca548116d8033887955">00006</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">constexpr</emphasis>&#32;<emphasis role="keyword">auto</emphasis>&#32;<link linkend="_namespace_global_1a51e08ff8dc510ca548116d8033887955">keep_graph</link>&#32;=&#32;<emphasis role="keywordtype">bool</emphasis>{&#32;<emphasis role="keyword">true</emphasis>&#32;};
+<anchor xml:id="__global_8h_source_1l00007"/>00007 }
+<anchor xml:id="__global_8h_source_1l00008"/>00008 
+<anchor xml:id="__global_8h_source_1l00009"/>00009 
+</programlisting></section>

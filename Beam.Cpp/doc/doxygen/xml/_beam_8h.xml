@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="_beam_8h" kind="file" language="C++">
+    <compoundname>Beam.h</compoundname>
+    <includes local="no">torch/torch.h</includes>
+    <includes refid="_global_8h" local="yes">Global.h</includes>
+    <includedby refid="main_8cpp" local="yes">C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/main.cpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h</label>
+        <link refid="_beam_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Global.h</label>
+        <link refid="_global_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>torch/torch.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h</label>
+        <link refid="_beam_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_beam_1_1_p_i_n_n" prot="public">Beam::PINN</innerclass>
+    <innerclass refid="struct_beam_1_1_losses" prot="public">Beam::Losses</innerclass>
+    <innernamespace refid="namespace_beam">Beam</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;torch/torch.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_global_8h" kindref="compound">Global.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="namespace_beam" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespace_beam" kindref="compound">Beam</ref><sp/>{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="class_beam_1_1_p_i_n_n" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/>torch::nn::Module<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="18" refid="class_beam_1_1_p_i_n_n_1accd6d7388166661c25fecdc30d9af0c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_beam_1_1_p_i_n_n_1accd6d7388166661c25fecdc30d9af0c9" kindref="member">PINN</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Network<sp/>structure:<sp/>1<sp/>input<sp/>→<sp/>5<sp/>neurons<sp/>→<sp/>5<sp/>neurons<sp/>→<sp/>1<sp/>output</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fc1<sp/>=<sp/>register_module(</highlight><highlight class="stringliteral">&quot;fc1&quot;</highlight><highlight class="normal">,<sp/>torch::nn::Linear(1,<sp/>5));</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fc2<sp/>=<sp/>register_module(</highlight><highlight class="stringliteral">&quot;fc2&quot;</highlight><highlight class="normal">,<sp/>torch::nn::Linear(5,<sp/>5));</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fc3<sp/>=<sp/>register_module(</highlight><highlight class="stringliteral">&quot;fc3&quot;</highlight><highlight class="normal">,<sp/>torch::nn::Linear(5,<sp/>1));</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialize<sp/>weights<sp/>using<sp/>Xavier<sp/>initialization</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::nn::init::xavier_uniform_(fc1-&gt;weight);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::nn::init::xavier_uniform_(fc2-&gt;weight);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::nn::init::xavier_uniform_(fc3-&gt;weight);</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="class_beam_1_1_p_i_n_n_1a9a8726f885ed0c641a2511c0d90e10f1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::Tensor<sp/><ref refid="class_beam_1_1_p_i_n_n_1a9a8726f885ed0c641a2511c0d90e10f1" kindref="member">forward</ref>(torch::Tensor<sp/>x)<sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>=<sp/>torch::tanh(fc1-&gt;forward(x));</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>=<sp/>torch::tanh(fc2-&gt;forward(x));</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>=<sp/>fc3-&gt;forward(x);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::nn::Linear<sp/>fc1{<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal"><sp/>},<sp/>fc2{<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal"><sp/>},<sp/>fc3{<sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal"><sp/>};</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="struct_beam_1_1_losses" refkind="compound"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_beam_1_1_losses" kindref="compound">Losses</ref><sp/>{</highlight></codeline>
+<codeline lineno="50" refid="struct_beam_1_1_losses_1a031fd264cee66da4f3a4e1cafdb2ee3a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::Tensor<sp/><ref refid="struct_beam_1_1_losses_1a031fd264cee66da4f3a4e1cafdb2ee3a" kindref="member">total</ref>;</highlight></codeline>
+<codeline lineno="51" refid="struct_beam_1_1_losses_1a628553f1a885cb9c709c01489bab559d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::Tensor<sp/><ref refid="struct_beam_1_1_losses_1a628553f1a885cb9c709c01489bab559d" kindref="member">physics</ref>;</highlight></codeline>
+<codeline lineno="52" refid="struct_beam_1_1_losses_1a8ea3376de1d595babf972d1b20a9b3dd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::Tensor<sp/><ref refid="struct_beam_1_1_losses_1a8ea3376de1d595babf972d1b20a9b3dd" kindref="member">boundary</ref>;</highlight></codeline>
+<codeline lineno="53" refid="struct_beam_1_1_losses_1ac8bca10d64a303e3f0ff3e84c38abe1e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::Tensor<sp/><ref refid="struct_beam_1_1_losses_1ac8bca10d64a303e3f0ff3e84c38abe1e" kindref="member">l2_reg</ref>;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Number<sp/>of<sp/>epochs<sp/>for<sp/>training<sp/>with<sp/>Adam<sp/>optimizer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="namespace_beam_1a3183ec89cd2a0d1b1b7b57a9d46ba840" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespace_beam_1a3183ec89cd2a0d1b1b7b57a9d46ba840" kindref="member">adam_epochs</ref><sp/>=<sp/>uint16_t{<sp/>500<sp/>};</highlight></codeline>
+<codeline lineno="58" refid="namespace_beam_1af1739f3ac632def72662b770deae5e16" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><ref refid="namespace_beam_1af1739f3ac632def72662b770deae5e16" kindref="member">adam_epochs_diff</ref><sp/>=<sp/>uint16_t{<sp/>100<sp/>};</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="namespace_beam_1a98af83695d468d303f6d72dc4d43a976" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>torch::Tensor<sp/><ref refid="namespace_beam_1a98af83695d468d303f6d72dc4d43a976" kindref="member">generate_training_data</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>n_points<sp/>=<sp/>100)<sp/>{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>options<sp/>=<sp/>torch::TensorOptions().dtype(torch::kFloat32).requires_grad(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>torch::rand({<sp/>n_points,<sp/>1<sp/>},<sp/>options);<sp/><sp/></highlight><highlight class="comment">//<sp/>Random<sp/>points<sp/>in<sp/>[0,<sp/>1]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>x;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="namespace_beam_1a078e93911aeab9c7299cf4d72f096b2b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>torch::Tensor<sp/><ref refid="namespace_beam_1a078e93911aeab9c7299cf4d72f096b2b" kindref="member">boundary_loss</ref>(<ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref>&amp;<sp/>model)<sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>options<sp/>=<sp/>torch::TensorOptions().dtype(torch::kFloat32).requires_grad(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>x<sp/>=<sp/>0<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>x0<sp/>=<sp/>torch::zeros({<sp/>1,<sp/>1<sp/>},<sp/>options).set_requires_grad(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>u0<sp/>=<sp/>model.<ref refid="class_beam_1_1_p_i_n_n_1a9a8726f885ed0c641a2511c0d90e10f1" kindref="member">forward</ref>(x0);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>du0<sp/>=<sp/>torch::autograd::grad({<sp/>u0<sp/>},<sp/>{<sp/>x0<sp/>},<sp/>{<sp/>torch::ones_like(u0)<sp/>},</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_global_1a51e08ff8dc510ca548116d8033887955" kindref="member">Global::keep_graph</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)[0];</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>x<sp/>=<sp/>1<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>x1<sp/>=<sp/>torch::ones({<sp/>1,<sp/>1<sp/>},<sp/>options).set_requires_grad(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>u1<sp/>=<sp/>model.<ref refid="class_beam_1_1_p_i_n_n_1a9a8726f885ed0c641a2511c0d90e10f1" kindref="member">forward</ref>(x1);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>du1<sp/>=<sp/>torch::autograd::grad({<sp/>u1<sp/>},<sp/>{<sp/>x1<sp/>},<sp/>{<sp/>torch::ones_like(u1)<sp/>},</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_global_1a51e08ff8dc510ca548116d8033887955" kindref="member">Global::keep_graph</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)[0];</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>d2u1<sp/>=<sp/>torch::autograd::grad({<sp/>du1<sp/>},<sp/>{<sp/>x1<sp/>},<sp/>{<sp/>torch::ones_like(du1)<sp/>},</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_global_1a51e08ff8dc510ca548116d8033887955" kindref="member">Global::keep_graph</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)[0];</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>d3u1<sp/>=<sp/>torch::autograd::grad({<sp/>d2u1<sp/>},<sp/>{<sp/>x1<sp/>},<sp/>{<sp/>torch::ones_like(d2u1)<sp/>},</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_global_1a51e08ff8dc510ca548116d8033887955" kindref="member">Global::keep_graph</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)[0];</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Sum<sp/>of<sp/>MSE<sp/>losses<sp/>for<sp/>each<sp/>boundary<sp/>condition</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>loss<sp/>=<sp/>torch::mse_loss(u0,<sp/>torch::zeros_like(u0))<sp/>+</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::mse_loss(du0,<sp/>torch::zeros_like(du0))<sp/>+</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::mse_loss(d2u1,<sp/>torch::zeros_like(d2u1))<sp/>+</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::mse_loss(d3u1,<sp/>torch::zeros_like(d3u1));</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>loss;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124" refid="namespace_beam_1a5bb3979d535ad323771667f5dfe41374" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>torch::Tensor<sp/><ref refid="namespace_beam_1a5bb3979d535ad323771667f5dfe41374" kindref="member">physics_loss</ref>(<ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref>&amp;<sp/>model,<sp/>torch::Tensor<sp/>input,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>EI<sp/>=<sp/>1.0f)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>input.clone().requires_grad_(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>u<sp/>=<sp/>model.<ref refid="class_beam_1_1_p_i_n_n_1a9a8726f885ed0c641a2511c0d90e10f1" kindref="member">forward</ref>(x);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ones<sp/>=<sp/>torch::ones_like(u);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>du_dx<sp/>=<sp/>torch::autograd::grad({<sp/>u<sp/>},<sp/>{<sp/>x<sp/>},<sp/>{<sp/>ones<sp/>},<sp/><ref refid="namespace_global_1a51e08ff8dc510ca548116d8033887955" kindref="member">Global::keep_graph</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)[0];</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>d2u_dx2<sp/>=<sp/>torch::autograd::grad({<sp/>du_dx<sp/>},<sp/>{<sp/>x<sp/>},<sp/>{<sp/>ones<sp/>},<sp/><ref refid="namespace_global_1a51e08ff8dc510ca548116d8033887955" kindref="member">Global::keep_graph</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)[0];</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>d3u_dx3<sp/>=<sp/>torch::autograd::grad({<sp/>d2u_dx2<sp/>},<sp/>{<sp/>x<sp/>},<sp/>{<sp/>ones<sp/>},<sp/><ref refid="namespace_global_1a51e08ff8dc510ca548116d8033887955" kindref="member">Global::keep_graph</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)[0];</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>d4u_dx4<sp/>=<sp/>torch::autograd::grad({<sp/>d3u_dx3<sp/>},<sp/>{<sp/>x<sp/>},<sp/>{<sp/>ones<sp/>},<sp/><ref refid="namespace_global_1a51e08ff8dc510ca548116d8033887955" kindref="member">Global::keep_graph</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">)[0];</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>q<sp/>=<sp/>torch::ones_like(x);<sp/><sp/></highlight><highlight class="comment">//<sp/>Constant<sp/>load<sp/>q(x)<sp/>=<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>residual<sp/>=<sp/>EI<sp/>*<sp/>d4u_dx4<sp/>-<sp/>q;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>torch::mean(residual.pow(2));</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::exception&amp;<sp/>e)<sp/>{</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Error<sp/>in<sp/>physics_loss:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>e.what()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>torch::tensor(0.0f,<sp/>torch::requires_grad(</highlight><highlight class="keyword">true</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154" refid="namespace_beam_1a1f20915669eb5e5ca0851aeac92dab48" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>torch::Tensor<sp/><ref refid="namespace_beam_1a1f20915669eb5e5ca0851aeac92dab48" kindref="member">compute_l2_regularization</ref>(<ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref>&amp;<sp/>model,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>lambda_reg)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(lambda_reg<sp/>&lt;=<sp/>0.0f)<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>torch::zeros({<sp/>1<sp/>},<sp/>torch::TensorOptions().dtype(torch::kFloat32));</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::Tensor<sp/>l2<sp/>=<sp/>torch::zeros({<sp/>1<sp/>},<sp/>torch::TensorOptions().dtype(torch::kFloat32));</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>param<sp/>:<sp/>model.parameters())<sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>l2<sp/>+=<sp/>torch::norm(param,<sp/>2).pow(2);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>lambda_reg<sp/>*<sp/>l2;</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176" refid="namespace_beam_1a22ac23dadc3912b5a3bcc400383e475b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_beam_1_1_losses" kindref="compound">Losses</ref><sp/><ref refid="namespace_beam_1a22ac23dadc3912b5a3bcc400383e475b" kindref="member">compute_losses</ref>(<ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref>&amp;<sp/>model,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>torch::Tensor&amp;<sp/>physics_input)<sp/>{</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>loss_physics<sp/>=<sp/><ref refid="namespace_beam_1a5bb3979d535ad323771667f5dfe41374" kindref="member">physics_loss</ref>(model,<sp/>physics_input);</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>loss_boundary<sp/>=<sp/><ref refid="namespace_beam_1a078e93911aeab9c7299cf4d72f096b2b" kindref="member">boundary_loss</ref>(model);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>l2_reg<sp/>=<sp/><ref refid="namespace_beam_1a1f20915669eb5e5ca0851aeac92dab48" kindref="member">compute_l2_regularization</ref>(model,<sp/>0.0f);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>total<sp/>=<sp/>loss_physics<sp/>+<sp/>2.0f<sp/>*<sp/>loss_boundary<sp/>+<sp/>l2_reg;</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{<sp/>total,<sp/>loss_physics,<sp/>loss_boundary,<sp/>l2_reg<sp/>};</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::exception&amp;<sp/>e)<sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Error<sp/>in<sp/>compute_losses:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>e.what()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>dummy<sp/>=<sp/>torch::tensor(1.0f,<sp/>torch::requires_grad(</highlight><highlight class="keyword">true</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{<sp/>dummy,<sp/>dummy,<sp/>dummy,<sp/>dummy<sp/>};</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight></codeline>
+<codeline lineno="201" refid="namespace_beam_1a3671c85c927bf4f6291b78ed2edcdd99" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="namespace_beam_1a3671c85c927bf4f6291b78ed2edcdd99" kindref="member">visualize_solution</ref>(<ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref>&amp;<sp/>model,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>grid_size<sp/>=<sp/>20)<sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>model.eval();<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>model<sp/>to<sp/>inference<sp/>mode</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::NoGradGuard<sp/>no_grad;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Disable<sp/>gradient<sp/>calculation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Detect<sp/>device<sp/>used<sp/>by<sp/>model<sp/>parameters<sp/>(CPU<sp/>or<sp/>CUDA)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::Device<sp/>device<sp/>=<sp/>torch::kCPU;</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal">&amp;<sp/>p<sp/>:<sp/>model.parameters())<sp/>{</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>device<sp/>=<sp/>p.device();<sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>options<sp/>=<sp/>torch::TensorOptions().dtype(torch::kFloat32).device(device);</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\nSolution<sp/>of<sp/>the<sp/>Euler-Bernoulli<sp/>beam<sp/>equation<sp/>on<sp/>[0,<sp/>1]:\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>grid_size;<sp/>++i)<sp/>{</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x_val<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(i)<sp/>/<sp/>(grid_size<sp/>-<sp/>1);<sp/><sp/></highlight><highlight class="comment">//<sp/>Linearly<sp/>spaced<sp/>point<sp/>in<sp/>[0,<sp/>1]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>x_tensor<sp/>=<sp/>torch::tensor({<sp/>{x_val}<sp/>},<sp/>options);<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Shape<sp/>[1,<sp/>1]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>torch::Tensor<sp/>u_pred;</highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>u_pred<sp/>=<sp/>model.<ref refid="class_beam_1_1_p_i_n_n_1a9a8726f885ed0c641a2511c0d90e10f1" kindref="member">forward</ref>(x_tensor);<sp/><sp/></highlight><highlight class="comment">//<sp/>Predict<sp/>u(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>c10::Error&amp;<sp/>e)<sp/>{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cerr<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Error<sp/>during<sp/>forward<sp/>pass<sp/>at<sp/>x<sp/>=<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>x_val<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>e.what()<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Convert<sp/>tensor<sp/>to<sp/>float<sp/>and<sp/>print<sp/>result</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>u_val<sp/>=<sp/>u_pred.detach().to(torch::kCPU).item&lt;</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">&gt;();</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/>std::fixed<sp/>&lt;&lt;<sp/>std::setprecision(2)<sp/>&lt;&lt;<sp/>x_val<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\t&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::setprecision(5)<sp/>&lt;&lt;<sp/>u_val<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;\n&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="233"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="236"><highlight class="comment">Vorschläge<sp/>und<sp/>Anmerkungen<sp/>(keine<sp/>Code-Änderung!):</highlight></codeline>
+<codeline lineno="237"><highlight class="comment">Hardcoded<sp/>loss<sp/>weights<sp/>(+2.0f<sp/>*<sp/>boundary<sp/>etc.)<sp/>könnten<sp/>als<sp/>Konstante<sp/>oder<sp/>Parameter<sp/>geführt<sp/>werden.</highlight></codeline>
+<codeline lineno="238"><highlight class="comment"></highlight></codeline>
+<codeline lineno="239"><highlight class="comment">Die<sp/>Verwendung<sp/>von<sp/>Global::keep_graph<sp/>ist<sp/>etwas<sp/>&quot;magisch&quot;<sp/>–<sp/>eventuell<sp/>explizit<sp/>dokumentieren<sp/>oder<sp/>kapseln.</highlight></codeline>
+<codeline lineno="240"><highlight class="comment"></highlight></codeline>
+<codeline lineno="241"><highlight class="comment">In<sp/>physics_loss:<sp/>Bei<sp/>Problemen<sp/>mit<sp/>Gradientenstabilität<sp/>wäre<sp/>ein<sp/>optionaler<sp/>Check<sp/>der<sp/>.grad_fn()<sp/>hilfreich.</highlight></codeline>
+<codeline lineno="242"><highlight class="comment"></highlight></codeline>
+<codeline lineno="243"><highlight class="comment">std::pair&lt;torch::Tensor,<sp/>torch::Tensor&gt;<sp/>in<sp/>generate_training_data()<sp/>enthält<sp/>ein<sp/>Dummy-Ziel.<sp/>Vielleicht<sp/>besser<sp/>std::tuple&lt;torch::Tensor&gt;<sp/>oder<sp/>ein<sp/>spezieller<sp/>Struct.</highlight></codeline>
+<codeline lineno="244"><highlight class="comment"></highlight></codeline>
+<codeline lineno="245"><highlight class="comment">Fehlerbehandlung<sp/>(try-catch)<sp/>ist<sp/>gut<sp/>—<sp/>aber<sp/>torch::tensor(0.0f,<sp/>...)<sp/>ohne<sp/>Device-Spezifikation<sp/>kann<sp/>zu<sp/>Problemen<sp/>führen<sp/>(nur<sp/>wenn<sp/>du<sp/>CUDA<sp/>verwendest).</highlight></codeline>
+<codeline lineno="246"><highlight class="comment"></highlight></codeline>
+<codeline lineno="247"><highlight class="comment"></highlight></codeline>
+<codeline lineno="248"><highlight class="comment"></highlight></codeline>
+<codeline lineno="249"><highlight class="comment">*/</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h"/>
+  </compounddef>
+</doxygen>

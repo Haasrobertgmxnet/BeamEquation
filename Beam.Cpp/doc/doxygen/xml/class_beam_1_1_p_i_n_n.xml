@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="class_beam_1_1_p_i_n_n" kind="class" language="C++" prot="public">
+    <compoundname>Beam::PINN</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">torch::nn::Module</basecompoundref>
+    <includes refid="_beam_8h" local="no">Beam.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_beam_1_1_p_i_n_n_1a6d58ab2e1577593a6217bf856dc298e2" prot="private" static="no" mutable="no">
+        <type>torch::nn::Linear</type>
+        <definition>torch::nn::Linear Beam::PINN::fc1</definition>
+        <argsstring></argsstring>
+        <name>fc1</name>
+        <qualifiedname>Beam::PINN::fc1</qualifiedname>
+        <initializer>{ nullptr }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="43" column="27" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_beam_1_1_p_i_n_n_1ab31549c757dd2c9788e8a85eb4c65b56" prot="private" static="no" mutable="no">
+        <type>torch::nn::Linear</type>
+        <definition>torch::nn::Linear Beam::PINN::fc2</definition>
+        <argsstring></argsstring>
+        <name>fc2</name>
+        <qualifiedname>Beam::PINN::fc2</qualifiedname>
+        <initializer>{ nullptr }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="43" column="31" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_beam_1_1_p_i_n_n_1a870960c268341fb91f27aaf7587f35b5" prot="private" static="no" mutable="no">
+        <type>torch::nn::Linear</type>
+        <definition>torch::nn::Linear Beam::PINN::fc3</definition>
+        <argsstring></argsstring>
+        <name>fc3</name>
+        <qualifiedname>Beam::PINN::fc3</qualifiedname>
+        <initializer>{ nullptr }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="43" column="35" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="43" bodyend="43"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_beam_1_1_p_i_n_n_1accd6d7388166661c25fecdc30d9af0c9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Beam::PINN::PINN</definition>
+        <argsstring>()</argsstring>
+        <name>PINN</name>
+        <qualifiedname>Beam::PINN::PINN</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="18" column="9" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="18" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_beam_1_1_p_i_n_n_1a9a8726f885ed0c641a2511c0d90e10f1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>torch::Tensor</type>
+        <definition>torch::Tensor Beam::PINN::forward</definition>
+        <argsstring>(torch::Tensor x)</argsstring>
+        <name>forward</name>
+        <qualifiedname>Beam::PINN::forward</qualifiedname>
+        <param>
+          <type>torch::Tensor</type>
+          <declname>x</declname>
+        </param>
+        <briefdescription>
+<para>Forward pass of the <ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Input tensor of shape (N, 1) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Network output tensor of shape (N, 1) </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="35" column="23" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="35" bodyend="40"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>A Physics-Informed Neural Network (<ref refid="class_beam_1_1_p_i_n_n" kindref="compound">PINN</ref>) model for 1D Euler-Bernoulli beam deflection. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Network architecture: Input: x ∈ ℝ¹ Hidden: two fully-connected layers with tanh activation Output: u(x) ∈ ℝ¹ </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Beam::PINN</label>
+        <link refid="class_beam_1_1_p_i_n_n"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>torch::nn::Module</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Beam::PINN</label>
+        <link refid="class_beam_1_1_p_i_n_n"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>torch::nn::Module</label>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="16" column="5" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="16" bodyend="44"/>
+    <listofallmembers>
+      <member refid="class_beam_1_1_p_i_n_n_1a6d58ab2e1577593a6217bf856dc298e2" prot="private" virt="non-virtual"><scope>Beam::PINN</scope><name>fc1</name></member>
+      <member refid="class_beam_1_1_p_i_n_n_1ab31549c757dd2c9788e8a85eb4c65b56" prot="private" virt="non-virtual"><scope>Beam::PINN</scope><name>fc2</name></member>
+      <member refid="class_beam_1_1_p_i_n_n_1a870960c268341fb91f27aaf7587f35b5" prot="private" virt="non-virtual"><scope>Beam::PINN</scope><name>fc3</name></member>
+      <member refid="class_beam_1_1_p_i_n_n_1a9a8726f885ed0c641a2511c0d90e10f1" prot="public" virt="non-virtual"><scope>Beam::PINN</scope><name>forward</name></member>
+      <member refid="class_beam_1_1_p_i_n_n_1accd6d7388166661c25fecdc30d9af0c9" prot="public" virt="non-virtual"><scope>Beam::PINN</scope><name>PINN</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

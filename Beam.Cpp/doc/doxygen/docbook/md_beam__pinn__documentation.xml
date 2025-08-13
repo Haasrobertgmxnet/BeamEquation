@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_md_beam__pinn__documentation" xml:lang="en-US">
+<title>BeamEquation: Physics-Informed Neural Network (PINN) for Euler-Bernoulli Beam</title>
+<indexterm><primary>BeamEquation: Physics-Informed Neural Network (PINN) for Euler-Bernoulli Beam</primary></indexterm>
+
+<para><anchor xml:id="_md_beam__pinn__documentation_1autotoc_md0"/> This repository implements a Physics-Informed Neural Network (PINN) to solve the Euler-Bernoulli beam equation. It combines machine learning (LibTorch/C++) with physical constraints to estimate the deflection of a beam on the domain ([0, 1]).</para>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md1">
+<title><title>Contents</title></title>
+
+<para><itemizedlist>
+<listitem>
+<para><computeroutput><link linkend="_main_8cpp">main.cpp</link></computeroutput>: Training and inference routine</para>
+</listitem><listitem>
+<para><computeroutput><link linkend="__beam_8h">Beam.h</link>/cpp</computeroutput>: PINN model definition and loss logic</para>
+</listitem><listitem>
+<para><computeroutput><link linkend="__global_8h">Global.h</link></computeroutput>: <link linkend="_namespace_global">Global</link> constants and options</para>
+</listitem><listitem>
+<para><computeroutput><link linkend="__timer_8h">Timer.h</link></computeroutput>: Runtime measurement helper</para>
+</listitem><listitem>
+<para><computeroutput>plot.py</computeroutput>: Python script to visualize model output</para>
+</listitem><listitem>
+<para><computeroutput>test_beam.cpp</computeroutput>: Unit tests with Catch2</para>
+</listitem></itemizedlist>
+</para>
+
+<para><informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+</para>
+</section>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md3">
+<title><title>Getting Started</title></title>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md4">
+<title><title>Requirements</title></title>
+
+<para><itemizedlist>
+<listitem>
+<para>Visual Studio 2022</para>
+</listitem><listitem>
+<para>CMake 3.20+</para>
+</listitem><listitem>
+<para>vcpkg for dependencies (see below)</para>
+</listitem><listitem>
+<para>LibTorch (installed via vcpkg)</para>
+</listitem></itemizedlist>
+</para>
+</section>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md5">
+<title><title>Setup</title></title>
+
+<para><orderedlist>
+<listitem>
+<para><emphasis role="bold">Clone Repository</emphasis></para>
+</listitem></orderedlist>
+</para>
+
+<para><literallayout><computeroutput>git&#32;clone&#32;https://github.com/yourusername/BeamEquation.git
+</computeroutput></literallayout></para>
+
+<para><orderedlist>
+<listitem>
+<para><emphasis role="bold">Install Dependencies</emphasis></para>
+</listitem></orderedlist>
+</para>
+
+<para><literallayout><computeroutput>#&#32;Optional:&#32;set&#32;VCPKG_ROOT&#32;if&#32;not&#32;global
+git&#32;clone&#32;https://github.com/microsoft/vcpkg.git
+./vcpkg/bootstrap-vcpkg.sh
+./vcpkg/vcpkg&#32;install&#32;libtorch&#32;catch2
+</computeroutput></literallayout></para>
+
+<para><orderedlist>
+<listitem>
+<para><emphasis role="bold">Build Project</emphasis></para>
+</listitem></orderedlist>
+</para>
+
+<para><literallayout><computeroutput>mkdir&#32;build&#32;&amp;&amp;&#32;cd&#32;build
+cmake&#32;..&#32;-DCMAKE_TOOLCHAIN_FILE=C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake
+cmake&#32;--build&#32;.&#32;--config&#32;Release
+</computeroutput></literallayout></para>
+
+<para><informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+</para>
+</section>
+</section>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md7">
+<title><title>Training</title></title>
+
+<para>Run the executable (in Release mode):</para>
+
+<para><literallayout><computeroutput>./BeamEquation.exe&#32;&gt;&#32;result.txt
+</computeroutput></literallayout></para>
+
+<para>The model will:</para>
+
+<para><itemizedlist>
+<listitem>
+<para>Train using Adam (coarse fit)</para>
+</listitem><listitem>
+<para>Refine with LBFGS</para>
+</listitem><listitem>
+<para>Output deflection <computeroutput>u(x)</computeroutput> over [0, 1]</para>
+</listitem></itemizedlist>
+</para>
+
+<para><informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+</para>
+</section>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md9">
+<title><title>Plotting Results</title></title>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md10">
+<title><title>Requirements</title></title>
+
+<para><itemizedlist>
+<listitem>
+<para>Python 3.8+</para>
+</listitem><listitem>
+<para><computeroutput>matplotlib</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+
+<para><literallayout><computeroutput>pip&#32;install&#32;matplotlib
+</computeroutput></literallayout></para>
+</section>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md11">
+<title><title>Usage</title></title>
+
+<para><literallayout><computeroutput>python&#32;plot.py&#32;result.txt
+</computeroutput></literallayout></para>
+
+<para>This script plots the predicted beam deflection over ([0,1]).</para>
+
+<para><informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+</para>
+</section>
+</section>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md13">
+<title><title>Testing</title></title>
+
+<para>We use <link xlink:href="https://github.com/catchorg/Catch2">Catch2</link> for unit testing.</para>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md14">
+<title><title>Build Tests</title></title>
+
+<para><literallayout><computeroutput>cmake&#32;..&#32;-DBUILD_TESTING=ON
+cmake&#32;--build&#32;.&#32;--config&#32;Debug
+ctest
+</computeroutput></literallayout></para>
+
+<para>Or run directly:</para>
+
+<para><literallayout><computeroutput>./test_beam
+</computeroutput></literallayout></para>
+
+<para><informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+</para>
+</section>
+</section>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md16">
+<title><title>License</title></title>
+
+<para>MIT License</para>
+
+<para><informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+</para>
+</section>
+<section xml:id="_md_beam__pinn__documentation_1autotoc_md18">
+<title><title>Acknowledgments</title></title>
+
+<para><itemizedlist>
+<listitem>
+<para>LibTorch (PyTorch C++ API)</para>
+</listitem><listitem>
+<para>Microsoft vcpkg</para>
+</listitem><listitem>
+<para>Catch2 Testing Framework </para>
+</listitem></itemizedlist>
+</para>
+</section>
+</section>

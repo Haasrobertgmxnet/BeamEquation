@@ -1,0 +1,70 @@
+\doxysection{Beam\+::PINN Class Reference}
+\hypertarget{class_beam_1_1_p_i_n_n}{}\label{class_beam_1_1_p_i_n_n}\index{Beam::PINN@{Beam::PINN}}
+
+
+A Physics-\/\+Informed Neural Network (\doxylink{class_beam_1_1_p_i_n_n}{PINN}) model for 1D Euler-\/\+Bernoulli beam deflection.  
+
+
+
+
+{\ttfamily \#include $<$Beam.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_beam_1_1_p_i_n_n_accd6d7388166661c25fecdc30d9af0c9}{PINN}} ()
+\item 
+torch\+::\+Tensor \mbox{\hyperlink{class_beam_1_1_p_i_n_n_a9a8726f885ed0c641a2511c0d90e10f1}{forward}} (torch\+::\+Tensor x)
+\begin{DoxyCompactList}\small\item\em Forward pass of the \doxylink{class_beam_1_1_p_i_n_n}{PINN}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A Physics-\/\+Informed Neural Network (\doxylink{class_beam_1_1_p_i_n_n}{PINN}) model for 1D Euler-\/\+Bernoulli beam deflection. 
+
+Network architecture\+: Input\+: x ∈ ℝ¹ Hidden\+: two fully-\/connected layers with tanh activation Output\+: u(x) ∈ ℝ¹ 
+
+Definition at line \mbox{\hyperlink{_beam_8h_source_l00016}{16}} of file \mbox{\hyperlink{_beam_8h_source}{Beam.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_beam_1_1_p_i_n_n_accd6d7388166661c25fecdc30d9af0c9}\label{class_beam_1_1_p_i_n_n_accd6d7388166661c25fecdc30d9af0c9} 
+\index{Beam::PINN@{Beam::PINN}!PINN@{PINN}}
+\index{PINN@{PINN}!Beam::PINN@{Beam::PINN}}
+\doxysubsubsection{\texorpdfstring{PINN()}{PINN()}}
+{\footnotesize\ttfamily Beam\+::\+PINN\+::\+PINN (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_beam_8h_source_l00018}{18}} of file \mbox{\hyperlink{_beam_8h_source}{Beam.\+h}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_beam_1_1_p_i_n_n_a9a8726f885ed0c641a2511c0d90e10f1}\label{class_beam_1_1_p_i_n_n_a9a8726f885ed0c641a2511c0d90e10f1} 
+\index{Beam::PINN@{Beam::PINN}!forward@{forward}}
+\index{forward@{forward}!Beam::PINN@{Beam::PINN}}
+\doxysubsubsection{\texorpdfstring{forward()}{forward()}}
+{\footnotesize\ttfamily torch\+::\+Tensor Beam\+::\+PINN\+::forward (\begin{DoxyParamCaption}\item[{torch\+::\+Tensor}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Forward pass of the \doxylink{class_beam_1_1_p_i_n_n}{PINN}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Input tensor of shape (N, 1) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Network output tensor of shape (N, 1) 
+\end{DoxyReturn}
+
+
+Definition at line \mbox{\hyperlink{_beam_8h_source_l00035}{35}} of file \mbox{\hyperlink{_beam_8h_source}{Beam.\+h}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/haasr/source/repos/\+Beam\+Equation/\+Beam.\+Cpp/include/\mbox{\hyperlink{_beam_8h}{Beam.\+h}}\end{DoxyCompactItemize}

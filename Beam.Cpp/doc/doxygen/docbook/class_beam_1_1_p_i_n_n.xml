@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_class_beam_1_1_p_i_n_n" xml:lang="en-US">
+<title>Beam::PINN Class Reference</title>
+<indexterm><primary>Beam::PINN</primary></indexterm>
+<para>
+
+<para>A Physics-Informed Neural Network (<link linkend="_class_beam_1_1_p_i_n_n">PINN</link>) model for 1D Euler-Bernoulli beam deflection. </para>
+ 
+</para>
+<para>
+<computeroutput>#include &lt;Beam.h&gt;</computeroutput>
+</para>
+<simplesect>
+    <title>Public Member Functions    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_class_beam_1_1_p_i_n_n_1accd6d7388166661c25fecdc30d9af0c9">PINN</link> ()</para>
+</listitem>
+            <listitem><para>torch::Tensor <link linkend="_class_beam_1_1_p_i_n_n_1a9a8726f885ed0c641a2511c0d90e10f1">forward</link> (torch::Tensor x)</para>
+
+<para>Forward pass of the <link linkend="_class_beam_1_1_p_i_n_n">PINN</link>. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>A Physics-Informed Neural Network (<link linkend="_class_beam_1_1_p_i_n_n">PINN</link>) model for 1D Euler-Bernoulli beam deflection. </para>
+
+
+
+<para>Network architecture: Input: x ∈ ℝ¹ Hidden: two fully-connected layers with tanh activation Output: u(x) ∈ ℝ¹ </para>
+<para>
+Definition at line <link linkend="__beam_8h_source_1l00016">16</link> of file <link linkend="__beam_8h_source">Beam.h</link>.</para>
+</section>
+<section>
+<title>Constructor &amp; Destructor Documentation</title>
+<anchor xml:id="_class_beam_1_1_p_i_n_n_1accd6d7388166661c25fecdc30d9af0c9"/><section>
+    <title>PINN()</title>
+<indexterm><primary>PINN</primary><secondary>Beam::PINN</secondary></indexterm>
+<indexterm><primary>Beam::PINN</primary><secondary>PINN</secondary></indexterm>
+<para><computeroutput>Beam::PINN::PINN ( )<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="__beam_8h_source_1l00018">18</link> of file <link linkend="__beam_8h_source">Beam.h</link>.</para>
+</section>
+</section>
+<section>
+<title>Member Function Documentation</title>
+<anchor xml:id="_class_beam_1_1_p_i_n_n_1a9a8726f885ed0c641a2511c0d90e10f1"/><section>
+    <title>forward()</title>
+<indexterm><primary>forward</primary><secondary>Beam::PINN</secondary></indexterm>
+<indexterm><primary>Beam::PINN</primary><secondary>forward</secondary></indexterm>
+<para><computeroutput>torch::Tensor Beam::PINN::forward (torch::Tensor x)<computeroutput>[inline]</computeroutput></computeroutput></para><para>
+
+<para>Forward pass of the <link linkend="_class_beam_1_1_p_i_n_n">PINN</link>. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>Input tensor of shape (N, 1) </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Network output tensor of shape (N, 1) </para>
+</formalpara>
+</para>
+<para>
+Definition at line <link linkend="__beam_8h_source_1l00035">35</link> of file <link linkend="__beam_8h_source">Beam.h</link>.</para>
+</section>
+<para>
+The documentation for this class was generated from the following file:</para>
+C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/<link linkend="__beam_8h">Beam.h</link></section>
+</section>

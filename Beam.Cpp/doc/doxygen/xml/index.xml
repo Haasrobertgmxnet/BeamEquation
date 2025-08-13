@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.10.0" xml:lang="en-US">
+  <compound refid="struct_beam_1_1_losses" kind="struct"><name>Beam::Losses</name>
+    <member refid="struct_beam_1_1_losses_1a031fd264cee66da4f3a4e1cafdb2ee3a" kind="variable"><name>total</name></member>
+    <member refid="struct_beam_1_1_losses_1a628553f1a885cb9c709c01489bab559d" kind="variable"><name>physics</name></member>
+    <member refid="struct_beam_1_1_losses_1a8ea3376de1d595babf972d1b20a9b3dd" kind="variable"><name>boundary</name></member>
+    <member refid="struct_beam_1_1_losses_1ac8bca10d64a303e3f0ff3e84c38abe1e" kind="variable"><name>l2_reg</name></member>
+  </compound>
+  <compound refid="class_beam_1_1_p_i_n_n" kind="class"><name>Beam::PINN</name>
+    <member refid="class_beam_1_1_p_i_n_n_1a6d58ab2e1577593a6217bf856dc298e2" kind="variable"><name>fc1</name></member>
+    <member refid="class_beam_1_1_p_i_n_n_1ab31549c757dd2c9788e8a85eb4c65b56" kind="variable"><name>fc2</name></member>
+    <member refid="class_beam_1_1_p_i_n_n_1a870960c268341fb91f27aaf7587f35b5" kind="variable"><name>fc3</name></member>
+    <member refid="class_beam_1_1_p_i_n_n_1accd6d7388166661c25fecdc30d9af0c9" kind="function"><name>PINN</name></member>
+    <member refid="class_beam_1_1_p_i_n_n_1a9a8726f885ed0c641a2511c0d90e10f1" kind="function"><name>forward</name></member>
+  </compound>
+  <compound refid="class_helper_1_1_timer" kind="class"><name>Helper::Timer</name>
+    <member refid="class_helper_1_1_timer_1a3e9a72abf6e24590c380b05e13ab6f58" kind="variable"><name>outputAtExit</name></member>
+    <member refid="class_helper_1_1_timer_1a1a47560871a711f7040244c53a61ed55" kind="variable"><name>start</name></member>
+    <member refid="class_helper_1_1_timer_1a446d5014eb5fae9e938f5de7955d24f4" kind="function"><name>Timer</name></member>
+    <member refid="class_helper_1_1_timer_1a97c16612072fd2d908d4405d1445bff2" kind="function"><name>setOutputAtExit</name></member>
+    <member refid="class_helper_1_1_timer_1a767002e9c1e7a788514124018b9c6127" kind="function"><name>getStart</name></member>
+    <member refid="class_helper_1_1_timer_1ad1a42055a2907f16823edf8675780f75" kind="function"><name>getDuration</name></member>
+    <member refid="class_helper_1_1_timer_1a21df00680b034f2a0a2c5aea315f7e65" kind="function"><name>~Timer</name></member>
+  </compound>
+  <compound refid="namespace_beam" kind="namespace"><name>Beam</name>
+    <member refid="namespace_beam_1a3183ec89cd2a0d1b1b7b57a9d46ba840" kind="variable"><name>adam_epochs</name></member>
+    <member refid="namespace_beam_1af1739f3ac632def72662b770deae5e16" kind="variable"><name>adam_epochs_diff</name></member>
+    <member refid="namespace_beam_1a98af83695d468d303f6d72dc4d43a976" kind="function"><name>generate_training_data</name></member>
+    <member refid="namespace_beam_1a078e93911aeab9c7299cf4d72f096b2b" kind="function"><name>boundary_loss</name></member>
+    <member refid="namespace_beam_1a5bb3979d535ad323771667f5dfe41374" kind="function"><name>physics_loss</name></member>
+    <member refid="namespace_beam_1a1f20915669eb5e5ca0851aeac92dab48" kind="function"><name>compute_l2_regularization</name></member>
+    <member refid="namespace_beam_1a22ac23dadc3912b5a3bcc400383e475b" kind="function"><name>compute_losses</name></member>
+    <member refid="namespace_beam_1a3671c85c927bf4f6291b78ed2edcdd99" kind="function"><name>visualize_solution</name></member>
+  </compound>
+  <compound refid="namespace_global" kind="namespace"><name>Global</name>
+    <member refid="namespace_global_1a51e08ff8dc510ca548116d8033887955" kind="variable"><name>keep_graph</name></member>
+  </compound>
+  <compound refid="namespace_helper" kind="namespace"><name>Helper</name>
+  </compound>
+  <compound refid="namespacetorch" kind="namespace"><name>torch</name>
+  </compound>
+  <compound refid="namespacetorch_1_1nn" kind="namespace"><name>torch::nn</name>
+  </compound>
+  <compound refid="_c_make_c_compiler_id_8c" kind="file"><name>CMakeCCompilerId.c</name>
+    <member refid="_c_make_c_compiler_id_8c_1ae5510d82e4946f1656f4969911c54736" kind="define"><name>__has_include</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1a81dee0709ded976b2e0319239f72d174" kind="define"><name>COMPILER_ID</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1a2ae9b72bb13abaabfcf2ee0ba7d3fa1d" kind="define"><name>STRINGIFY_HELPER</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1a43e1cad902b6477bec893cb6430bd6c8" kind="define"><name>STRINGIFY</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1adbc5372f40838899018fadbc89bd588b" kind="define"><name>PLATFORM_ID</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1aba35d0d200deaeb06aee95ca297acb28" kind="define"><name>ARCHITECTURE_ID</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1ad1280362da42492bbc11aa78cbf776ad" kind="define"><name>DEC</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1a46d5d95daa1bef867bd0179594310ed5" kind="define"><name>HEX</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1adaee3ee7c5a7a22451ea25e762e1d7d5" kind="define"><name>C_VERSION</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1a4b0efeb7a5d59313986b3a0390f050f6" kind="variable"><name>info_compiler</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1a2321403dee54ee23f0c2fa849c60f7d4" kind="variable"><name>info_platform</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1a59647e99d304ed33b15cb284c27ed391" kind="variable"><name>info_arch</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1a4607cccf070750927b458473ca82c090" kind="variable"><name>info_language_standard_default</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1a0f46a8a39e09d9b803c4766904fd7e99" kind="variable"><name>info_language_extensions_default</name></member>
+    <member refid="_c_make_c_compiler_id_8c_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="_c_make_c_x_x_compiler_id_8cpp" kind="file"><name>CMakeCXXCompilerId.cpp</name>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1ae5510d82e4946f1656f4969911c54736" kind="define"><name>__has_include</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1a81dee0709ded976b2e0319239f72d174" kind="define"><name>COMPILER_ID</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1a2ae9b72bb13abaabfcf2ee0ba7d3fa1d" kind="define"><name>STRINGIFY_HELPER</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1a43e1cad902b6477bec893cb6430bd6c8" kind="define"><name>STRINGIFY</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1adbc5372f40838899018fadbc89bd588b" kind="define"><name>PLATFORM_ID</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1aba35d0d200deaeb06aee95ca297acb28" kind="define"><name>ARCHITECTURE_ID</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1ad1280362da42492bbc11aa78cbf776ad" kind="define"><name>DEC</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1a46d5d95daa1bef867bd0179594310ed5" kind="define"><name>HEX</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1a34cc889e576a1ae6c84ae9e0a851ba21" kind="define"><name>CXX_STD</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1a4b0efeb7a5d59313986b3a0390f050f6" kind="variable"><name>info_compiler</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1a2321403dee54ee23f0c2fa849c60f7d4" kind="variable"><name>info_platform</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1a59647e99d304ed33b15cb284c27ed391" kind="variable"><name>info_arch</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1a4607cccf070750927b458473ca82c090" kind="variable"><name>info_language_standard_default</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1a0f46a8a39e09d9b803c4766904fd7e99" kind="variable"><name>info_language_extensions_default</name></member>
+    <member refid="_c_make_c_x_x_compiler_id_8cpp_1a0ddf1224851353fc92bfbff6f499fa97" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="beam__pinn__documentation_8md" kind="file"><name>beam_pinn_documentation.md</name>
+  </compound>
+  <compound refid="_beam_8h" kind="file"><name>Beam.h</name>
+  </compound>
+  <compound refid="_global_8h" kind="file"><name>Global.h</name>
+  </compound>
+  <compound refid="_timer_8h" kind="file"><name>Timer.h</name>
+  </compound>
+  <compound refid="main_8cpp" kind="file"><name>main.cpp</name>
+    <member refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" kind="function"><name>main</name></member>
+  </compound>
+  <compound refid="md_beam__pinn__documentation" kind="page"><name>md_beam__pinn__documentation</name>
+  </compound>
+  <compound refid="dir_332c553fc49b1a13451acb19cc9e7bba" kind="dir"><name>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/3.29.2</name>
+  </compound>
+  <compound refid="dir_4fef79e7177ba769987a8da36c892c5f" kind="dir"><name>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build</name>
+  </compound>
+  <compound refid="dir_63772b626f2709090f0bdca0f40827b4" kind="dir"><name>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles</name>
+  </compound>
+  <compound refid="dir_81fb1a567d73939244c1d33ec26e77c4" kind="dir"><name>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/3.29.2/CompilerIdC</name>
+  </compound>
+  <compound refid="dir_d3b9d5c61c8bddf83c18df8b6f82c524" kind="dir"><name>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/3.29.2/CompilerIdCXX</name>
+  </compound>
+  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include</name>
+  </compound>
+</doxygenindex>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="namespace_global" kind="namespace" language="C++">
+    <compoundname>Global</compoundname>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="namespace_global_1a51e08ff8dc510ca548116d8033887955" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr auto</type>
+        <definition>constexpr auto Global::keep_graph</definition>
+        <argsstring></argsstring>
+        <name>keep_graph</name>
+        <qualifiedname>Global::keep_graph</qualifiedname>
+        <initializer>= bool{ true }</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Global.h" line="6" column="16" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Global.h" bodystart="6" bodyend="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Global.h" line="5" column="1"/>
+  </compounddef>
+</doxygen>

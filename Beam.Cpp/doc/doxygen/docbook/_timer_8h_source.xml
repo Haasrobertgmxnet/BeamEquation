@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="__timer_8h_source" xml:lang="en-US">
+<title>Timer.h</title>
+<indexterm><primary>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="__timer_8h_source_1l00001"/>00001 <emphasis role="preprocessor">#pragma&#32;once</emphasis>
+<anchor xml:id="__timer_8h_source_1l00002"/>00002 
+<anchor xml:id="__timer_8h_source_1l00003"/>00003 <emphasis role="preprocessor">#pragma&#32;once</emphasis>
+<anchor xml:id="__timer_8h_source_1l00004"/>00004 
+<anchor xml:id="__timer_8h_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&lt;chrono&gt;</emphasis>
+<anchor xml:id="__timer_8h_source_1l00006"/>00006 <emphasis role="preprocessor">#include&#32;&lt;iostream&gt;</emphasis>
+<anchor xml:id="__timer_8h_source_1l00007"/>00007 
+<anchor xml:id="__timer_8h_source_1l00008"/><link linkend="_namespace_helper">00008</link> <emphasis role="keyword">namespace&#32;</emphasis><link linkend="_namespace_helper">Helper</link>&#32;{
+<anchor xml:id="__timer_8h_source_1l00009"/><link linkend="_class_helper_1_1_timer">00009</link> &#32;&#32;&#32;&#32;<emphasis role="keyword">class&#32;</emphasis><link linkend="_class_helper_1_1_timer">Timer</link>
+<anchor xml:id="__timer_8h_source_1l00010"/>00010 &#32;&#32;&#32;&#32;{
+<anchor xml:id="__timer_8h_source_1l00011"/>00011 &#32;&#32;&#32;&#32;<emphasis role="keyword">public</emphasis>:
+<anchor xml:id="__timer_8h_source_1l00012"/><link linkend="_class_helper_1_1_timer_1a446d5014eb5fae9e938f5de7955d24f4">00012</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_helper_1_1_timer_1a446d5014eb5fae9e938f5de7955d24f4">Timer</link>()&#32;:&#32;outputAtExit(true)
+<anchor xml:id="__timer_8h_source_1l00013"/>00013 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="__timer_8h_source_1l00014"/>00014 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;start&#32;=&#32;std::chrono::steady_clock::now();
+<anchor xml:id="__timer_8h_source_1l00015"/>00015 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="__timer_8h_source_1l00016"/>00016 
+<anchor xml:id="__timer_8h_source_1l00017"/><link linkend="_class_helper_1_1_timer_1a97c16612072fd2d908d4405d1445bff2">00017</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_class_helper_1_1_timer_1a97c16612072fd2d908d4405d1445bff2">setOutputAtExit</link>(<emphasis role="keywordtype">bool</emphasis>&#32;_outputAtExit)&#32;{
+<anchor xml:id="__timer_8h_source_1l00018"/>00018 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;outputAtExit&#32;=&#32;_outputAtExit;
+<anchor xml:id="__timer_8h_source_1l00019"/>00019 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="__timer_8h_source_1l00020"/>00020 
+<anchor xml:id="__timer_8h_source_1l00021"/><link linkend="_class_helper_1_1_timer_1a767002e9c1e7a788514124018b9c6127">00021</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::chrono::steady_clock::time_point&#32;<link linkend="_class_helper_1_1_timer_1a767002e9c1e7a788514124018b9c6127">getStart</link>()<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="__timer_8h_source_1l00022"/>00022 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;start;
+<anchor xml:id="__timer_8h_source_1l00023"/>00023 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="__timer_8h_source_1l00024"/>00024 
+<anchor xml:id="__timer_8h_source_1l00025"/><link linkend="_class_helper_1_1_timer_1ad1a42055a2907f16823edf8675780f75">00025</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::chrono::milliseconds&#32;<link linkend="_class_helper_1_1_timer_1ad1a42055a2907f16823edf8675780f75">getDuration</link>()<emphasis role="keyword">&#32;const&#32;</emphasis>{
+<anchor xml:id="__timer_8h_source_1l00026"/>00026 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(
+<anchor xml:id="__timer_8h_source_1l00027"/>00027 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::chrono::steady_clock::now()&#32;-&#32;start);
+<anchor xml:id="__timer_8h_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="__timer_8h_source_1l00029"/>00029 
+<anchor xml:id="__timer_8h_source_1l00030"/><link linkend="_class_helper_1_1_timer_1a21df00680b034f2a0a2c5aea315f7e65">00030</link> &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_class_helper_1_1_timer_1a21df00680b034f2a0a2c5aea315f7e65">~Timer</link>()
+<anchor xml:id="__timer_8h_source_1l00031"/>00031 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="__timer_8h_source_1l00032"/>00032 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(outputAtExit)
+<anchor xml:id="__timer_8h_source_1l00033"/>00033 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+<anchor xml:id="__timer_8h_source_1l00034"/>00034 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;Destructor&#32;called:&#32;Time&#32;difference&#32;needed&#32;for&#32;program&#32;execution:&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;<link linkend="_class_helper_1_1_timer_1ad1a42055a2907f16823edf8675780f75">getDuration</link>().count()&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;Milliseconds.\n&quot;</emphasis>;
+<anchor xml:id="__timer_8h_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="__timer_8h_source_1l00036"/>00036 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+<anchor xml:id="__timer_8h_source_1l00037"/>00037 
+<anchor xml:id="__timer_8h_source_1l00038"/>00038 &#32;&#32;&#32;&#32;<emphasis role="keyword">private</emphasis>:
+<anchor xml:id="__timer_8h_source_1l00039"/>00039 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;outputAtExit{};
+<anchor xml:id="__timer_8h_source_1l00040"/>00040 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;std::chrono::steady_clock::time_point&#32;start{};
+<anchor xml:id="__timer_8h_source_1l00041"/>00041 &#32;&#32;&#32;&#32;};
+<anchor xml:id="__timer_8h_source_1l00042"/>00042 }
+</programlisting></section>

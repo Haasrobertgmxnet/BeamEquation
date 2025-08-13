@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="md_beam__pinn__documentation" kind="page">
+    <compoundname>md_beam__pinn__documentation</compoundname>
+    <title>BeamEquation: Physics-Informed Neural Network (PINN) for Euler-Bernoulli Beam</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="md_beam__pinn__documentation_1autotoc_md0"/> This repository implements a Physics-Informed Neural Network (PINN) to solve the Euler-Bernoulli beam equation. It combines machine learning (LibTorch/C++) with physical constraints to estimate the deflection of a beam on the domain ([0, 1]).</para>
+<sect1 id="md_beam__pinn__documentation_1autotoc_md1">
+<title>Contents</title><para><itemizedlist>
+<listitem><para><computeroutput><ref refid="main_8cpp" kindref="compound">main.cpp</ref></computeroutput>: Training and inference routine</para>
+</listitem><listitem><para><computeroutput><ref refid="_beam_8h" kindref="compound">Beam.h</ref>/cpp</computeroutput>: PINN model definition and loss logic</para>
+</listitem><listitem><para><computeroutput><ref refid="_global_8h" kindref="compound">Global.h</ref></computeroutput>: <ref refid="namespace_global" kindref="compound">Global</ref> constants and options</para>
+</listitem><listitem><para><computeroutput><ref refid="_timer_8h" kindref="compound">Timer.h</ref></computeroutput>: Runtime measurement helper</para>
+</listitem><listitem><para><computeroutput>plot.py</computeroutput>: Python script to visualize model output</para>
+</listitem><listitem><para><computeroutput>test_beam.cpp</computeroutput>: Unit tests with Catch2</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect1>
+<sect1 id="md_beam__pinn__documentation_1autotoc_md3">
+<title>Getting Started</title><sect2 id="md_beam__pinn__documentation_1autotoc_md4">
+<title>Requirements</title><para><itemizedlist>
+<listitem><para>Visual Studio 2022</para>
+</listitem><listitem><para>CMake 3.20+</para>
+</listitem><listitem><para>vcpkg for dependencies (see below)</para>
+</listitem><listitem><para>LibTorch (installed via vcpkg)</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="md_beam__pinn__documentation_1autotoc_md5">
+<title>Setup</title><para><orderedlist>
+<listitem><para><bold>Clone Repository</bold></para>
+</listitem></orderedlist>
+</para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">git<sp/>clone<sp/>https://github.com/yourusername/BeamEquation.git</highlight></codeline>
+</programlisting></para>
+<para><orderedlist>
+<listitem><para><bold>Install Dependencies</bold></para>
+</listitem></orderedlist>
+</para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">#<sp/>Optional:<sp/>set<sp/>VCPKG_ROOT<sp/>if<sp/>not<sp/>global</highlight></codeline>
+<codeline><highlight class="normal">git<sp/>clone<sp/>https://github.com/microsoft/vcpkg.git</highlight></codeline>
+<codeline><highlight class="normal">./vcpkg/bootstrap-vcpkg.sh</highlight></codeline>
+<codeline><highlight class="normal">./vcpkg/vcpkg<sp/>install<sp/>libtorch<sp/>catch2</highlight></codeline>
+</programlisting></para>
+<para><orderedlist>
+<listitem><para><bold>Build Project</bold></para>
+</listitem></orderedlist>
+</para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">mkdir<sp/>build<sp/>&amp;&amp;<sp/>cd<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>..<sp/>-DCMAKE_TOOLCHAIN_FILE=C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>.<sp/>--config<sp/>Release</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect2>
+</sect1>
+<sect1 id="md_beam__pinn__documentation_1autotoc_md7">
+<title>Training</title><para>Run the executable (in Release mode):</para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">./BeamEquation.exe<sp/>&gt;<sp/>result.txt</highlight></codeline>
+</programlisting></para>
+<para>The model will:</para>
+<para><itemizedlist>
+<listitem><para>Train using Adam (coarse fit)</para>
+</listitem><listitem><para>Refine with LBFGS</para>
+</listitem><listitem><para>Output deflection <computeroutput>u(x)</computeroutput> over [0, 1]</para>
+</listitem></itemizedlist>
+</para>
+<para><hruler/>
+</para>
+</sect1>
+<sect1 id="md_beam__pinn__documentation_1autotoc_md9">
+<title>Plotting Results</title><sect2 id="md_beam__pinn__documentation_1autotoc_md10">
+<title>Requirements</title><para><itemizedlist>
+<listitem><para>Python 3.8+</para>
+</listitem><listitem><para><computeroutput>matplotlib</computeroutput></para>
+</listitem></itemizedlist>
+</para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">pip<sp/>install<sp/>matplotlib</highlight></codeline>
+</programlisting></para>
+</sect2>
+<sect2 id="md_beam__pinn__documentation_1autotoc_md11">
+<title>Usage</title><para><programlisting filename=".bash"><codeline><highlight class="normal">python<sp/>plot.py<sp/>result.txt</highlight></codeline>
+</programlisting></para>
+<para>This script plots the predicted beam deflection over ([0,1]).</para>
+<para><hruler/>
+</para>
+</sect2>
+</sect1>
+<sect1 id="md_beam__pinn__documentation_1autotoc_md13">
+<title>Testing</title><para>We use <ulink url="https://github.com/catchorg/Catch2">Catch2</ulink> for unit testing.</para>
+<sect2 id="md_beam__pinn__documentation_1autotoc_md14">
+<title>Build Tests</title><para><programlisting filename=".bash"><codeline><highlight class="normal">cmake<sp/>..<sp/>-DBUILD_TESTING=ON</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>.<sp/>--config<sp/>Debug</highlight></codeline>
+<codeline><highlight class="normal">ctest</highlight></codeline>
+</programlisting></para>
+<para>Or run directly:</para>
+<para><programlisting filename=".bash"><codeline><highlight class="normal">./test_beam</highlight></codeline>
+</programlisting></para>
+<para><hruler/>
+</para>
+</sect2>
+</sect1>
+<sect1 id="md_beam__pinn__documentation_1autotoc_md16">
+<title>License</title><para>MIT License</para>
+<para><hruler/>
+</para>
+</sect1>
+<sect1 id="md_beam__pinn__documentation_1autotoc_md18">
+<title>Acknowledgments</title><para><itemizedlist>
+<listitem><para>LibTorch (PyTorch C++ API)</para>
+</listitem><listitem><para>Microsoft vcpkg</para>
+</listitem><listitem><para>Catch2 Testing Framework </para>
+</listitem></itemizedlist>
+</para>
+</sect1>
+    </detaileddescription>
+    <location file="beam_pinn_documentation.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_namespace_global" xml:lang="en-US">
+<title>Global Namespace Reference</title>
+<indexterm><primary>Global</primary></indexterm>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>constexpr auto <link linkend="_namespace_global_1a51e08ff8dc510ca548116d8033887955">keep_graph</link> = bool{ true }</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_namespace_global_1a51e08ff8dc510ca548116d8033887955"/><section>
+    <title>keep_graph</title>
+<indexterm><primary>keep_graph</primary><secondary>Global</secondary></indexterm>
+<indexterm><primary>Global</primary><secondary>keep_graph</secondary></indexterm>
+<para><computeroutput>constexpr auto Global::keep_graph = bool{ true }<computeroutput>[constexpr]</computeroutput></computeroutput></para><para>
+Definition at line <link linkend="__global_8h_source_1l00006">6</link> of file <link linkend="__global_8h_source">Global.h</link>.</para>
+</section>
+</section>
+</section>

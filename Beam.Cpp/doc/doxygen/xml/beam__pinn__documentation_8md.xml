@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="beam__pinn__documentation_8md" kind="file" language="Markdown">
+    <compoundname>beam_pinn_documentation.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>BeamEquation:<sp/>Physics-Informed<sp/>Neural<sp/>Network<sp/>(PINN)<sp/>for<sp/>Euler-Bernoulli<sp/>Beam</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>repository<sp/>implements<sp/>a<sp/>Physics-Informed<sp/>Neural<sp/>Network<sp/>(PINN)<sp/>to<sp/>solve<sp/>the<sp/>Euler-Bernoulli<sp/>beam<sp/>equation.<sp/>It<sp/>combines<sp/>machine<sp/>learning<sp/>(LibTorch/C++)<sp/>with<sp/>physical<sp/>constraints<sp/>to<sp/>estimate<sp/>the<sp/>deflection<sp/>of<sp/>a<sp/>beam<sp/>on<sp/>the<sp/>domain<sp/>\([0,<sp/>1]\).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Contents</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>`main.cpp`:<sp/>Training<sp/>and<sp/>inference<sp/>routine</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`Beam.h/cpp`:<sp/>PINN<sp/>model<sp/>definition<sp/>and<sp/>loss<sp/>logic</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`Global.h`:<sp/>Global<sp/>constants<sp/>and<sp/>options</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`Timer.h`:<sp/>Runtime<sp/>measurement<sp/>helper</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`plot.py`:<sp/>Python<sp/>script<sp/>to<sp/>visualize<sp/>model<sp/>output</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`test_beam.cpp`:<sp/>Unit<sp/>tests<sp/>with<sp/>Catch2</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Getting<sp/>Started</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Requirements</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>Visual<sp/>Studio<sp/>2022</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>CMake<sp/>3.20+</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>vcpkg<sp/>for<sp/>dependencies<sp/>(see<sp/>below)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>LibTorch<sp/>(installed<sp/>via<sp/>vcpkg)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Setup</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">1.<sp/>**Clone<sp/>Repository**</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">git<sp/>clone<sp/>https://github.com/yourusername/BeamEquation.git</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">2.<sp/>**Install<sp/>Dependencies**</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">#<sp/>Optional:<sp/>set<sp/>VCPKG_ROOT<sp/>if<sp/>not<sp/>global</highlight></codeline>
+<codeline><highlight class="normal">git<sp/>clone<sp/>https://github.com/microsoft/vcpkg.git</highlight></codeline>
+<codeline><highlight class="normal">./vcpkg/bootstrap-vcpkg.sh</highlight></codeline>
+<codeline><highlight class="normal">./vcpkg/vcpkg<sp/>install<sp/>libtorch<sp/>catch2</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">3.<sp/>**Build<sp/>Project**</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">mkdir<sp/>build<sp/>&amp;&amp;<sp/>cd<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>..<sp/>-DCMAKE_TOOLCHAIN_FILE=C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>.<sp/>--config<sp/>Release</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Training</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Run<sp/>the<sp/>executable<sp/>(in<sp/>Release<sp/>mode):</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">./BeamEquation.exe<sp/>&gt;<sp/>result.txt</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>model<sp/>will:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>Train<sp/>using<sp/>Adam<sp/>(coarse<sp/>fit)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Refine<sp/>with<sp/>LBFGS</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Output<sp/>deflection<sp/>`u(x)`<sp/>over<sp/>[0,<sp/>1]</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Plotting<sp/>Results</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Requirements</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>Python<sp/>3.8+</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>`matplotlib`</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">pip<sp/>install<sp/>matplotlib</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Usage</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">python<sp/>plot.py<sp/>result.txt</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">This<sp/>script<sp/>plots<sp/>the<sp/>predicted<sp/>beam<sp/>deflection<sp/>over<sp/>\([0,1]\).</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Testing</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">We<sp/>use<sp/>[Catch2](https://github.com/catchorg/Catch2)<sp/>for<sp/>unit<sp/>testing.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Build<sp/>Tests</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>..<sp/>-DBUILD_TESTING=ON</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>--build<sp/>.<sp/>--config<sp/>Debug</highlight></codeline>
+<codeline><highlight class="normal">ctest</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Or<sp/>run<sp/>directly:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```bash</highlight></codeline>
+<codeline><highlight class="normal">./test_beam</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>License</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">MIT<sp/>License</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">---</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Acknowledgments</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">-<sp/>LibTorch<sp/>(PyTorch<sp/>C++<sp/>API)</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Microsoft<sp/>vcpkg</highlight></codeline>
+<codeline><highlight class="normal">-<sp/>Catch2<sp/>Testing<sp/>Framework</highlight></codeline>
+<codeline></codeline>
+    </programlisting>
+    <location file="beam_pinn_documentation.md"/>
+  </compounddef>
+</doxygen>

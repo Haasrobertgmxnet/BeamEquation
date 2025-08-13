@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="class_helper_1_1_timer" kind="class" language="C++" prot="public">
+    <compoundname>Helper::Timer</compoundname>
+    <includes refid="_timer_8h" local="no">Timer.h</includes>
+    <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_helper_1_1_timer_1a3e9a72abf6e24590c380b05e13ab6f58" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Helper::Timer::outputAtExit</definition>
+        <argsstring></argsstring>
+        <name>outputAtExit</name>
+        <qualifiedname>Helper::Timer::outputAtExit</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" line="39" column="14" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" bodystart="39" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_helper_1_1_timer_1a1a47560871a711f7040244c53a61ed55" prot="private" static="no" mutable="no">
+        <type>std::chrono::steady_clock::time_point</type>
+        <definition>std::chrono::steady_clock::time_point Helper::Timer::start</definition>
+        <argsstring></argsstring>
+        <name>start</name>
+        <qualifiedname>Helper::Timer::start</qualifiedname>
+        <initializer>{}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" line="40" column="47" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" bodystart="40" bodyend="40"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_helper_1_1_timer_1a446d5014eb5fae9e938f5de7955d24f4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Helper::Timer::Timer</definition>
+        <argsstring>()</argsstring>
+        <name>Timer</name>
+        <qualifiedname>Helper::Timer::Timer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" line="12" column="9" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" bodystart="12" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_helper_1_1_timer_1a97c16612072fd2d908d4405d1445bff2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Helper::Timer::setOutputAtExit</definition>
+        <argsstring>(bool _outputAtExit)</argsstring>
+        <name>setOutputAtExit</name>
+        <qualifiedname>Helper::Timer::setOutputAtExit</qualifiedname>
+        <param>
+          <type>bool</type>
+          <declname>_outputAtExit</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" line="17" column="14" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" bodystart="17" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_helper_1_1_timer_1a767002e9c1e7a788514124018b9c6127" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::chrono::steady_clock::time_point</type>
+        <definition>std::chrono::steady_clock::time_point Helper::Timer::getStart</definition>
+        <argsstring>() const</argsstring>
+        <name>getStart</name>
+        <qualifiedname>Helper::Timer::getStart</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" line="21" column="47" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" bodystart="21" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_helper_1_1_timer_1ad1a42055a2907f16823edf8675780f75" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::chrono::milliseconds</type>
+        <definition>std::chrono::milliseconds Helper::Timer::getDuration</definition>
+        <argsstring>() const</argsstring>
+        <name>getDuration</name>
+        <qualifiedname>Helper::Timer::getDuration</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" line="25" column="35" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_helper_1_1_timer_1a21df00680b034f2a0a2c5aea315f7e65" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>Helper::Timer::~Timer</definition>
+        <argsstring>()</argsstring>
+        <name>~Timer</name>
+        <qualifiedname>Helper::Timer::~Timer</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" line="30" column="9" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" bodystart="30" bodyend="36"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" line="9" column="5" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Timer.h" bodystart="10" bodyend="41"/>
+    <listofallmembers>
+      <member refid="class_helper_1_1_timer_1ad1a42055a2907f16823edf8675780f75" prot="public" virt="non-virtual"><scope>Helper::Timer</scope><name>getDuration</name></member>
+      <member refid="class_helper_1_1_timer_1a767002e9c1e7a788514124018b9c6127" prot="public" virt="non-virtual"><scope>Helper::Timer</scope><name>getStart</name></member>
+      <member refid="class_helper_1_1_timer_1a3e9a72abf6e24590c380b05e13ab6f58" prot="private" virt="non-virtual"><scope>Helper::Timer</scope><name>outputAtExit</name></member>
+      <member refid="class_helper_1_1_timer_1a97c16612072fd2d908d4405d1445bff2" prot="public" virt="non-virtual"><scope>Helper::Timer</scope><name>setOutputAtExit</name></member>
+      <member refid="class_helper_1_1_timer_1a1a47560871a711f7040244c53a61ed55" prot="private" virt="non-virtual"><scope>Helper::Timer</scope><name>start</name></member>
+      <member refid="class_helper_1_1_timer_1a446d5014eb5fae9e938f5de7955d24f4" prot="public" virt="non-virtual"><scope>Helper::Timer</scope><name>Timer</name></member>
+      <member refid="class_helper_1_1_timer_1a21df00680b034f2a0a2c5aea315f7e65" prot="public" virt="non-virtual"><scope>Helper::Timer</scope><name>~Timer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

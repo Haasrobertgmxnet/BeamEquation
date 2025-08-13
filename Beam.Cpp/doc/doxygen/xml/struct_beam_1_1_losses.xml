@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.10.0" xml:lang="en-US">
+  <compounddef id="struct_beam_1_1_losses" kind="struct" language="C++" prot="public">
+    <compoundname>Beam::Losses</compoundname>
+    <includes refid="_beam_8h" local="no">Beam.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_beam_1_1_losses_1a031fd264cee66da4f3a4e1cafdb2ee3a" prot="public" static="no" mutable="no">
+        <type>torch::Tensor</type>
+        <definition>torch::Tensor Beam::Losses::total</definition>
+        <argsstring></argsstring>
+        <name>total</name>
+        <qualifiedname>Beam::Losses::total</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="50" column="23" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_beam_1_1_losses_1a628553f1a885cb9c709c01489bab559d" prot="public" static="no" mutable="no">
+        <type>torch::Tensor</type>
+        <definition>torch::Tensor Beam::Losses::physics</definition>
+        <argsstring></argsstring>
+        <name>physics</name>
+        <qualifiedname>Beam::Losses::physics</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="51" column="23" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_beam_1_1_losses_1a8ea3376de1d595babf972d1b20a9b3dd" prot="public" static="no" mutable="no">
+        <type>torch::Tensor</type>
+        <definition>torch::Tensor Beam::Losses::boundary</definition>
+        <argsstring></argsstring>
+        <name>boundary</name>
+        <qualifiedname>Beam::Losses::boundary</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="52" column="23" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_beam_1_1_losses_1ac8bca10d64a303e3f0ff3e84c38abe1e" prot="public" static="no" mutable="no">
+        <type>torch::Tensor</type>
+        <definition>torch::Tensor Beam::Losses::l2_reg</definition>
+        <argsstring></argsstring>
+        <name>l2_reg</name>
+        <qualifiedname>Beam::Losses::l2_reg</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="53" column="23" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Struct to hold different loss components. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" line="49" column="5" bodyfile="C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/Beam.h" bodystart="49" bodyend="54"/>
+    <listofallmembers>
+      <member refid="struct_beam_1_1_losses_1a8ea3376de1d595babf972d1b20a9b3dd" prot="public" virt="non-virtual"><scope>Beam::Losses</scope><name>boundary</name></member>
+      <member refid="struct_beam_1_1_losses_1ac8bca10d64a303e3f0ff3e84c38abe1e" prot="public" virt="non-virtual"><scope>Beam::Losses</scope><name>l2_reg</name></member>
+      <member refid="struct_beam_1_1_losses_1a628553f1a885cb9c709c01489bab559d" prot="public" virt="non-virtual"><scope>Beam::Losses</scope><name>physics</name></member>
+      <member refid="struct_beam_1_1_losses_1a031fd264cee66da4f3a4e1cafdb2ee3a" prot="public" virt="non-virtual"><scope>Beam::Losses</scope><name>total</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

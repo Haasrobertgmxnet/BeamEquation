@@ -1,0 +1,519 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: Windows - 10.0.26100 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild-Version 17.14.18+a338add32 f├╝r .NET Framework
+      Der Buildvorgang wurde am 30.07.2025 18:38:05 gestartet.
+      
+      Projekt "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdC\\CompilerIdC.vcxproj" auf Knoten "1" (Standardziele).
+      PrepareForBuild:
+        Das Verzeichnis "Debug\\" wird erstellt.
+        Die strukturierte Ausgabe ist aktiviert. Die Formatierung der Compilerdiagnose spiegelt die Fehlerhierarchie wider. Weitere Informationen finden Sie unter https://aka.ms/cpp/structured-output.
+        Das Verzeichnis "Debug\\CompilerIdC.tlog\\" wird erstellt.
+      InitializeBuildStatus:
+        "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+        Aktualisieren des Timestamps von "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+      VcpkgTripletSelection:
+        Using triplet "x64-windows" from "C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\"
+        Using normalized configuration "Release"
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\include" /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdC\\CompilerIdC.exe
+      AppLocalFromInstalled:
+        pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\haasr\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdC\\CompilerIdC.exe" "C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+        Der Befehl "pwsh.exe" ist entweder falsch geschrieben oder
+        konnte nicht gefunden werden.
+        Der Befehl "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\haasr\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdC\\CompilerIdC.exe" "C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"" wurde mit dem Code 9009 beendet.
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\haasr\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdC\\CompilerIdC.exe" "C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdC.tlog\\CompilerIdC.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Die Datei "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" wird gel├Âscht.
+        Aktualisieren des Timestamps von "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      Die Erstellung von Projekt "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdC\\CompilerIdC.vcxproj" ist abgeschlossen (Standardziele).
+      
+      Der Buildvorgang wurde erfolgreich ausgef├╝hrt.
+          0 Warnung(en)
+          0 Fehler
+      
+      Verstrichene Zeit 00:00:03.43
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/3.29.2/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      MSBuild-Version 17.14.18+a338add32 f├╝r .NET Framework
+      Der Buildvorgang wurde am 30.07.2025 18:38:08 gestartet.
+      
+      Projekt "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdCXX\\CompilerIdCXX.vcxproj" auf Knoten "1" (Standardziele).
+      PrepareForBuild:
+        Das Verzeichnis "Debug\\" wird erstellt.
+        Die strukturierte Ausgabe ist aktiviert. Die Formatierung der Compilerdiagnose spiegelt die Fehlerhierarchie wider. Weitere Informationen finden Sie unter https://aka.ms/cpp/structured-output.
+        Das Verzeichnis "Debug\\CompilerIdCXX.tlog\\" wird erstellt.
+      InitializeBuildStatus:
+        "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+        Aktualisieren des Timestamps von "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild".
+      VcpkgTripletSelection:
+        Using triplet "x64-windows" from "C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\"
+        Using normalized configuration "Release"
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /I"C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\include" /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TP /FC /errorReport:queue CMakeCXXCompilerId.cpp
+        CMakeCXXCompilerId.cpp
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdCXX.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\lib" /LIBPATH:"C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\lib\\manual-link" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib "C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\lib\\*.lib" /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdCXX.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdCXX.lib" /MACHINE:X64 Debug\\CMakeCXXCompilerId.obj
+        CompilerIdCXX.vcxproj -> C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdCXX\\CompilerIdCXX.exe
+      AppLocalFromInstalled:
+        pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\haasr\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdCXX\\CompilerIdCXX.exe" "C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+        Der Befehl "pwsh.exe" ist entweder falsch geschrieben oder
+        konnte nicht gefunden werden.
+        Der Befehl "pwsh.exe -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\haasr\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdCXX\\CompilerIdCXX.exe" "C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.write.1u.tlog" "Debug\\vcpkg.applocal.log"" wurde mit dem Code 9009 beendet.
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -ExecutionPolicy Bypass -noprofile -File "C:\\Users\\haasr\\vcpkg\\scripts\\buildsystems\\msbuild\\applocal.ps1" "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdCXX\\CompilerIdCXX.exe" "C:\\Users\\haasr\\vcpkg\\installed\\x64-windows\\bin" "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.write.1u.tlog" "Debug\\vcpkg.applocal.log"
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_CXX_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_CXX_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Die Datei "Debug\\CompilerIdCXX.tlog\\unsuccessfulbuild" wird gel├Âscht.
+        Aktualisieren des Timestamps von "Debug\\CompilerIdCXX.tlog\\CompilerIdCXX.lastbuildstate".
+      Die Erstellung von Projekt "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\3.29.2\\CompilerIdCXX\\CompilerIdCXX.vcxproj" ist abgeschlossen (Standardziele).
+      
+      Der Buildvorgang wurde erfolgreich ausgef├╝hrt.
+          0 Warnung(en)
+          0 Fehler
+      
+      Verstrichene Zeit 00:00:02.42
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.vcxproj"
+      
+      The CXX compiler identification is MSVC, found in:
+        C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/3.29.2/CompilerIdCXX/CompilerIdCXX.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:64 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-uzgts9"
+      binary: "C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-uzgts9"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_INSTALLED_DIR: "C:/Users/haasr/vcpkg/installed"
+      VCPKG_PREFER_SYSTEM_LIBS: "OFF"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/Users/haasr/vcpkg"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-uzgts9'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_83194.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild-Version 17.14.18+a338add32 f├╝r .NET Framework
+        Der Buildvorgang wurde am 30.07.2025 18:38:12 gestartet.
+        
+        Projekt "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uzgts9\\cmTC_83194.vcxproj" auf Knoten "1" (Standardziele).
+        PrepareForBuild:
+          Das Verzeichnis "cmTC_83194.dir\\Debug\\" wird erstellt.
+          Die strukturierte Ausgabe ist aktiviert. Die Formatierung der Compilerdiagnose spiegelt die Fehlerhierarchie wider. Weitere Informationen finden Sie unter https://aka.ms/cpp/structured-output.
+          Das Verzeichnis "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uzgts9\\Debug\\" wird erstellt.
+          Das Verzeichnis "cmTC_83194.dir\\Debug\\cmTC_83194.tlog\\" wird erstellt.
+        InitializeBuildStatus:
+          "cmTC_83194.dir\\Debug\\cmTC_83194.tlog\\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+          Aktualisieren des Timestamps von "cmTC_83194.dir\\Debug\\cmTC_83194.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_83194.dir\\Debug\\\\" /Fd"cmTC_83194.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c"
+          Microsoft (R) C/C++-Optimierungscompiler Version 19.44.35213 f├╝r x64
+          Copyright (C) Microsoft Corporation. Alle Rechte vorbehalten.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_83194.dir\\Debug\\\\" /Fd"cmTC_83194.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.29\\Modules\\CMakeCCompilerABI.c"
+          CMakeCCompilerABI.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uzgts9\\Debug\\cmTC_83194.exe" /INCREMENTAL /ILK:"cmTC_83194.dir\\Debug\\cmTC_83194.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-uzgts9/Debug/cmTC_83194.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-uzgts9/Debug/cmTC_83194.lib" /MACHINE:X64  /machine:x64 cmTC_83194.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_83194.vcxproj -> C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uzgts9\\Debug\\cmTC_83194.exe
+        FinalizeBuildStatus:
+          Die Datei "cmTC_83194.dir\\Debug\\cmTC_83194.tlog\\unsuccessfulbuild" wird gel├Âscht.
+          Aktualisieren des Timestamps von "cmTC_83194.dir\\Debug\\cmTC_83194.tlog\\cmTC_83194.lastbuildstate".
+        Die Erstellung von Projekt "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-uzgts9\\cmTC_83194.vcxproj" ist abgeschlossen (Standardziele).
+        
+        Der Buildvorgang wurde erfolgreich ausgef├╝hrt.
+            0 Warnung(en)
+            0 Fehler
+        
+        Verstrichene Zeit 00:00:01.23
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:170 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'C': C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:207 (cmake_determine_linker_id)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the C compiler's linker: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.44.35213.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:64 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-q35f90"
+      binary: "C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-q35f90"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /GR /EHsc"
+      CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_INSTALLED_DIR: "C:/Users/haasr/vcpkg/installed"
+      VCPKG_PREFER_SYSTEM_LIBS: "OFF"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/Users/haasr/vcpkg"
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-q35f90'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_0d815.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild-Version 17.14.18+a338add32 f├╝r .NET Framework
+        Der Buildvorgang wurde am 30.07.2025 18:38:13 gestartet.
+        
+        Projekt "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-q35f90\\cmTC_0d815.vcxproj" auf Knoten "1" (Standardziele).
+        PrepareForBuild:
+          Das Verzeichnis "cmTC_0d815.dir\\Debug\\" wird erstellt.
+          Die strukturierte Ausgabe ist aktiviert. Die Formatierung der Compilerdiagnose spiegelt die Fehlerhierarchie wider. Weitere Informationen finden Sie unter https://aka.ms/cpp/structured-output.
+          Das Verzeichnis "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-q35f90\\Debug\\" wird erstellt.
+          Das Verzeichnis "cmTC_0d815.dir\\Debug\\cmTC_0d815.tlog\\" wird erstellt.
+        InitializeBuildStatus:
+          "cmTC_0d815.dir\\Debug\\cmTC_0d815.tlog\\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+          Aktualisieren des Timestamps von "cmTC_0d815.dir\\Debug\\cmTC_0d815.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_0d815.dir\\Debug\\\\" /Fd"cmTC_0d815.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.29\\Modules\\CMakeCXXCompilerABI.cpp"
+          Microsoft (R) C/C++-Optimierungscompiler Version 19.44.35213 f├╝r x64
+          Copyright (C) Microsoft Corporation. Alle Rechte vorbehalten.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /EHsc /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /GR /Fo"cmTC_0d815.dir\\Debug\\\\" /Fd"cmTC_0d815.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-3.29\\Modules\\CMakeCXXCompilerABI.cpp"
+          CMakeCXXCompilerABI.cpp
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-q35f90\\Debug\\cmTC_0d815.exe" /INCREMENTAL /ILK:"cmTC_0d815.dir\\Debug\\cmTC_0d815.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-q35f90/Debug/cmTC_0d815.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-q35f90/Debug/cmTC_0d815.lib" /MACHINE:X64  /machine:x64 cmTC_0d815.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_0d815.vcxproj -> C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-q35f90\\Debug\\cmTC_0d815.exe
+        FinalizeBuildStatus:
+          Die Datei "cmTC_0d815.dir\\Debug\\cmTC_0d815.tlog\\unsuccessfulbuild" wird gel├Âscht.
+          Aktualisieren des Timestamps von "cmTC_0d815.dir\\Debug\\cmTC_0d815.tlog\\cmTC_0d815.lastbuildstate".
+        Die Erstellung von Projekt "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-q35f90\\cmTC_0d815.vcxproj" ist abgeschlossen (Standardziele).
+        
+        Der Buildvorgang wurde erfolgreich ausgef├╝hrt.
+            0 Warnung(en)
+            0 Fehler
+        
+        Verstrichene Zeit 00:00:01.21
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:170 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?|link\\.exe|lld-link(\\.exe)?))("|,| |$)]
+        linker tool for 'CXX': C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/link.exe
+        implicit libs: []
+        implicit objs: []
+        implicit dirs: []
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake:207 (cmake_determine_linker_id)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.44.35207/bin/HostX64/x64/link.exe" "-v"
+      Microsoft (R) Incremental Linker Version 14.44.35213.0
+      Copyright (C) Microsoft Corporation.  All rights reserved.
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CheckCSourceCompiles.cmake:52 (cmake_check_source_compiles)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/FindThreads.cmake:97 (CHECK_C_SOURCE_COMPILES)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/FindThreads.cmake:163 (_threads_check_libc)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/glog/glog-config.cmake:23 (find_dependency)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/caffe2/public/glog.cmake:4 (find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/caffe2/Caffe2Config.cmake:28 (include)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/torch/TorchConfig.cmake:68 (find_package)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-5xd6ws"
+      binary: "C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-5xd6ws"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_INSTALLED_DIR: "C:/Users/haasr/vcpkg/installed"
+      VCPKG_PREFER_SYSTEM_LIBS: "OFF"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/Users/haasr/vcpkg"
+    buildResult:
+      variable: "CMAKE_HAVE_LIBC_PTHREAD"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-5xd6ws'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2bc74.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild-Version 17.14.18+a338add32 f├╝r .NET Framework
+        Der Buildvorgang wurde am 30.07.2025 18:38:15 gestartet.
+        
+        Projekt "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5xd6ws\\cmTC_2bc74.vcxproj" auf Knoten "1" (Standardziele).
+        PrepareForBuild:
+          Das Verzeichnis "cmTC_2bc74.dir\\Debug\\" wird erstellt.
+          Die strukturierte Ausgabe ist aktiviert. Die Formatierung der Compilerdiagnose spiegelt die Fehlerhierarchie wider. Weitere Informationen finden Sie unter https://aka.ms/cpp/structured-output.
+          Das Verzeichnis "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5xd6ws\\Debug\\" wird erstellt.
+          Das Verzeichnis "cmTC_2bc74.dir\\Debug\\cmTC_2bc74.tlog\\" wird erstellt.
+        InitializeBuildStatus:
+          "cmTC_2bc74.dir\\Debug\\cmTC_2bc74.tlog\\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+          Aktualisieren des Timestamps von "cmTC_2bc74.dir\\Debug\\cmTC_2bc74.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2bc74.dir\\Debug\\\\" /Fd"cmTC_2bc74.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5xd6ws\\src.c"
+          Microsoft (R) C/C++-Optimierungscompiler Version 19.44.35213 f├╝r x64
+          Copyright (C) Microsoft Corporation. Alle Rechte vorbehalten.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2bc74.dir\\Debug\\\\" /Fd"cmTC_2bc74.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5xd6ws\\src.c"
+          src.c
+        C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5xd6ws\\src.c(1,10): error C1083: Datei (Include) kann nicht ge├Âffnet werden: "pthread.h": No such file or directory [C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5xd6ws\\cmTC_2bc74.vcxproj]
+        Die Erstellung des Projekts "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5xd6ws\\cmTC_2bc74.vcxproj" ist abgeschlossen (Standardziele) -- FEHLER.
+        
+        Fehler beim Buildvorgang.
+        
+        "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5xd6ws\\cmTC_2bc74.vcxproj" (Standardziel) (1) ->
+        (ClCompile Ziel) -> 
+          C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5xd6ws\\src.c(1,10): error C1083: Datei (Include) kann nicht ge├Âffnet werden: "pthread.h": No such file or directory [C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5xd6ws\\cmTC_2bc74.vcxproj]
+        
+            0 Warnung(en)
+            1 Fehler
+        
+        Verstrichene Zeit 00:00:01.02
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/FindThreads.cmake:175 (_threads_check_lib)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/glog/glog-config.cmake:23 (find_dependency)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/caffe2/public/glog.cmake:4 (find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/caffe2/Caffe2Config.cmake:28 (include)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/torch/TorchConfig.cmake:68 (find_package)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-btpai7"
+      binary: "C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-btpai7"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_INSTALLED_DIR: "C:/Users/haasr/vcpkg/installed"
+      VCPKG_PREFER_SYSTEM_LIBS: "OFF"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/Users/haasr/vcpkg"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREADS_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-btpai7'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_728be.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild-Version 17.14.18+a338add32 f├╝r .NET Framework
+        Der Buildvorgang wurde am 30.07.2025 18:38:17 gestartet.
+        
+        Projekt "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-btpai7\\cmTC_728be.vcxproj" auf Knoten "1" (Standardziele).
+        PrepareForBuild:
+          Das Verzeichnis "cmTC_728be.dir\\Debug\\" wird erstellt.
+          Die strukturierte Ausgabe ist aktiviert. Die Formatierung der Compilerdiagnose spiegelt die Fehlerhierarchie wider. Weitere Informationen finden Sie unter https://aka.ms/cpp/structured-output.
+          Das Verzeichnis "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-btpai7\\Debug\\" wird erstellt.
+          Das Verzeichnis "cmTC_728be.dir\\Debug\\cmTC_728be.tlog\\" wird erstellt.
+        InitializeBuildStatus:
+          "cmTC_728be.dir\\Debug\\cmTC_728be.tlog\\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+          Aktualisieren des Timestamps von "cmTC_728be.dir\\Debug\\cmTC_728be.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_728be.dir\\Debug\\\\" /Fd"cmTC_728be.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-btpai7\\CheckFunctionExists.c"
+          Microsoft (R) C/C++-Optimierungscompiler Version 19.44.35213 f├╝r x64
+          Copyright (C) Microsoft Corporation. Alle Rechte vorbehalten.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_728be.dir\\Debug\\\\" /Fd"cmTC_728be.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-btpai7\\CheckFunctionExists.c"
+          CheckFunctionExists.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-btpai7\\Debug\\cmTC_728be.exe" /INCREMENTAL /ILK:"cmTC_728be.dir\\Debug\\cmTC_728be.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-btpai7/Debug/cmTC_728be.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-btpai7/Debug/cmTC_728be.lib" /MACHINE:X64  /machine:x64 cmTC_728be.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: Datei "pthreads.lib" kann nicht ge├Âffnet werden. [C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-btpai7\\cmTC_728be.vcxproj]
+        Die Erstellung des Projekts "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-btpai7\\cmTC_728be.vcxproj" ist abgeschlossen (Standardziele) -- FEHLER.
+        
+        Fehler beim Buildvorgang.
+        
+        "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-btpai7\\cmTC_728be.vcxproj" (Standardziel) (1) ->
+        (Link Ziel) -> 
+          LINK : fatal error LNK1104: Datei "pthreads.lib" kann nicht ge├Âffnet werden. [C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-btpai7\\cmTC_728be.vcxproj]
+        
+            0 Warnung(en)
+            1 Fehler
+        
+        Verstrichene Zeit 00:00:01.09
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/FindThreads.cmake:112 (CHECK_LIBRARY_EXISTS)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/FindThreads.cmake:176 (_threads_check_lib)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "C:/Program Files/CMake/share/cmake-3.29/Modules/CMakeFindDependencyMacro.cmake:76 (find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/glog/glog-config.cmake:23 (find_dependency)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/caffe2/public/glog.cmake:4 (find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/caffe2/Caffe2Config.cmake:28 (include)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "C:/Users/haasr/vcpkg/installed/x64-windows/share/torch/TorchConfig.cmake:68 (find_package)"
+      - "C:/Users/haasr/vcpkg/scripts/buildsystems/vcpkg.cmake:896 (_find_package)"
+      - "CMakeLists.txt:14 (find_package)"
+    directories:
+      source: "C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-18ewr5"
+      binary: "C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-18ewr5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
+      CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
+      CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
+      VCPKG_INSTALLED_DIR: "C:/Users/haasr/vcpkg/installed"
+      VCPKG_PREFER_SYSTEM_LIBS: "OFF"
+      VCPKG_TARGET_TRIPLET: "x64-windows"
+      Z_VCPKG_ROOT_DIR: "C:/Users/haasr/vcpkg"
+    buildResult:
+      variable: "CMAKE_HAVE_PTHREAD_CREATE"
+      cached: true
+      stdout: |
+        Change Dir: 'C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-18ewr5'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_6040e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        MSBuild-Version 17.14.18+a338add32 f├╝r .NET Framework
+        Der Buildvorgang wurde am 30.07.2025 18:38:19 gestartet.
+        
+        Projekt "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-18ewr5\\cmTC_6040e.vcxproj" auf Knoten "1" (Standardziele).
+        PrepareForBuild:
+          Das Verzeichnis "cmTC_6040e.dir\\Debug\\" wird erstellt.
+          Die strukturierte Ausgabe ist aktiviert. Die Formatierung der Compilerdiagnose spiegelt die Fehlerhierarchie wider. Weitere Informationen finden Sie unter https://aka.ms/cpp/structured-output.
+          Das Verzeichnis "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-18ewr5\\Debug\\" wird erstellt.
+          Das Verzeichnis "cmTC_6040e.dir\\Debug\\cmTC_6040e.tlog\\" wird erstellt.
+        InitializeBuildStatus:
+          "cmTC_6040e.dir\\Debug\\cmTC_6040e.tlog\\unsuccessfulbuild" wird erstellt, da "AlwaysCreate" angegeben wurde.
+          Aktualisieren des Timestamps von "cmTC_6040e.dir\\Debug\\cmTC_6040e.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6040e.dir\\Debug\\\\" /Fd"cmTC_6040e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-18ewr5\\CheckFunctionExists.c"
+          Microsoft (R) C/C++-Optimierungscompiler Version 19.44.35213 f├╝r x64
+          Copyright (C) Microsoft Corporation. Alle Rechte vorbehalten.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6040e.dir\\Debug\\\\" /Fd"cmTC_6040e.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-18ewr5\\CheckFunctionExists.c"
+          CheckFunctionExists.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-18ewr5\\Debug\\cmTC_6040e.exe" /INCREMENTAL /ILK:"cmTC_6040e.dir\\Debug\\cmTC_6040e.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-18ewr5/Debug/cmTC_6040e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/CMakeScratch/TryCompile-18ewr5/Debug/cmTC_6040e.lib" /MACHINE:X64  /machine:x64 cmTC_6040e.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: Datei "pthread.lib" kann nicht ge├Âffnet werden. [C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-18ewr5\\cmTC_6040e.vcxproj]
+        Die Erstellung des Projekts "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-18ewr5\\cmTC_6040e.vcxproj" ist abgeschlossen (Standardziele) -- FEHLER.
+        
+        Fehler beim Buildvorgang.
+        
+        "C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-18ewr5\\cmTC_6040e.vcxproj" (Standardziel) (1) ->
+        (Link Ziel) -> 
+          LINK : fatal error LNK1104: Datei "pthread.lib" kann nicht ge├Âffnet werden. [C:\\Users\\haasr\\source\\repos\\BeamEquation\\Beam.Cpp\\build\\CMakeFiles\\CMakeScratch\\TryCompile-18ewr5\\cmTC_6040e.vcxproj]
+        
+            0 Warnung(en)
+            1 Fehler
+        
+        Verstrichene Zeit 00:00:01.09
+        
+      exitCode: 1
+...

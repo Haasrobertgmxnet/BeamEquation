@@ -1,0 +1,3 @@
+C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/Beam.Cpp.dir
+C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/CMakeFiles/ZERO_CHECK.dir

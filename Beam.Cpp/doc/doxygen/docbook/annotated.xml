@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_annotated" xml:lang="en-US">
+<title>Class List</title>
+Here are the classes, structs, unions and interfaces with brief descriptions:<link linkend="_struct_beam_1_1_losses">Beam::Losses</link>
+<para>Struct to hold different loss components </para>
+<link linkend="_class_beam_1_1_p_i_n_n">Beam::PINN</link>
+<para>A Physics-Informed Neural Network (<link linkend="_class_beam_1_1_p_i_n_n">PINN</link>) model for 1D Euler-Bernoulli beam deflection </para>
+<link linkend="_class_helper_1_1_timer">Helper::Timer</link></section>

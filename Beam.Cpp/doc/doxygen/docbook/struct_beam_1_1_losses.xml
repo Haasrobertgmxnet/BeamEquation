@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_struct_beam_1_1_losses" xml:lang="en-US">
+<title>Beam::Losses Struct Reference</title>
+<indexterm><primary>Beam::Losses</primary></indexterm>
+<para>
+
+<para>Struct to hold different loss components. </para>
+ 
+</para>
+<para>
+<computeroutput>#include &lt;Beam.h&gt;</computeroutput>
+</para>
+<simplesect>
+    <title>Public Attributes    </title>
+        <itemizedlist>
+            <listitem><para>torch::Tensor <link linkend="_struct_beam_1_1_losses_1a031fd264cee66da4f3a4e1cafdb2ee3a">total</link></para>
+</listitem>
+            <listitem><para>torch::Tensor <link linkend="_struct_beam_1_1_losses_1a628553f1a885cb9c709c01489bab559d">physics</link></para>
+</listitem>
+            <listitem><para>torch::Tensor <link linkend="_struct_beam_1_1_losses_1a8ea3376de1d595babf972d1b20a9b3dd">boundary</link></para>
+</listitem>
+            <listitem><para>torch::Tensor <link linkend="_struct_beam_1_1_losses_1ac8bca10d64a303e3f0ff3e84c38abe1e">l2_reg</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para>Struct to hold different loss components. </para>
+<para>
+Definition at line <link linkend="__beam_8h_source_1l00049">49</link> of file <link linkend="__beam_8h_source">Beam.h</link>.</para>
+</section>
+<section>
+<title>Member Data Documentation</title>
+<anchor xml:id="_struct_beam_1_1_losses_1a8ea3376de1d595babf972d1b20a9b3dd"/><section>
+    <title>boundary</title>
+<indexterm><primary>boundary</primary><secondary>Beam::Losses</secondary></indexterm>
+<indexterm><primary>Beam::Losses</primary><secondary>boundary</secondary></indexterm>
+<para><computeroutput>torch::Tensor Beam::Losses::boundary</computeroutput></para><para>
+Definition at line <link linkend="__beam_8h_source_1l00052">52</link> of file <link linkend="__beam_8h_source">Beam.h</link>.</para>
+</section>
+<anchor xml:id="_struct_beam_1_1_losses_1ac8bca10d64a303e3f0ff3e84c38abe1e"/><section>
+    <title>l2_reg</title>
+<indexterm><primary>l2_reg</primary><secondary>Beam::Losses</secondary></indexterm>
+<indexterm><primary>Beam::Losses</primary><secondary>l2_reg</secondary></indexterm>
+<para><computeroutput>torch::Tensor Beam::Losses::l2_reg</computeroutput></para><para>
+Definition at line <link linkend="__beam_8h_source_1l00053">53</link> of file <link linkend="__beam_8h_source">Beam.h</link>.</para>
+</section>
+<anchor xml:id="_struct_beam_1_1_losses_1a628553f1a885cb9c709c01489bab559d"/><section>
+    <title>physics</title>
+<indexterm><primary>physics</primary><secondary>Beam::Losses</secondary></indexterm>
+<indexterm><primary>Beam::Losses</primary><secondary>physics</secondary></indexterm>
+<para><computeroutput>torch::Tensor Beam::Losses::physics</computeroutput></para><para>
+Definition at line <link linkend="__beam_8h_source_1l00051">51</link> of file <link linkend="__beam_8h_source">Beam.h</link>.</para>
+</section>
+<anchor xml:id="_struct_beam_1_1_losses_1a031fd264cee66da4f3a4e1cafdb2ee3a"/><section>
+    <title>total</title>
+<indexterm><primary>total</primary><secondary>Beam::Losses</secondary></indexterm>
+<indexterm><primary>Beam::Losses</primary><secondary>total</secondary></indexterm>
+<para><computeroutput>torch::Tensor Beam::Losses::total</computeroutput></para><para>
+Definition at line <link linkend="__beam_8h_source_1l00050">50</link> of file <link linkend="__beam_8h_source">Beam.h</link>.</para>
+</section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/include/<link linkend="__beam_8h">Beam.h</link></section>
+</section>
