@@ -219,6 +219,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="..\include\Beam.h" />
     <ClInclude Include="..\include\Global.h" />
     <ClInclude Include="..\include\Timer.h" />
+    <ClInclude Include="Pinn.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -26,5 +26,8 @@
     <ClInclude Include="..\include\Timer.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="Pinn.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
