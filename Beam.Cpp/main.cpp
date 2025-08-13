@@ -40,22 +40,30 @@ struct OptimizerSupplements {
  * @return std::array<Losses, N> Containing logged losses at each logging interval.
  */
 template<typename OptimType, typename OptimOptionType, uint16_t N>
-std::array<Losses, N> train(PINN& model, const torch::Tensor& physics_input, OptimType& optimizer, const OptimizerSupplements& optSupplements) {
+std::array<Losses, N> train(PINN& model,
+    const torch::Tensor& physics_input,
+    OptimType& optimizer,
+    const OptimizerSupplements& optSupplements)
+{
     auto current_lr{ optSupplements.learning_rate };
     std::array<Losses, N> all_losses;
+
     for (int epoch = 0; epoch < optSupplements.epochs; ++epoch) {
         try {
             Beam::Losses losses{};
+
+            // Closure function: performs zero_grad, forward pass, backward pass, and returns loss.
             auto closure = [&]() -> torch::Tensor {
                 optimizer.zero_grad();
 
+                // Forward pass (loss computation must be inside closure for LBFGS).
                 losses = compute_losses(model, physics_input);
                 auto loss = losses.total;
 
-                // NaN/Inf check
+                // NaN/Inf detection and adaptive learning rate.
                 if (torch::isnan(loss).any().item<bool>() || torch::isinf(loss).any().item<bool>()) {
                     std::cerr << "Optimizer Warning: Loss is NaN or Inf in epoch " << epoch << std::endl;
-                    current_lr *= 0.5f; // Halve learning rate and update optimizer
+                    current_lr *= 0.5f;
                     std::cerr << "Adjusting learning rate to " << current_lr << std::endl;
                     for (auto& param_group : optimizer.param_groups()) {
                         auto& options = static_cast<OptimOptionType&>(param_group.options());
@@ -64,18 +72,24 @@ std::array<Losses, N> train(PINN& model, const torch::Tensor& physics_input, Opt
                     return torch::tensor(1.0f, torch::requires_grad(true));  // Dummy loss
                 }
 
+                // Backward pass with optional graph retention.
                 loss.backward({}, Global::keep_graph);
                 return loss;
-            };
+                };
 
+            // Optionally run closure before optimizer.step() if requested.
             if (optSupplements.call_closure) {
                 auto loss = closure();
+                (void)loss; // Suppress unused variable warning if not used.
             }
-            
+
+            // Gradient clipping to avoid exploding gradients.
             torch::nn::utils::clip_grad_norm_(model.parameters(), 1.0);
+
+            // Step optimizer (closure always passed for LBFGS compatibility).
             optimizer.step(closure);
 
-            // Periodic logging
+            // Periodic loss logging.
             if (epoch % optSupplements.epochs_diff == 0) {
                 all_losses[epoch / optSupplements.epochs_diff] = losses;
                 std::cout << "Epoch " << epoch << "/" << optSupplements.epochs
@@ -90,8 +104,10 @@ std::array<Losses, N> train(PINN& model, const torch::Tensor& physics_input, Opt
             std::cout << "Error during Optimizer epoch " << epoch << ": " << e.what() << std::endl;
         }
     }
+
     return all_losses;
 }
+
 
 /**
  * @brief Main routine: trains a Physics-Informed Neural Network (PINN) for the Euler-Bernoulli beam equation.

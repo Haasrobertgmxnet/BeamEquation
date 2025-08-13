@@ -392,3 +392,4 @@ FodyWeavers.xsd
 /BeamTest.Cpp/build/BeamTest.Cpp.vcxproj.user
 /BeamTest.Cpp/build/ALL_BUILD.vcxproj
 /BeamTest.Cpp/build/ALL_BUILD.vcxproj.filters
+latex
