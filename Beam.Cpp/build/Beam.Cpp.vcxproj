@@ -218,6 +218,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClInclude Include="..\include\Beam.h" />
     <ClInclude Include="..\include\Global.h" />
+    <ClInclude Include="..\include\Losses.h" />
     <ClInclude Include="..\include\Pinn.h" />
     <ClInclude Include="..\include\Timer.h" />
   </ItemGroup>
