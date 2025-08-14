@@ -10,6 +10,7 @@ namespace Beam {
      * @brief Struct to hold different loss components.
      */
     struct Losses {
+        //PINN& model;
         torch::Tensor total;        // Sum of all losses
         torch::Tensor physics;      // Loss of deviations from the physical law F(u) = 0
         torch::Tensor boundary;     // Loss of deviations from the boundary conditions on u
@@ -43,6 +44,8 @@ namespace Beam {
         return x;
     }
 
+
+    // Add the calculation methods for the losses to the struct Losses?
     /**
      * @brief Computes the boundary condition loss for the beam.
      *
