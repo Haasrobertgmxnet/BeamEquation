@@ -117,7 +117,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <AdditionalIncludeDirectories>C:\Users\haasr\source\repos\BeamEquation\Beam.Cpp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/haasr/vcpkg/installed/x64-windows/include" /external:I "C:/Users/haasr/vcpkg/installed/x64-windows/include/torch/csrc/api/include" /bigobj /Zc:__cplusplus</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/haasr/vcpkg/installed/x64-windows/include" /external:I "C:/Users/haasr/vcpkg/installed/x64-windows/include/torch/csrc/api/include" /bigobj /Zc:__cplusplus /GL /Qunroll</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
@@ -162,7 +162,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Link>
       <AdditionalDependencies>C:\Users\haasr\vcpkg\installed\x64-windows\debug\lib\c10.lib;C:\Users\haasr\vcpkg\installed\x64-windows\lib\torch.lib;C:\Users\haasr\vcpkg\installed\x64-windows\lib\torch_cpu.lib;C:\Users\haasr\vcpkg\installed\x64-windows\lib\libprotobuf.lib;C:\Users\haasr\vcpkg\installed\x64-windows\lib\abseil_dll.lib;C:\Users\haasr\vcpkg\installed\x64-windows\lib\c10.lib;C:\Users\haasr\vcpkg\installed\x64-windows\lib\gflags.lib;C:\Users\haasr\vcpkg\installed\x64-windows\lib\glog.lib;C:\Users\haasr\vcpkg\installed\x64-windows\lib\gflags.lib;shlwapi.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64 /LTCG</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/haasr/source/repos/BeamEquation/Beam.Cpp/build/Release/Beam.Cpp.lib</ImportLibrary>

@@ -8,17 +8,6 @@
 namespace Beam {
 
     /**
-     * @brief Struct to hold different loss components.
-     */
-    //struct LossTerms {
-    //    //PINN& model;
-    //    torch::Tensor total;        // Sum of all losses
-    //    torch::Tensor physics;      // Loss of deviations from the physical law F(u) = 0
-    //    torch::Tensor boundary;     // Loss of deviations from the boundary conditions on u
-    //    torch::Tensor l2_reg;       // Penalty term, if Tikhonov L2 regularisation is active
-    //};
-
-    /**
      * @brief Struct to hold different optimizer adjustments.
      */
     struct OptimizerSupplements {
@@ -105,63 +94,95 @@ namespace Beam {
      * @return std::array<Losses, N> Containing logged losses at each logging interval.
      */
     template<typename OptimType, typename OptimOptionType, uint16_t N>
-    std::array<Losses, N> train(PINN& model,
+    std::array<Losses, N> train(
+        PINN& model,
         const torch::Tensor& physics_input,
         OptimType& optimizer,
-        const OptimizerSupplements& optSupplements)
-    {
+        const OptimizerSupplements& optSupplements,
+        int patience = 20,                // Early Stopping patience
+        float min_delta = 1e-5f,          // Minimal improvement
+        int val_points = 200              // Points for validation
+    ) {
         auto current_lr{ optSupplements.learning_rate };
         std::array<Losses, N> all_losses;
+
+        float best_val_loss = std::numeric_limits<float>::infinity();
+        int epochs_no_improve = 0;
+
+        // Buffer for best model state (in RAM)
+        std::stringstream best_model_buffer;
 
         for (int epoch = 0; epoch < optSupplements.epochs; ++epoch) {
             try {
                 Beam::Losses losses{};
 
-                // Closure function: performs zero_grad, forward pass, backward pass, and returns loss.
                 auto closure = [&]() -> torch::Tensor {
                     optimizer.zero_grad();
-
-                    // Forward pass (loss computation must be inside closure for LBFGS).
                     losses = Losses::compute_losses(model, physics_input);
                     auto loss = losses.get_total_loss();
 
-                    // NaN/Inf detection and adaptive learning rate.
                     if (torch::isnan(loss).any().item<bool>() || torch::isinf(loss).any().item<bool>()) {
-                        std::cerr << "Optimizer Warning: Loss is NaN or Inf in epoch " << epoch << std::endl;
+                        std::cerr << "Optimizer Warning: Loss is NaN/Inf in epoch " << epoch << std::endl;
                         current_lr *= 0.5f;
-                        std::cerr << "Adjusting learning rate to " << current_lr << std::endl;
                         for (auto& param_group : optimizer.param_groups()) {
                             auto& options = static_cast<OptimOptionType&>(param_group.options());
                             options.lr(current_lr);
                         }
-                        return torch::tensor(1.0f, torch::requires_grad(true));  // Dummy loss
+                        return torch::tensor(1.0f, torch::requires_grad(true));
                     }
 
-                    // Backward pass with optional graph retention.
                     loss.backward({}, Global::keep_graph);
                     return loss;
                     };
 
-                // Optionally run closure before optimizer.step() if requested.
                 if (optSupplements.call_closure) {
-                    auto loss = closure();
-                    (void)loss; // Suppress unused variable warning if not used.
+                    closure();
                 }
 
-                // Gradient clipping to avoid exploding gradients.
                 torch::nn::utils::clip_grad_norm_(model.parameters(), 1.0);
-
-                // Step optimizer (closure always passed for LBFGS compatibility).
                 optimizer.step(closure);
 
-                // Periodic loss logging.
+                // === Early Stopping on new validation points ===
+                {
+                    auto val_input = Beam::generate_training_data(val_points);
+
+                    model.eval();
+                    auto val_losses = Losses::compute_losses(model, val_input);
+                    float val_loss_value = val_losses.get_total_loss().item<float>();
+                    model.train();
+
+                    if (val_loss_value < best_val_loss - min_delta) {
+                        best_val_loss = val_loss_value;
+                        epochs_no_improve = 0;
+
+                        // Save model state in RAM
+                        best_model_buffer.str("");
+                        best_model_buffer.clear();
+                        torch::serialize::OutputArchive tmp;
+                        model.save(tmp);
+                        tmp.save_to(best_model_buffer);
+                    }
+                    else {
+                        epochs_no_improve++;
+                    }
+
+                    if (epochs_no_improve >= patience) {
+                        std::cout << "Early stopping triggered at epoch " << epoch << std::endl;
+
+                        // Load best model state from RAM
+                        torch::serialize::InputArchive ia;
+                        ia.load_from(best_model_buffer);
+                        model.load(ia);
+                        break;
+                    }
+                }
+
+                // Logging
                 if (epoch % optSupplements.epochs_diff == 0) {
                     std::cout << "Epoch " << epoch << "/" << optSupplements.epochs
                         << " - Total: " << losses.get_total_loss().item<float>()
-                        << " | Physics: " << losses.get_physics_loss().item<float>()
-                        << " | Boundary: " << losses.get_boundary_loss().item<float>()
-                        << " | L2 term: " << losses.get_regularisation_loss().item<float>()
-                        << " - Learning rate: " << current_lr << std::endl;
+                        << " - Best Val Loss: " << best_val_loss
+                        << " - LR: " << current_lr << std::endl;
                     all_losses[epoch / optSupplements.epochs_diff] = std::move(losses);
                 }
             }
@@ -172,6 +193,7 @@ namespace Beam {
 
         return all_losses;
     }
+
 }
 
 /*

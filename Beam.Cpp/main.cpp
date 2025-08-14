@@ -25,7 +25,7 @@ using namespace Beam;
  * @return int Exit code (0 = success)
  */
 int main() {
-    Helper::Timer tim;
+    Helper::Timer tim("MAIN TIMER");
     std::cout << "Physics-Informed Neural Network for Beam Equation\n";
     std::cout << "====================================================\n\n";
 
@@ -57,8 +57,11 @@ int main() {
     constexpr uint16_t adam_losses_size{ adam_supplements.epochs / adam_supplements.epochs_diff };
     try
     {
+        Helper::Timer tim("ADAM TIMER");
         torch::optim::Adam adam_optimizer(model->parameters(), torch::optim::AdamOptions(current_lr));
-        std::array<Losses, adam_losses_size> adam_losses = train<torch::optim::Adam, torch::optim::AdamOptions, adam_losses_size>(*model, physics_input, adam_optimizer, adam_supplements);
+        std::array<Losses, adam_losses_size> adam_losses = 
+            train<torch::optim::Adam, torch::optim::AdamOptions, adam_losses_size>
+            (*model, physics_input, adam_optimizer, adam_supplements, 15, 5e-6f);
     }
     catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
@@ -70,6 +73,7 @@ int main() {
     constexpr uint16_t lbfgs_losses_size{ lbfgs_supplements.epochs / lbfgs_supplements.epochs_diff };
     try
     {
+        Helper::Timer tim("LBFGS TIMER");
         torch::optim::LBFGS lbfgs_optimizer(model->parameters(),
             torch::optim::LBFGSOptions(1.0)
             .max_iter(20)
@@ -77,7 +81,9 @@ int main() {
             .tolerance_change(1e-9)
             .history_size(100));
         
-        std::array<Losses, lbfgs_losses_size> lbfgs_losses = train<torch::optim::LBFGS, torch::optim::LBFGSOptions, lbfgs_losses_size>(*model, physics_input, lbfgs_optimizer, lbfgs_supplements);
+        std::array<Losses, lbfgs_losses_size> lbfgs_losses = 
+            train<torch::optim::LBFGS, torch::optim::LBFGSOptions, lbfgs_losses_size>
+            (*model, physics_input, lbfgs_optimizer, lbfgs_supplements, 20, 1e-7f);
     }
     catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
