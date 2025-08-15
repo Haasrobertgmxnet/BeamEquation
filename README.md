@@ -39,6 +39,14 @@ The Euler–Bernoulli beam equation is formulated in several equivalent forms an
 BeamEquation/
 ├── BeamBending/
 │   ├── Documentation.pdf # Full article
+├── Beam.Cpp                                 # C++ code for solving the beam equation with PINN
+│   ├── main.cpp                             # Main C++ file with the calculation pipeline
+│   ├── include
+│       ├── Beam.h                           # Header file containing train and evaluation pipelines
+│       ├── Global.h                         # Header file containing global constants
+│       ├── Losses.h                         # Header file containing  the loss terms
+│       ├── Pinn.h                           # Header file containing the layered structure of the PINN
+│       ├── Timer.h                          # Header file containing a timer class for measuring execution times
 ├── Beam.Python                              # Python code for solving the beam equation with FE and PINN
 │   ├── Beam.Python.py                       # Main Python file with the calculation pipeline
 │   ├── Beam_FEM.py                          # Infrastructure and helper classes to support the FE calculation
