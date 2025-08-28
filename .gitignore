@@ -393,3 +393,6 @@ FodyWeavers.xsd
 /BeamTest.Cpp/build/ALL_BUILD.vcxproj
 /BeamTest.Cpp/build/ALL_BUILD.vcxproj.filters
 latex
+/Notebooks/02_Inverse_Youngs_Modulus_PINN.ipynb
+/Notebooks/00_Intro_and_Setup.ipynb
+/Notebooks/01_Forward_PINN_vs_FEM.ipynb
